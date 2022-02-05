@@ -1,0 +1,68 @@
+#!manual
+
+== Exception Erweiterung
+
+Summerclouds erweitert und vereinfacht das schmeisen und verarbeiten 
+von Fehlern. Exceptions bekommen immer einen Return Code bzw. Error Code.
+Der Code ist nicht als eindeutige Identifizierung des Fehlers zu verstehen, 
+sondern beschreibt die Gruppe von Fehlern, der die Exception angehört.
+
+Die Information dient vor allem der Aufrufenden zu entscheiden wie mit der 
+Fehlermeldung umgegangen werden soll. Manche fehler werden als fachliche Fehler
+verstanden, z.B. Syntax-Fehler, diese werden auch bei einer Wiederholung in
+einer Fehlerbehandlung enden. Andere technische Fehler weisen auf einen falschen Zustand hin,
+wenn z.B. eine Datenbankverbindung aktuell nicht funktioniert, wobei durch erneutes
+versuchen nach einer Periode der Fehler evtl. nicht mehr auftritt.
+
+Es werden RuntimeExceptions und Exceptions erweitert. Bei der Erzeugung muss neben 
+dem Return Code auch eine Nachricht (msg) mitgegeben werden. Die Nachricht beschreibt 
+den Fehler im Detail und soll in technischer Sprache gehalten werden. Folgend können
+noch variable Inhalte mitgegeben werden (Parameter).
+
+Aus Nachricht und Parameter wird dann die Exception-Message erzeugt. Um später die einzelnen
+Informationen auseinanderhalten zu können werden diese mit einen Pipe (|) getrennt. Alle Pipes
+in den Informationen werden durch einen Doppelpunkt ersetzt.
+
+NOTE: Arrays werden auf der ersten Ebene erkannt und ausgelesen. Der Anfang wird durch '|[|'
+und das Ende durch '|]|' gekennzeichnet.
+
+Auf die Parameter soll in der Nachricht durch '{nr}' referenziert werden, wobei der erste
+Parameter mit '{1}' referenziert wird.
+
+Mit dieser Notation ist es möglich die Fehlermeldung in einem Frontend zu analysieren und
+auch zu übersetzen.
+
+WARNING: Soll beid er Instanzierung keine Nachricht übergeben werden, bzw. der sprechende 
+Name des Fehelrcodes genutzt werden so kann der Enum (RC.STATUS) genutzt werden. In diesen
+Fall wird keine Nachricht erwartet, sondern alle folgenden Übergaben als Parameter betrachtet.
+
+Die Error Codes orientieren sich weitgehend an HTTP Status Codes. Das erlaubt es die Codes 
+bei Rest-Anfragen direkt zurückzugeben.
+
+Die Fehler-Codes 4xx werden als fachliche Fehler betrachtet und die Codes 5xx als 
+technische Fehler.
+
+Einige Fehler können direkt als Klassen erstellt werden, z.B. NotFoundException setzt 
+automatisch den Return Code 404.
+
+=== Beispiel
+
+Fehler:: 'file {1} not found|/home/user/textfile'
+
+Error Code:: 404 - Not Found
+
+Source Code:: throw new NotFoundException("file {1} not found", file);
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+

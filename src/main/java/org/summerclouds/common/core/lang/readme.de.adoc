@@ -1,0 +1,9 @@
+#!manual
+
+== Lambda Functions
+
+Die Lambda Funktionen erweitern die bestehenden Funktionen um Varianten
+mit weiteren Parametern. Die Klassen 'FunctionX' haben einen Rückgabewert, 
+die Klassen 'ConsumerX' keinen. Benutze diese Klassen um einfach 
+Lambda-Funktionen mit mehreren Parametern zu erstellen.
+

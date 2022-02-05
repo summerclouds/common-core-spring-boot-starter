@@ -1,0 +1,29 @@
+#!manual
+
+== Log Erweiterung
+
+Die Log-Erweiterung ist eine Fasade und vereinfacht das Loggen mit dem Standart Logger.
+Die Log-Engine kann gewechselt werden sollte aber immer den Spring logger bzw. SlfJ
+nutzen. Eine alternative ist die direkte ausgabe auf die Konsole.
+
+Die Vereinfachung liegt vor allem beim Aufruf und der Ausgabe der Daten. Der Aufruf kann durch
+shortcut Funktionen f() für fatal(), e() für error(), w() für warn(), i() für info(), d() für
+debug() und t() für trace() verkürzt werden. Alle Funktionen können eine Nachricht (msg) und
+weitere Parameter aufnehmen. Die Parameter können in der Nachricht durch '{nr}' referenziert
+werden.
+
+NOTE: Zur Ausgabe siehe auch Exceptions.
+
+Ist das Log-Level nicht erreicht werden die parameter nicht zu einer Log-Nachricht agrigiert 
+und somit keine Rechenzeit verbraucht. Deshalb empfielt es sich in den Parametern ganze
+Objekte zu übergeben und diese vorher expliziet nicht in Strings umzuwandeln.
+
+Sollen Objekte durch einen besonderen Source Code in einen String umgewandelt werden können
+ParameterMapper hinterlegt werden die anstelle von toString() genutzt werden um aus einem
+Parameter einen representativen Text zu erstellen.
+
+Wird in einer Klasse von MLog abgeleitet kann die Tool-Funktion log() genutzt werden um
+zu loggen. Der Logger wird erst beim ersten Aufruf erstellt. Durch diese emfolhene
+Vorgehen kann ebenfalls Rechenzeit gespart bzw. verteilt werden.
+
+
