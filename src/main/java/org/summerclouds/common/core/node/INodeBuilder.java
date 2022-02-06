@@ -24,10 +24,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.summerclouds.common.core.MString;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.log.MLog;
+import org.summerclouds.common.core.tool.MString;
 
 public abstract class INodeBuilder extends MLog {
 

@@ -17,7 +17,7 @@ package org.summerclouds.common.core.matcher;
 
 import java.util.Map;
 
-import org.summerclouds.common.core.MString;
+import org.summerclouds.common.core.tool.MString;
 
 public class ModelFs extends ModelPattern {
 

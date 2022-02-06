@@ -17,9 +17,9 @@ package org.summerclouds.common.core.io;
 
 import java.io.File;
 
-import org.summerclouds.common.core.MFile;
-import org.summerclouds.common.core.MString;
 import org.summerclouds.common.core.log.MLog;
+import org.summerclouds.common.core.tool.MFile;
+import org.summerclouds.common.core.tool.MString;
 
 /**
  * For simple pdf content checking.

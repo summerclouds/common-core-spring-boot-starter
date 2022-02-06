@@ -25,13 +25,13 @@ import java.lang.reflect.Proxy;
 public class MObjectInputStream extends ObjectInputStream {
 
     private ClassLoader cl = null;
-    private MActivator act = null;
+    private Activator act = null;
 
     public MObjectInputStream() throws IOException, SecurityException {
         super();
     }
 
-    public MObjectInputStream(InputStream in, MActivator act) throws IOException {
+    public MObjectInputStream(InputStream in, Activator act) throws IOException {
         super(in);
         setActivator(act);
     }
@@ -45,7 +45,7 @@ public class MObjectInputStream extends ObjectInputStream {
         super(in);
     }
 
-    public void setActivator(MActivator activator) {
+    public void setActivator(Activator activator) {
         act = activator;
     }
 

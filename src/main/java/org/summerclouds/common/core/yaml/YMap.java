@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.summerclouds.common.core.MCast;
+import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.util.EmptySet;
 
 public class YMap extends YElement {

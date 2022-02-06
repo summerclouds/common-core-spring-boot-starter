@@ -19,8 +19,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.summerclouds.common.core.MCast;
-import org.summerclouds.common.core.MDate;
+import org.summerclouds.common.core.tool.MCast;
+import org.summerclouds.common.core.tool.MDate;
 
 public class ObjectToString implements Caster<Object, String> {
 

@@ -19,8 +19,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import org.summerclouds.common.core.MCollection;
 import org.summerclouds.common.core.lang.ReadOnly;
+import org.summerclouds.common.core.tool.MCollection;
 
 @SuppressWarnings("rawtypes")
 public class EmptyMap<K, V> implements Map<K, V>, ReadOnly {

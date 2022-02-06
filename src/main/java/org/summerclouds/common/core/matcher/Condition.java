@@ -17,12 +17,12 @@ package org.summerclouds.common.core.matcher;
 
 import java.util.Map;
 
-import org.summerclouds.common.core.MValidator;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.SyntaxError;
 import org.summerclouds.common.core.matcher.ModelPattern.CONDITION;
 import org.summerclouds.common.core.parser.StringTokenizerParser;
 import org.summerclouds.common.core.parser.TechnicalStringParser;
+import org.summerclouds.common.core.tool.MValidator;
 
 /**
  * e.g. $param1 regex .*test.* $param1 mr or $param1 mrs

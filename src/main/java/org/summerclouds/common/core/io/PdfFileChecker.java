@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.summerclouds.common.core.MFile;
+import org.summerclouds.common.core.tool.MFile;
 
 public class PdfFileChecker extends AbstractFileChecker {
 

@@ -1,6 +1,6 @@
-#!manual
+#@manual
 
-== Exception Erweiterung
+== Exception Erweiterungen
 
 Summerclouds erweitert und vereinfacht das schmeisen und verarbeiten 
 von Fehlern. Exceptions bekommen immer einen Return Code bzw. Error Code.

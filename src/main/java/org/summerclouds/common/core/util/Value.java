@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.io.NotSerializableException;
 import java.io.Serializable;
 
-import org.summerclouds.common.core.MSystem;
 import org.summerclouds.common.core.lang.Valueable;
+import org.summerclouds.common.core.tool.MSystem;
 
 public class Value<T> implements Valueable<T>, Serializable {
 

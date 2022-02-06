@@ -17,8 +17,8 @@ package org.summerclouds.common.core.parser;
 
 import java.util.Map;
 
-import org.summerclouds.common.core.MString;
-import org.summerclouds.common.core.MSystem;
+import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.tool.MSystem;
 
 /**
  * A default implementation to parse and hold a constant string value.

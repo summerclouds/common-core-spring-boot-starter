@@ -17,7 +17,7 @@ package org.summerclouds.common.core.cast;
 
 import java.sql.Date;
 
-import org.summerclouds.common.core.MCast;
+import org.summerclouds.common.core.tool.MCast;
 
 public class ObjectToSqlDate implements Caster<Object, Date> {
 

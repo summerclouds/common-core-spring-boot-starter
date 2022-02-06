@@ -24,8 +24,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
 
-import org.summerclouds.common.core.MJson;
 import org.summerclouds.common.core.error.NotSupportedException;
+import org.summerclouds.common.core.tool.MJson;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;

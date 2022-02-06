@@ -1,0 +1,25 @@
+
+== Core Implementierung
+
+Die Core Bibliothek versucht bei immerwieder kommenden Probleme bei der Entwicklung
+in java zu unterstützen. Teilweise werden oft benötigte Themen verbessert teilweise
+auch spezielle Fälle. Wichtig ist, dass wenig abhängigkeiten zu weiteren Bibliotheken,
+auch in die JFC genutzt werden um das spätere ausgerollte Programm möglichst mit
+wenigen ungenutzten Abhängigkeiten zu benasten. Damit wird auch ein späteres
+Docker-Image schlank gehalten.
+
+=== Abhängigkeiten
+
+Abhängigkeiten zu den folgenden Bibliotheken werden als gegeben angesehen
+
+* Spring
+* Java Core
+* Java XML
+* YAML Snake
+* Jackson Json
+
+=== Java Reflection
+
+Um mit nativer Kompilierung kompatibel zu bleiben wird auf die benutzung von Reflection
+verzichtet. Um Reflection zu nutzen wird in dem Modul 'common-pojo' mit Reflection
+gearbeitet.

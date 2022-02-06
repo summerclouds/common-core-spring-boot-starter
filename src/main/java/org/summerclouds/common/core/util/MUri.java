@@ -24,9 +24,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.summerclouds.common.core.MCast;
-import org.summerclouds.common.core.MString;
 import org.summerclouds.common.core.node.IProperties;
+import org.summerclouds.common.core.tool.MCast;
+import org.summerclouds.common.core.tool.MString;
 
 import java.util.TreeMap;
 

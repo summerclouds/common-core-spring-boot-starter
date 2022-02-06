@@ -22,12 +22,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.summerclouds.common.core.MString;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.MRuntimeException;
 import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.error.TooDeepStructuresException;
+import org.summerclouds.common.core.tool.MString;
 import org.w3c.dom.Element;
 
 import de.mhus.lib.core.MXml;

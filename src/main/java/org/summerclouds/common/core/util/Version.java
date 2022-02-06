@@ -20,11 +20,11 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import org.summerclouds.common.core.MCast;
-import org.summerclouds.common.core.MString;
 import org.summerclouds.common.core.error.MRuntimeException;
 import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.lang.Versioned;
+import org.summerclouds.common.core.tool.MCast;
+import org.summerclouds.common.core.tool.MString;
 
 public class Version implements Comparable<Version>, Externalizable {
 

@@ -22,8 +22,8 @@ import java.io.Reader;
 import java.util.Hashtable;
 import java.util.Map;
 
-import org.summerclouds.common.core.MString;
-import org.summerclouds.common.core.MXml;
+import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.tool.MXml;
 
 /** @author hummel */
 public class HtmlParser {

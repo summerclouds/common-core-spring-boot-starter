@@ -19,9 +19,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.summerclouds.common.core.MString;
-import org.summerclouds.common.core.MSystem;
 import org.summerclouds.common.core.error.MException;
+import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.tool.MSystem;
 
 public class StringCompiler implements Parser {
 

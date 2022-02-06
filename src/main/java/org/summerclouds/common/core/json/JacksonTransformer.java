@@ -15,8 +15,8 @@
  */
 package org.summerclouds.common.core.json;
 
-import org.summerclouds.common.core.MJson;
 import org.summerclouds.common.core.error.NotSupportedException;
+import org.summerclouds.common.core.tool.MJson;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

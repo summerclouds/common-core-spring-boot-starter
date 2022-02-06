@@ -15,12 +15,12 @@
  */
 package org.summerclouds.common.core.matcher;
 
-import org.summerclouds.common.core.MValidator;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.SyntaxError;
 import org.summerclouds.common.core.matcher.ModelPattern.CONDITION;
 import org.summerclouds.common.core.parser.StringTokenizerParser;
 import org.summerclouds.common.core.parser.TechnicalStringParser;
+import org.summerclouds.common.core.tool.MValidator;
 
 /**
  * Matches a single value against a condition. The Matcher will compile the condition and speedup if

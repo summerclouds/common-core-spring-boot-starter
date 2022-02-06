@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.summerclouds.common.core.MString;
+import org.summerclouds.common.core.tool.MString;
 
 public class MutableUri extends MUri {
 

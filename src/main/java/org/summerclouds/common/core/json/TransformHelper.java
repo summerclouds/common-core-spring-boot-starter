@@ -18,7 +18,7 @@ package org.summerclouds.common.core.json;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 
-import org.summerclouds.common.core.MJson;
+import org.summerclouds.common.core.tool.MJson;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

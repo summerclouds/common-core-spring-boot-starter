@@ -20,8 +20,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.summerclouds.common.core.MString;
 import org.summerclouds.common.core.log.Log;
+import org.summerclouds.common.core.tool.MString;
 
 public class SecurityTransformHelper extends TransformHelper {
 

@@ -21,9 +21,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.summerclouds.common.core.MCast;
-import org.summerclouds.common.core.MString;
 import org.summerclouds.common.core.log.Log;
+import org.summerclouds.common.core.tool.MCast;
+import org.summerclouds.common.core.tool.MString;
 
 /**
  * Accepted formats:

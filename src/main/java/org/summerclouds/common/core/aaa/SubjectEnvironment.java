@@ -19,7 +19,7 @@ import java.io.Closeable;
 
 import javax.security.auth.Subject;
 
-import org.summerclouds.common.core.MSecurity;
+import org.summerclouds.common.core.tool.MSecurity;
 import org.summerclouds.common.core.tracing.IScope;
 
 public class SubjectEnvironment implements Closeable {

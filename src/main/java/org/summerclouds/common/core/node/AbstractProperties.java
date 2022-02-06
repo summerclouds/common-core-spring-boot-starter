@@ -23,13 +23,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
-import org.summerclouds.common.core.MCast;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.MRuntimeException;
 import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.lang.IsNull;
 import org.summerclouds.common.core.log.MLog;
+import org.summerclouds.common.core.tool.MCast;
 
 public abstract class AbstractProperties extends MLog implements IProperties {
 

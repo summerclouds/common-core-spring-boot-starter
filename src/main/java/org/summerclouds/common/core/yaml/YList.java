@@ -20,7 +20,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.summerclouds.common.core.MCast;
+import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.util.EmptyList;
 
 public class YList extends YElement implements Iterable<YElement> {

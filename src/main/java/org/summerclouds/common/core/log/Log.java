@@ -19,9 +19,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.summerclouds.common.core.MCast;
-import org.summerclouds.common.core.MString;
-import org.summerclouds.common.core.MSystem;
+import org.summerclouds.common.core.tool.MCast;
+import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.tool.MSystem;
 import org.summerclouds.common.core.tracing.ITracing;
 
 import de.mhus.lib.core.MApi;
