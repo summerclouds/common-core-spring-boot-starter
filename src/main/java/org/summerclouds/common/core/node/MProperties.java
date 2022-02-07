@@ -40,13 +40,16 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
-import de.mhus.lib.core.logging.MLogUtil;
-import de.mhus.lib.core.util.SetCast;
+import org.summerclouds.common.core.log.Log;
+import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.tool.MSystem;
+import org.summerclouds.common.core.util.SetCast;
 
 public class MProperties extends AbstractProperties implements Externalizable {
 
     private static final long serialVersionUID = 1L;
-
+    private static final Log log = Log.getLog(MProperties.class);
+    
     protected Properties properties = null;
     private static final char[] hexDigit = {
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
@@ -173,7 +176,7 @@ public class MProperties extends AbstractProperties implements Externalizable {
                 p.load(is);
             }
         } catch (Throwable t) {
-            MLogUtil.log().d(fileName, t);
+            log.d(fileName, t);
         }
         MProperties out = new MProperties(p);
         return out;
@@ -490,7 +493,7 @@ public class MProperties extends AbstractProperties implements Externalizable {
         try {
             p.load(is);
         } catch (Throwable t) {
-            MLogUtil.log().d(t);
+            log.d(t);
         }
         MProperties out = new MProperties(p);
         return out;

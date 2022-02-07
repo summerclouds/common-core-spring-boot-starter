@@ -27,11 +27,11 @@ import org.summerclouds.common.core.error.MRuntimeException;
 import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.error.TooDeepStructuresException;
+import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.tool.MXml;
+import org.summerclouds.common.core.util.MUri;
 import org.w3c.dom.Element;
-
-import de.mhus.lib.core.MXml;
-import de.mhus.lib.core.util.MUri;
 
 /**
  * A INode extends the concept of properties to a object oriented structure. A property can also be
@@ -43,6 +43,8 @@ import de.mhus.lib.core.util.MUri;
  */
 public interface INode extends IProperties {
 
+	static final Log log = Log.getLog(INode.class);
+	
     public static final String NAMELESS_VALUE = "";
     public static final String VALUE = "value";
     public static final String VALUES = "values";
@@ -307,7 +309,7 @@ public interface INode extends IProperties {
         try {
             fillIn.readSerializabledNode(node);
         } catch (Exception e) {
-            MLogUtil.log().d(node, e);
+            log.d(node, e);
             return null;
         }
         return fillIn;
@@ -326,7 +328,7 @@ public interface INode extends IProperties {
         try {
             fillIn.readSerializabledNode(node);
         } catch (Exception e) {
-            MLogUtil.log().d(node, e);
+            log.d(node, e);
             return null;
         }
         return fillIn;

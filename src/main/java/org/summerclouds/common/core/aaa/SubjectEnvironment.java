@@ -17,8 +17,6 @@ package org.summerclouds.common.core.aaa;
 
 import java.io.Closeable;
 
-import javax.security.auth.Subject;
-
 import org.summerclouds.common.core.tool.MSecurity;
 import org.summerclouds.common.core.tracing.IScope;
 
@@ -28,13 +26,13 @@ public class SubjectEnvironment implements Closeable {
     private ISubject predecessor;
     private IScope scope;
 
-    public SubjectEnvironment(Subject subject, Subject predecessor, IScope scope) {
+    public SubjectEnvironment(ISubject subject, ISubject predecessor, IScope scope) {
         this.subject = subject;
         this.predecessor = predecessor;
         this.scope = scope;
     }
 
-    public Subject getSubject() {
+    public ISubject getSubject() {
         return subject;
     }
 

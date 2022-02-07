@@ -18,10 +18,9 @@ package org.summerclouds.common.core.node;
 import java.io.File;
 import java.net.URL;
 
-import de.mhus.lib.annotations.activator.DefaultImplementation;
-import de.mhus.lib.errors.MException;
+import org.summerclouds.common.core.error.MException;
 
-@DefaultImplementation(DefaultNodeFactory.class)
+//@DefaultImplementation(DefaultNodeFactory.class)
 public interface INodeFactory {
 
     INode read(Class<?> owner, String fileName) throws MException;

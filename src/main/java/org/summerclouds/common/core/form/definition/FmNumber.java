@@ -15,8 +15,8 @@
  */
 package org.summerclouds.common.core.form.definition;
 
-import org.springframework.expression.spel.ast.Identifier;
 import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.consts.Identifier;
 import org.summerclouds.common.core.error.MException;
 
 public class FmNumber extends IFmElement {

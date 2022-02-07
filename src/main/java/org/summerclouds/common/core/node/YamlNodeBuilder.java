@@ -19,13 +19,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import de.mhus.lib.basics.RC;
-import de.mhus.lib.core.yaml.MYaml;
-import de.mhus.lib.core.yaml.YElement;
-import de.mhus.lib.core.yaml.YList;
-import de.mhus.lib.core.yaml.YMap;
-import de.mhus.lib.errors.MException;
-import de.mhus.lib.errors.TooDeepStructuresException;
+import org.summerclouds.common.core.error.MException;
+import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.error.TooDeepStructuresException;
+import org.summerclouds.common.core.yaml.MYaml;
+import org.summerclouds.common.core.yaml.YElement;
+import org.summerclouds.common.core.yaml.YList;
+import org.summerclouds.common.core.yaml.YMap;
 
 public class YamlNodeBuilder extends INodeBuilder {
 

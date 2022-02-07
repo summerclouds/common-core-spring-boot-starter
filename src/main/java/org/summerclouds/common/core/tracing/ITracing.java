@@ -4,10 +4,12 @@ public interface ITracing {
 
 	ISpan current();
 
-	IScope enter(ISpan span, String string, String string2, String string3, String string4, String string5);
+	IScope enter(ISpan span, String name, String ... keyValue);
 
 	void cleanup();
 
 	IScope enter(ISpan span, String name);
+
+	IScope enter(String name, String ... keyValue);
 
 }

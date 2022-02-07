@@ -22,8 +22,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Properties;
 
-import de.mhus.lib.core.node.INode;
-import de.mhus.lib.core.util.MUri;
+import org.summerclouds.common.core.tool.MCast;
+import org.summerclouds.common.core.util.MUri;
 
 public interface IProperties
         extends IReadProperties,

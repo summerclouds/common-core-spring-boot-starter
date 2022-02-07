@@ -19,11 +19,11 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import de.mhus.lib.core.MString;
-import de.mhus.lib.core.parser.DefaultScriptPart;
-import de.mhus.lib.core.parser.StringCompiler;
-import de.mhus.lib.core.parser.StringPart;
-import de.mhus.lib.errors.MException;
+import org.summerclouds.common.core.error.MException;
+import org.summerclouds.common.core.parser.DefaultScriptPart;
+import org.summerclouds.common.core.parser.StringCompiler;
+import org.summerclouds.common.core.parser.StringPart;
+import org.summerclouds.common.core.tool.MString;
 
 public class NodeStringCompiler extends StringCompiler {
 

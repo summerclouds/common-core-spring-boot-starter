@@ -25,17 +25,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import de.mhus.lib.basics.IsNull;
-import de.mhus.lib.basics.RC;
-import de.mhus.lib.core.IProperties;
-import de.mhus.lib.core.M;
-import de.mhus.lib.core.MProperties;
-import de.mhus.lib.core.parser.CompiledString;
-import de.mhus.lib.core.util.SingleList;
-import de.mhus.lib.errors.MException;
-import de.mhus.lib.errors.MRuntimeException;
-import de.mhus.lib.errors.MaxDepthReached;
-import de.mhus.lib.errors.NotFoundException;
+import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.error.MException;
+import org.summerclouds.common.core.error.MRuntimeException;
+import org.summerclouds.common.core.error.MaxDepthReached;
+import org.summerclouds.common.core.error.NotFoundException;
+import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.lang.IsNull;
+import org.summerclouds.common.core.parser.CompiledString;
+import org.summerclouds.common.core.util.SingleList;
 
 public class MNode extends MProperties implements INode {
 

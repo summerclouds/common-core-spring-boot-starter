@@ -15,8 +15,8 @@
  */
 package org.summerclouds.common.core.form.definition;
 
-import org.springframework.expression.spel.ast.Identifier;
 import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.consts.Identifier;
 
 public class FmRichText extends IFmElement {
 

@@ -27,9 +27,8 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import de.mhus.lib.core.IProperties;
-import de.mhus.lib.errors.MException;
-import de.mhus.lib.errors.NotFoundException;
+import org.summerclouds.common.core.error.MException;
+import org.summerclouds.common.core.error.NotFoundException;
 
 public class MNodeWrapper extends MNode {
 

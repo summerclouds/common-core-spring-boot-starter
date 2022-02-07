@@ -47,6 +47,7 @@ import java.util.jar.Manifest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.node.IProperties;

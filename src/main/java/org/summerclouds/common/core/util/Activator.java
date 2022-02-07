@@ -16,4 +16,9 @@ public class Activator {
 		return null;
 	}
 
+	public Class<?> findClass(String type) throws ClassNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -18,9 +18,8 @@ package org.summerclouds.common.core.node;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import de.mhus.lib.basics.RC;
-import de.mhus.lib.core.IProperties;
-import de.mhus.lib.errors.MRuntimeException;
+import org.summerclouds.common.core.error.MRuntimeException;
+import org.summerclouds.common.core.error.RC;
 
 public class NodeList extends LinkedList<INode> {
 

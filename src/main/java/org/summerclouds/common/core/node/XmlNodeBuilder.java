@@ -23,15 +23,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import org.summerclouds.common.core.error.MException;
+import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.error.TooDeepStructuresException;
+import org.summerclouds.common.core.tool.MXml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
-
-import de.mhus.lib.basics.RC;
-import de.mhus.lib.core.MXml;
-import de.mhus.lib.errors.MException;
-import de.mhus.lib.errors.TooDeepStructuresException;
 
 public class XmlNodeBuilder extends INodeBuilder {
 

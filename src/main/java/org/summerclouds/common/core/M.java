@@ -22,8 +22,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import org.springframework.expression.spel.ast.Identifier;
+import org.summerclouds.common.core.consts.Identifier;
 import org.summerclouds.common.core.log.Log;
+import org.summerclouds.common.core.pojo.MPojo;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MJson;
 import org.summerclouds.common.core.tool.MString;
@@ -236,7 +237,7 @@ public class M {
      * @return the service
      */
     public static <T> T l(Class<T> class1) {
-        return MApi.lookup(class1);
+        return MSpring.lookup(class1);
     }
 
     /**
@@ -247,7 +248,7 @@ public class M {
      * @return the service
      */
     public static <T, D extends T> T l(Class<T> class1, Class<D> def) {
-        return MApi.lookup(class1, def);
+        return MSpring.lookup(class1, def);
     }
 
     /**

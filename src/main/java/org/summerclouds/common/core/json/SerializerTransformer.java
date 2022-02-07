@@ -25,6 +25,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.summerclouds.common.core.error.NotSupportedException;
+import org.summerclouds.common.core.pojo.PojoAttribute;
+import org.summerclouds.common.core.pojo.PojoModel;
 import org.summerclouds.common.core.tool.MJson;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -35,9 +37,6 @@ import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-
-import de.mhus.lib.core.pojo.PojoAttribute;
-import de.mhus.lib.core.pojo.PojoModel;
 
 public class SerializerTransformer extends TransformStrategy {
 

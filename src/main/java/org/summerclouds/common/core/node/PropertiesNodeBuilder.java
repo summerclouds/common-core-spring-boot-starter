@@ -26,17 +26,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import de.mhus.lib.basics.RC;
-import de.mhus.lib.core.MCollection;
-import de.mhus.lib.core.MDate;
-import de.mhus.lib.core.MProperties;
-import de.mhus.lib.core.MString;
+import org.springframework.cache.support.NullValue;
+import org.summerclouds.common.core.error.MException;
+import org.summerclouds.common.core.error.MRuntimeException;
+import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.error.TooDeepStructuresException;
+import org.summerclouds.common.core.pojo.MPojo;
+import org.summerclouds.common.core.tool.MCollection;
+import org.summerclouds.common.core.tool.MDate;
+import org.summerclouds.common.core.tool.MString;
+
 import de.mhus.lib.core.cfg.CfgInt;
-import de.mhus.lib.core.pojo.MPojo;
-import de.mhus.lib.core.util.NullValue;
-import de.mhus.lib.errors.MException;
-import de.mhus.lib.errors.MRuntimeException;
-import de.mhus.lib.errors.TooDeepStructuresException;
 
 public class PropertiesNodeBuilder extends INodeBuilder {
 
