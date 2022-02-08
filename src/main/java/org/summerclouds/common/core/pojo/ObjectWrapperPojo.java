@@ -20,9 +20,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.util.Activator;
 import org.summerclouds.common.core.util.MObjectInputStream;
-
-import de.mhus.lib.core.MApi;
 
 public class ObjectWrapperPojo<T> {
 
@@ -36,7 +36,7 @@ public class ObjectWrapperPojo<T> {
     }
 
     public T pojoGetObject() throws IOException, ClassNotFoundException {
-        return pojoGetObject(MApi.get().createActivator());
+        return pojoGetObject( M.l(Activator.class) );
     }
 
     @SuppressWarnings("unchecked")

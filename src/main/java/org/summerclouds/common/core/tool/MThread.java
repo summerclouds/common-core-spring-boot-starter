@@ -18,7 +18,7 @@ package org.summerclouds.common.core.tool;
 import java.util.function.Consumer;
 
 import org.summerclouds.common.core.aaa.ISubject;
-import org.summerclouds.common.core.aaa.SubjectEnvironment;
+import org.summerclouds.common.core.aaa.ISubjectEnvironment;
 import org.summerclouds.common.core.error.RuntimeInterruptedException;
 import org.summerclouds.common.core.error.TimeoutRuntimeException;
 import org.summerclouds.common.core.lang.Checker;
@@ -108,7 +108,7 @@ public class MThread extends MLog implements Runnable {
         @Override
         public void run() {
             cleanup();
-            try (SubjectEnvironment env = MSecurity.asSubjectWithoutTracing(subject)) {
+            try (ISubjectEnvironment env = MSecurity.asSubjectWithoutTracing(subject)) {
                 try (IScope scope =
                         MTracing.get()
                                 .enter(

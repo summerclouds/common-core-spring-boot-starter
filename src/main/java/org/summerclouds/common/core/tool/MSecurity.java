@@ -3,7 +3,7 @@ package org.summerclouds.common.core.tool;
 import javax.security.auth.Subject;
 
 import org.summerclouds.common.core.aaa.ISubject;
-import org.summerclouds.common.core.aaa.SubjectEnvironment;
+import org.summerclouds.common.core.aaa.ISubjectEnvironment;
 
 public class MSecurity {
 
@@ -12,7 +12,7 @@ public class MSecurity {
 		return null;
 	}
 
-	public static SubjectEnvironment asSubjectWithoutTracing(ISubject subject) {
+	public static ISubjectEnvironment asSubjectWithoutTracing(ISubject subject) {
 		// TODO Auto-generated method stub
 		return null;
 	}

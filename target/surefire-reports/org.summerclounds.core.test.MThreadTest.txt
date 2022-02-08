@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: org.summerclounds.core.test.MThreadTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.448 s <<< FAILURE! - in org.summerclounds.core.test.MThreadTest
+testThreadDaemon  Time elapsed: 0.422 s  <<< ERROR!
+java.lang.NullPointerException
+	at org.summerclounds.core.test.MThreadTest.testThreadDaemon(MThreadTest.java:67)
+
+testThreadDirect  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at org.summerclounds.core.test.MThreadTest.testThreadDirect(MThreadTest.java:86)
+
+testThreadException  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at org.summerclounds.core.test.MThreadTest.testThreadException(MThreadTest.java:110)
+
+testThread  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException
+	at org.summerclounds.core.test.MThreadTest.testThread(MThreadTest.java:46)
+

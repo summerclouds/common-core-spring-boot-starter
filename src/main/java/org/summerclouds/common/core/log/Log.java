@@ -18,13 +18,12 @@ package org.summerclouds.common.core.log;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.WeakHashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MString;
 import org.summerclouds.common.core.tool.MSystem;
-import org.summerclouds.common.core.tracing.ITracing;
-
-import de.mhus.lib.core.MApi;
 
 /**
  * Got the interface from apache-commons-logging. I need to switch because its not working in
@@ -43,38 +42,24 @@ public class Log {
         FATAL
     };
 
-    private static ThreadLocal<String> lookingForSpan = new ThreadLocal<>();
-    protected boolean localTrace = true;
-    private static boolean stacktraceTrace = false;
-    protected String name;
     protected static ParameterMapper parameterMapper;
-    protected LogEngine engine = null;
-    private List<String> maxMsgSizeExceptions;
-    private volatile ITracing tracer;
-    private volatile boolean tracerInError = false;
-    private volatile boolean tracerStartup;
-    //    protected UUID id = UUID.randomUUID();
     private static int maxMsgSize = 0;
     private static boolean verbose = false;
+    private static boolean stacktraceTrace;
+    @Autowired(required = false)
+    private static LogFactory factory = new SLF4JFactory();
+    
+    private static WeakHashMap<String, Log> registry = new WeakHashMap<>();
+    
+    private LogFacade facade;
+    protected String name;
+    private List<String> maxMsgSizeExceptions;
+	private boolean localUpgrade;
 
-    public Log(Object owner) {
-
-        name = MSystem.getOwnerName(owner);
-        localTrace = MApi.isTrace(name);
-        //        tracer = getITracer(); - causes stack loop
-
-        update();
-
-        //		register();
+    private Log(String name) {
+    	this.name = name;
+    	facade = factory.create(name);
     }
-
-    //    protected void register() {
-    //		MApi.registerLogger(this);
-    //	}
-    //
-    //    protected void unregister() {
-    //		MApi.unregisterLogger(this);
-    //    }
 
     // -------------------------------------------------------- Logging Methods
 
@@ -90,7 +75,7 @@ public class Log {
     }
 
     public void log(LEVEL level, Object... msg) {
-        if (engine == null) return;
+        if (facade == null) return;
 
         // level mapping
         if (verbose) {
@@ -99,22 +84,22 @@ public class Log {
 
         switch (level) {
             case DEBUG:
-                if (!engine.isDebugEnabled()) return;
+                if (!facade.isDebugEnabled()) return;
                 break;
             case ERROR:
-                if (!engine.isErrorEnabled()) return;
+                if (!facade.isErrorEnabled()) return;
                 break;
             case FATAL:
-                if (!engine.isFatalEnabled()) return;
+                if (!facade.isFatalEnabled()) return;
                 break;
             case INFO:
-                if (!engine.isInfoEnabled()) return;
+                if (!facade.isInfoEnabled()) return;
                 break;
             case TRACE:
-                if (!engine.isTraceEnabled()) return;
+                if (!facade.isTraceEnabled()) return;
                 break;
             case WARN:
-                if (!engine.isWarnEnabled()) return;
+                if (!facade.isWarnEnabled()) return;
                 break;
             default:
                 return;
@@ -128,22 +113,22 @@ public class Log {
 
         switch (level) {
             case DEBUG:
-                engine.debug(sb.toString(), error);
+                facade.debug(sb.toString(), error);
                 break;
             case ERROR:
-                engine.error(sb.toString(), error);
+                facade.error(sb.toString(), error);
                 break;
             case FATAL:
-                engine.fatal(sb.toString(), error);
+                facade.fatal(sb.toString(), error);
                 break;
             case INFO:
-                engine.info(sb.toString(), error);
+                facade.info(sb.toString(), error);
                 break;
             case TRACE:
-                engine.trace(sb.toString(), error);
+                facade.trace(sb.toString(), error);
                 break;
             case WARN:
-                engine.warn(sb.toString(), error);
+                facade.warn(sb.toString(), error);
                 break;
             default:
                 break;
@@ -152,7 +137,7 @@ public class Log {
         if (stacktraceTrace) {
             String stacktrace =
                     MCast.toString("stacktracetrace", Thread.currentThread().getStackTrace());
-            engine.debug(stacktrace);
+            facade.debug(stacktrace);
         }
     }
 
@@ -255,20 +240,6 @@ public class Log {
         sb.append('[').append(Thread.currentThread().getId()).append(']');
     }
 
-    public void setLocalTrace(boolean localTrace) {
-        this.localTrace = localTrace;
-    }
-
-    public boolean isLocalTrace() {
-        return localTrace;
-    }
-
-    //	public static Log getLog() {
-    //		StackTraceElement[] stack = Thread.currentThread().getStackTrace();
-    //		// for (StackTraceElement e : stack) System.out.println(e.getClassName());
-    //		return getLog(stack[2].getClassName());
-    //	}
-
     public String getName() {
         return name;
     }
@@ -278,21 +249,20 @@ public class Log {
         return MSystem.toString(this, getName());
     }
 
-    public static Log getLog(Object owner) {
-        try {
-            return MApi.get().lookupLog(owner);
+    public static synchronized Log getLog(Object owner) {
+
+    	try {
+	    	String name = MSystem.getOwnerName(owner);
+	    	Log log = registry.get(name);
+	    	if (log == null) {
+	    		log = new Log(name);
+	    		registry.put(name, log);
+	    	}
+	    	return log;
         } catch (Throwable t) {
             t.printStackTrace();
             throw t;
         }
-    }
-
-    public void update() {
-        engine = MApi.get().getLogFactory().getInstance(getName());
-        localTrace = MApi.isTrace(name);
-        parameterMapper = MApi.get().getLogFactory().getParameterMapper();
-        maxMsgSize = MApi.get().getLogFactory().getMaxMessageSize();
-        maxMsgSizeExceptions = MApi.get().getLogFactory().getMaxMessageSizeExceptions();
     }
 
     public ParameterMapper getParameterMapper() {
@@ -307,61 +277,61 @@ public class Log {
      * @return true if level is enabled
      */
     public boolean isLevelEnabled(LEVEL level) {
-        if (engine == null) return false;
+        if (facade == null) return false;
 
-        if (localTrace) level = LEVEL.INFO;
+        if (localUpgrade) level = LEVEL.INFO;
 
         switch (level) {
             case DEBUG:
-                return engine.isDebugEnabled();
+                return facade.isDebugEnabled();
             case ERROR:
-                return engine.isErrorEnabled();
+                return facade.isErrorEnabled();
             case FATAL:
-                return engine.isFatalEnabled();
+                return facade.isFatalEnabled();
             case INFO:
-                return engine.isInfoEnabled();
+                return facade.isInfoEnabled();
             case TRACE:
-                return engine.isTraceEnabled();
+                return facade.isTraceEnabled();
             case WARN:
-                return engine.isWarnEnabled();
+                return facade.isWarnEnabled();
             default:
                 return false;
         }
     }
 
     public void close() {
-        if (engine == null) return;
+        if (facade == null) return;
         //		unregister();
-        engine.close();
-        engine = null;
+        facade.close();
+        facade = null;
     }
 
     public static boolean isStacktraceTrace() {
         return stacktraceTrace;
     }
 
-    public static void setStacktraceTrace(boolean stacktraceTrace) {
-        Log.stacktraceTrace = stacktraceTrace;
-    }
-
     public static boolean isVerbose() {
         return verbose;
-    }
-
-    public static void setVerbose(boolean verbose) {
-        Log.verbose = verbose;
     }
 
     public static int getMaxMsgSize() {
         return maxMsgSize;
     }
 
-    public static void setMaxMsgSize(int maxMsgSize) {
-        Log.maxMsgSize = maxMsgSize;
-    }
+	public boolean isLocalUpgrade() {
+		return localUpgrade;
+	}
 
-    //	public UUID getId() {
-    //		return id;
-    //	}
+	public void setLocalUpgrade(boolean localUpgrade) {
+		this.localUpgrade = localUpgrade;
+	}
+
+	public static LogFactory getFactory() {
+		return factory;
+	}
+
+	public static void setFactory(LogFactory factory) {
+		Log.factory = factory;
+	}
 
 }

@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: org.summerclounds.core.test.MNodeTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.362 s <<< FAILURE! - in org.summerclounds.core.test.MNodeTest
+testPropertiesWithUTF8  Time elapsed: 0.006 s  <<< ERROR!
+java.io.FileNotFoundException: Cannot locate resource: org.summerclounds.core.test/utf8.properties
+	at org.summerclounds.core.test.MNodeTest.testPropertiesWithUTF8(MNodeTest.java:52)
+

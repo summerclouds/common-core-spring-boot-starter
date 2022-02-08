@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: org.summerclounds.core.test.HtmlParserTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.007 s <<< FAILURE! - in org.summerclounds.core.test.HtmlParserTest
+testParser  Time elapsed: 0.006 s  <<< ERROR!
+java.io.FileNotFoundException: Cannot locate resource: org.summerclounds.core.test/HtmlParserTest.xml
+	at org.summerclounds.core.test.HtmlParserTest.testParser(HtmlParserTest.java:43)
+

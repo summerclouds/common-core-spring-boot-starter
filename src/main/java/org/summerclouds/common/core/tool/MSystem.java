@@ -47,17 +47,26 @@ import java.util.jar.Manifest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.node.IProperties;
 import org.summerclouds.common.core.util.Activator;
-import org.yaml.snakeyaml.TypeDescription;
 
 import net.bytebuddy.agent.ByteBuddyAgent;
+import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.ClassFileLocator;
 
 public class MSystem {
+
+    public enum SCOPE {
+        LOG,
+        TMP,
+        ETC,
+        DEPLOY,
+        DATA
+    }
 
     public enum OS {
         OTHER,
@@ -179,7 +188,7 @@ public class MSystem {
         // }
 
         {
-            File f = MApi.getFile(MApi.SCOPE.ETC, qName);
+            File f = getFile(SCOPE.ETC, qName);
             if (f.exists() && f.isFile()) return f.toURL();
         }
 
@@ -886,14 +895,14 @@ public class MSystem {
 
     private static final Instrumentation instrumentation = ByteBuddyAgent.install();
     /*
-     * Use byte buddy to get the lambda byte code
+     * Use byte buddy to get the class byte code
      */
     public static byte[] getBytes(Class<?> c) throws IOException {
         //		String name = '/' + c.getName().replace('.', '/')+ ".class";
         //		InputStream is = c.getClassLoader().getResourceAsStream(name);
         //		byte[] bytes = MFile.readBinary(is);
         //		return bytes;
-        ClassFileLocator locator = ClassFileLocator.AgentBased.of(instrumentation, c);
+        ClassFileLocator locator = ClassFileLocator.ForInstrumentation.of(instrumentation, c);
         TypeDescription.ForLoadedType desc = new TypeDescription.ForLoadedType(c);
         ClassFileLocator.Resolution resolution = locator.locate(desc.getName());
         return resolution.resolve();
@@ -1142,10 +1151,51 @@ public class MSystem {
                 Manifest manifest = new Manifest(is);
                 return manifest;
             } catch (Throwable t) {
-                MApi.dirtyLogTrace(owner, t);
+            	log.t(owner, t);
             }
         }
         throw new NotFoundException("manifest not found for", owner);
     }
+
+    @Value("${system.directory.etc}")
+    private static String ETC_DIRECTORY = "etc";
+
+    @Value("${system.directory.data}")
+    private static String DATA_DIRECTORY = "data";
+
+    @Value("${system.directory.log}")
+    private static String LOG_DIRECTORY = "log";
+
+    @Value("${system.directory.tmp}")
+    private static String TMP_DIRECTORY = "";
+
+    @Value("${system.directory.deploy}")
+    private static String DEPLOY_DIRECTORY = "deploy";
+
+	public static File getFile(SCOPE etc, String name) {
+		switch (etc) {
+		case DATA:
+			return new File(DATA_DIRECTORY + File.pathSeparator + name);
+		case DEPLOY:
+			return new File(DEPLOY_DIRECTORY + File.pathSeparator + name);
+		case ETC:
+			return new File(ETC_DIRECTORY + File.pathSeparator + name);
+		case LOG:
+			return new File(LOG_DIRECTORY + File.pathSeparator + name);
+		case TMP:
+			if (ETC_DIRECTORY.length() == 0)
+				try {
+					return File.createTempFile(name, "tmp");
+				} catch (IOException e) {
+					log.f(e);
+				}
+			else
+				return new File(TMP_DIRECTORY + File.pathSeparator + name);
+		default:
+			break;
+		
+		}
+		return null;
+	}
 
 }

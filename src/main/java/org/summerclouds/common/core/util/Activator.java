@@ -1,6 +1,6 @@
 package org.summerclouds.common.core.util;
 
-public class Activator {
+public class Activator extends ClassLoader {
 
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
 		throw new ClassNotFoundException(name);
@@ -17,6 +17,11 @@ public class Activator {
 	}
 
 	public Class<?> findClass(String type) throws ClassNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Class<?> getClazz(String className) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -17,8 +17,9 @@ package org.summerclouds.common.core.util;
 
 import java.util.function.Consumer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.summerclouds.common.core.aaa.ISubject;
-import org.summerclouds.common.core.aaa.SubjectEnvironment;
+import org.summerclouds.common.core.aaa.ISubjectEnvironment;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.tool.MSecurity;
 import org.summerclouds.common.core.tool.MThread;
@@ -35,6 +36,9 @@ public class ThreadPool implements Runnable {
 
     protected static Log log = Log.getLog(ThreadPool.class);
 
+    @Autowired
+    private static ThreadPoolManager manager;
+    
     protected Runnable task = this;
     protected String name = "";
     protected ThreadContainer tc = null;
@@ -64,7 +68,7 @@ public class ThreadPool implements Runnable {
     public void run() {}
 
     public ThreadPool start() {
-        tc = M.l(ThreadPoolManager.class).start(this, name);
+        tc = manager.start(this, name);
         return this;
     }
 
@@ -211,7 +215,7 @@ public class ThreadPool implements Runnable {
 
                     // run ....
                     currentTask.taskBegin();
-                    try (SubjectEnvironment env =
+                    try (ISubjectEnvironment env =
                             MSecurity.asSubjectWithoutTracing(currentTask.subject)) {
                         // set trail log if set
                         try (IScope scope = MTracing.get().enter(span, name)) {

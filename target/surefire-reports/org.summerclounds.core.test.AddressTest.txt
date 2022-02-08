@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: org.summerclounds.core.test.AddressTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in org.summerclounds.core.test.AddressTest
+testSalutationDe  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException
+	at org.summerclounds.core.test.AddressTest.testSalutationDe(AddressTest.java:32)
+

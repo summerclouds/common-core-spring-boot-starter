@@ -17,45 +17,51 @@ package org.summerclouds.common.core.util;
 
 import java.util.Vector;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.summerclouds.common.core.log.MLog;
+import org.summerclouds.common.core.tool.MThread;
 import org.summerclouds.common.core.util.ThreadPool.ThreadContainer;
-
-import de.mhus.lib.core.cfg.CfgLong;
 
 public class ThreadPoolManager extends MLog {
 
-    public static CfgLong CFG_SLEEP_TIME =
-            new CfgLong(ThreadPoolManager.class, "sleepTime", 1000 * 60 * 10);
-    public static CfgLong CFG_PENDING_TIME =
-            new CfgLong(ThreadPoolManager.class, "pendingTime", 1000 * 60);
+	@Value("${org.summerclouds.common.core.util.ThreadPoolManager.sleepTime}")
+    public static long CFG_SLEEP_TIME = 1000 * 60 * 10;
+	@Value("${org.summerclouds.common.core.util.ThreadPoolManager.pendingTime}")
+    public static long CFG_PENDING_TIME = 1000 * 60;
     private Vector<ThreadContainer> pool = new Vector<ThreadContainer>();
     private ThreadGroup group = new ThreadGroup("MThreadPool");
-//    private ThreadHousekeeper housekeeper;
+    private Thread housekeeper;
 
-//    private class ThreadHousekeeper extends MHousekeeperTask {
-//
-//        @Override
-//        public void doit() {
-//            log().t(getClass(), "Housekeeper");
-//            poolClean(CFG_PENDING_TIME.value());
-//            try {
-//                MThreadPoolDaemon.poolClean(CFG_PENDING_TIME.value());
-//            } catch (NoClassDefFoundError e) {
-//                // this only happens in OSGi if the bundle was uninstalled
-//                log().d("Close stale ThreadHousekeeper", e.toString());
-//                cancel();
-//            }
-//        }
-//    }
+    private class ThreadHousekeeper implements Runnable {
+
+        @Override
+        public void run() {
+        	while (true) {
+        		MThread.sleepForSure(CFG_SLEEP_TIME);
+        		if (housekeeper == null) {
+    	            log().t("EXIT Housekeeper");
+        			return;
+        		}
+	            log().t("Housekeeper");
+	            poolClean(CFG_PENDING_TIME);
+	            try {
+	                ThreadPoolDaemon.poolClean(CFG_PENDING_TIME);
+	            } catch (NoClassDefFoundError e) {
+	            	log().e(e);
+	            }
+	        }
+        }
+    }
 
     ThreadContainer start(ThreadPool _task, String _name) {
 
         ThreadContainer tc = null;
         synchronized (pool) {
-//            if (housekeeper == null) {
-//                housekeeper = new ThreadHousekeeper();
-//                M.l(MHousekeeper.class).register(housekeeper, CFG_SLEEP_TIME.value());
-//            }
+            if (housekeeper == null) {
+                housekeeper = new Thread( new ThreadHousekeeper(), "ThreadPoolManager.housekeeper" );
+                housekeeper.setDaemon(true);
+                housekeeper.start();
+            }
             // search free thread
 
             for (int i = 0; i < pool.size(); i++)
@@ -124,6 +130,7 @@ public class ThreadPoolManager extends MLog {
     @Override
     protected void finalize() {
         log().t("finalize");
+        housekeeper = null;
         synchronized (pool) {
             ThreadContainer[] list = pool.toArray(new ThreadContainer[pool.size()]);
             for (ThreadContainer tc : list) {
