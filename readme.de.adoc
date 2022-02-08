@@ -1,0 +1,35 @@
+== Common-Bibliothek
+
+Die Common-Bibliothek stellt grundlegende Erweiterungen bereit die teilweise
+allgemein sind, teilweise spezielle Aufgaben löst. Wichtig ist, dass die Teile
+nicht sehr umfangreich sind und wenig Abhängigkeiten zu anderen Bibliotheken
+haben. Damit wird die Größe des ausgelieferten Programms nicht unnötig 
+vergrößert.
+
+Standart-Abhängigkeiten die sowieso in Spring vorhanden sind werden auch hier 
+genutzt.
+
+== Namen mit 'M'-Pefix 
+
+Viele Klassennamen, vorallem die Tools, fangen mit dem Prefix 'M' an. Der Prefix
+wurde von einer älteren Implementierung übernommen und aus praktischen Gründen nicht
+geändert. Vor allem lässt sich durch den Prefix das deklarieren mit vollem Paketnamen
+im Source-Code vermeiden.
+
+'M' kann als Abkürzung für 'More' gesehen werden. 'MFile' bedeutet dann 'More of File'. 
+
+Es wird auch der Prefix 'X' als Abkürzung für 'eXtension' genutzt wenn eine Klasse
+abgeleitet und gezielt erweitert wird.
+
+== Historie
+
+Die Bibliothek wurde von der Bibliothek 'mhus' (Mike Hummels Bibliothek) migriert. Diese ist 
+im laufe der Zeit entsanden um Standartprobleme zu lösen, die bei der Programmierung immer 
+wieder auftreten. In
+den letzten Jahren ist eine immer stärkere Verbindung zu OSGi und damit monolitischen Servern 
+entstanden aber im Gegenzug hat sich die Anforderung immer weiter Richtung Miroservices
+entwickelt.
+
+Um die Bibliothek neu auszurichten und sie zu verschlanken wird sie nun als Erweiterung von 
+Spring Boot überarbeitet. Außerdem sollen properitäre Teile immer wieder durch Standarts
+ersetzt werden, die in der Zwischenzeit enstanden sind. 

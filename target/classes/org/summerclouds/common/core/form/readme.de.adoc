@@ -1,0 +1,33 @@
+//@manual
+
+== Forms Framework
+
+Mit dem Forms-Framework können Formulare in Source-Code
+definiert werden. Die definition startet mit einem DefRoot
+Objekt und die Formularteile werden direkt über die
+Konstruktoren definiert.
+
+Referenzen können über generierte Klassen des ConstGenerators
+angegeben werden.
+
+[source,java]
+----
+
+return new DefRoot(
+        new DefAttribute("showInformation", true),
+        new FmText(M.n(_S1Pool._TEXT1), "Text1", "", 
+        	new FaReadOnly()),
+        new FmText(M.n(_S1Pool._TEXT2), "Text2", ""),
+        new FmText(M.n(_S1UserForm01._TEXT3), "Text3", ""),
+        new FmCombobox("option", "Option", "Sample Option with options"),
+        new FmAction("submit", "submit:action=submit", "Submit", "Send"));
+----
+
+Aus der Definition wird eine Json-Struktur erzeugt, die in
+Frontends als Formuar angezeigt werden kann.
+
+=== Komponenten
+
+* FmText: Anzeige eines Text-Feldes
+
+//TODO

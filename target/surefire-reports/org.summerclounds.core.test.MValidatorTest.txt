@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: org.summerclounds.core.test.MValidatorTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.03 s <<< FAILURE! - in org.summerclounds.core.test.MValidatorTest
-testPassword  Time elapsed: 0.019 s  <<< ERROR!
+Tests run: 8, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.033 s <<< FAILURE! - in org.summerclounds.core.test.MValidatorTest
+testPassword  Time elapsed: 0.022 s  <<< ERROR!
 java.lang.NullPointerException
 	at org.summerclounds.core.test.MValidatorTest.testPassword(MValidatorTest.java:152)
 

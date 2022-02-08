@@ -207,12 +207,12 @@ public class MSystem {
         if (url == null && loader != null) url = loader.getResource(fileName);
 
         if (ownerClass != null && url == null) {
+        	String resPath = "/"
+                    + ownerClass.getPackage().getName().replaceAll("\\.", "/")
+                    + "/"
+                    + fileName;
             url =
-                    ownerClass.getResource(
-                            "/"
-                                    + ownerClass.getPackage().getName().replaceAll("\\.", "/")
-                                    + "/"
-                                    + fileName);
+                    ownerClass.getResource(resPath);
         }
         if (ownerClass != null && url == null) {
             url =

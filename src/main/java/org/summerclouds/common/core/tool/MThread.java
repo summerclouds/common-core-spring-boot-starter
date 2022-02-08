@@ -100,7 +100,7 @@ public class MThread extends MLog implements Runnable {
     private class Container implements Runnable {
 
         private final long parentThreadId = Thread.currentThread().getId();
-        private final ISpan span = MTracing.get().current();
+        private final ISpan span =  MTracing.get().current();
         private final ISubject subject = MSecurity.getSubject();
 
         public Container() {}

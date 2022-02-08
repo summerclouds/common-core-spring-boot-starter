@@ -1,0 +1,16 @@
+//@manual
+
+== Lock Implementierung
+
+Eine eigene Implementierung eines Locks um fehlende Funtkionalität
+umzusetzen. Die Implementierung erlaubt auch das Abbrechen,
+Erweitern von Locks nach dem Aufheben des Locks oder das Ausgeben
+des Lock-Eigentümers. 
+
+Für verteilte Locks sind diese Funktionen von Bedeutung. Entsprechende
+Implementierungen gibt es über Datenbank-Locks in common-persistence.
+
+Der LockManager ermöglicht den zentralen Zugriff auf alle vorhandenen
+Lock-Objekte.
+
+NOTE: Eine Ableitung von java.util.concurrent.locks.Lock sollte noch umgesetzt werden.
