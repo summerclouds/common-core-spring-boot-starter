@@ -1,9 +1,0 @@
-//@manual
-
-== AAA Security
-
-Dieses Packet implementiert eine Fassade zu spring-security. Wird die Fassade genutzt kann die Anwendung
-mit oder ohne spring-security betrieben werden. Wird spring-security nicht implementiert ist die Fassade
-inaktiv.
-
-

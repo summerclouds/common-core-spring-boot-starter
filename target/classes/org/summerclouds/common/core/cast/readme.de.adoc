@@ -1,9 +1,0 @@
-//@manual
-
-== Casting
-
-Diese Klassen werden benutzt um Inhalte umzuwandeln. Es können weitere
-spezialisierte Cast-Mechanismen implementiert und in MCast registriert
-werden.
-
-Die Basis-Typen werden durch einen performanteren Weg umgewandelt.

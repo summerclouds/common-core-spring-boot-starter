@@ -40,7 +40,7 @@ public abstract class AbstractOperation extends MLog implements Operation {
     @Override
     public boolean hasAccess(TaskContext context) {
         try {
-            if (MSecurity.isAnnotated(getClass())) MSecurity.checkPermission(getClass());
+            if (MSecurity.get().isAnnotated(getClass())) MSecurity.get().checkPermission(getClass());
         } catch (AuthorizationException e) {
             return false;
         }

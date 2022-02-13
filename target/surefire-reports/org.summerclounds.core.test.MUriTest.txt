@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.summerclounds.core.test.MUriTest
--------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s - in org.summerclounds.core.test.MUriTest

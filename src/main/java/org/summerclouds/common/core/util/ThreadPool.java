@@ -43,7 +43,7 @@ public class ThreadPool implements Runnable {
     protected String name = "";
     protected ThreadContainer tc = null;
 
-    protected final ISubject subject = MSecurity.getSubject();
+    protected final ISubject subject = MSecurity.get().getSubject();
 
     public ThreadPool() {}
 
@@ -216,7 +216,7 @@ public class ThreadPool implements Runnable {
                     // run ....
                     currentTask.taskBegin();
                     try (ISubjectEnvironment env =
-                            MSecurity.asSubjectWithoutTracing(currentTask.subject)) {
+                            MSecurity.get().asSubjectWithoutTracing(currentTask.subject)) {
                         // set trail log if set
                         try (IScope scope = MTracing.get().enter(span, name)) {
                             try {
