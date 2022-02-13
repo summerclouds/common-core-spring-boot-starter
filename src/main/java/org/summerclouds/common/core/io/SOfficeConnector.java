@@ -26,7 +26,7 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.summerclouds.common.core.cfg.CfgString;
 import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.log.MLog;
 import org.summerclouds.common.core.parser.StringPropertyReplacer;
@@ -38,8 +38,7 @@ public class SOfficeConnector extends MLog {
 
     public static final String SOFFICE_CONTENT = "content.xml";
     public static final String WORD_CONTENT = "word/document.xml";
-    @Value("${org.summerclouds.common.core.io.SOfficeConnector.binary}")
-    private String binary = "soffice";
+    private String binary = null;
     private boolean valid = false;
     private String version;
 
@@ -50,7 +49,8 @@ public class SOfficeConnector extends MLog {
     private void findVersion() {
         valid = false;
         version = null;
-        if (binary == null || binary.indexOf("soffice") < 0) return;
+        if (binary == null)
+        	binary = new CfgString( "org.summerclouds.common.core.io.SOfficeConnector.binary","soffice").value();
         try {
             version = MSystem.execute(binary, "--version").getOutput();
             valid = MString.isSet(version) && version.startsWith("LibreOffice ");

@@ -15,11 +15,41 @@
  */
 package org.summerclouds.common.core.error;
 
+import org.summerclouds.common.core.error.RC.STATUS;
+
 public class TimeoutException extends MException {
 
     private static final long serialVersionUID = 1L;
 
+    public static STATUS getDefaultStatus() {
+        return RC.STATUS.TIMEOUT;
+    }
+
     public TimeoutException(Object... in) {
-        super(RC.STATUS.TIMEOUT, in);
+        super(getDefaultStatus(),in);
+    }
+
+    public TimeoutException(RC.CAUSE causeHandling, Object... in) {
+        super(causeHandling, getDefaultStatus(), in);
+    }
+
+    public TimeoutException(Throwable cause) {
+        super(getDefaultStatus().rc(), cause);
+    }
+
+    public TimeoutException(IResult cause) {
+        super(cause);
+    }
+
+    public TimeoutException(String msg, Object... in) {
+        super(getDefaultStatus().rc(), msg, in);
+    }
+
+    public TimeoutException(RC.CAUSE causeHandling, String msg, Object... parameters) {
+        super(causeHandling, getDefaultStatus().rc(), msg, parameters);
+    }
+
+    public TimeoutException(int rc) {
+        super(getDefaultStatus().rc());
     }
 }

@@ -15,11 +15,41 @@
  */
 package org.summerclouds.common.core.error;
 
+import org.summerclouds.common.core.error.RC.STATUS;
+
 public class TimeoutRuntimeException extends MRuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+    public static STATUS getDefaultStatus() {
+        return RC.STATUS.TIMEOUT;
+    }
+
     public TimeoutRuntimeException(Object... in) {
-        super(RC.STATUS.TIMEOUT, in);
+        super(getDefaultStatus(),in);
+    }
+
+    public TimeoutRuntimeException(RC.CAUSE causeHandling, Object... in) {
+        super(causeHandling, getDefaultStatus(), in);
+    }
+
+    public TimeoutRuntimeException(Throwable cause) {
+        super(getDefaultStatus().rc(), cause);
+    }
+
+    public TimeoutRuntimeException(IResult cause) {
+        super(cause);
+    }
+
+    public TimeoutRuntimeException(String msg, Object... in) {
+        super(getDefaultStatus().rc(), msg, in);
+    }
+
+    public TimeoutRuntimeException(RC.CAUSE causeHandling, String msg, Object... parameters) {
+        super(causeHandling, getDefaultStatus().rc(), msg, parameters);
+    }
+
+    public TimeoutRuntimeException(int rc) {
+        super(getDefaultStatus().rc());
     }
 }

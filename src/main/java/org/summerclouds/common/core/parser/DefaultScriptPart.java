@@ -49,7 +49,7 @@ public class DefaultScriptPart extends MLog implements StringPart {
                 out.append(ret);
             }
         } catch (ScriptException e) {
-            log().d(e, part);
+            log().d("execution of script failed", e, part);
         }
     }
 

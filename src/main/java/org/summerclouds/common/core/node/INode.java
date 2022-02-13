@@ -309,7 +309,7 @@ public interface INode extends IProperties {
         try {
             fillIn.readSerializabledNode(node);
         } catch (Exception e) {
-            log.d(node, e);
+            log.d("deserialize of {1} failed",node, e);
             return null;
         }
         return fillIn;
@@ -328,7 +328,7 @@ public interface INode extends IProperties {
         try {
             fillIn.readSerializabledNode(node);
         } catch (Exception e) {
-            log.d(node, e);
+            log.d("deserialize of {1} failed", node, e);
             return null;
         }
         return fillIn;

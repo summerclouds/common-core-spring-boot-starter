@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.summerclouds.common.core.test.MValidatorTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.041 s <<< FAILURE! - in org.summerclouds.common.core.test.MValidatorTest
-testPassword  Time elapsed: 0.027 s  <<< ERROR!
-java.lang.NullPointerException
-	at org.summerclouds.common.core.test.MValidatorTest.testPassword(MValidatorTest.java:152)
-
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.063 s - in org.summerclouds.common.core.test.MValidatorTest

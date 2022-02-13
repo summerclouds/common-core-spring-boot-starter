@@ -23,12 +23,11 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import org.summerclouds.common.core.node.IProperties;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MString;
-
-import java.util.TreeMap;
 
 /**
  * The class encodes/decodes strings in rfc1738 format and provide helpers to handle with URI / URL

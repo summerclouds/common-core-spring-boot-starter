@@ -152,6 +152,7 @@
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/main/java/org/summerclouds/common/core/form/definition/FmRichText.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/main/java/org/summerclouds/common/core/node/YamlNodeBuilder.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/main/java/org/summerclouds/common/core/io/TextReader.java
+/Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/main/java/org/summerclouds/common/core/tracing/NoopTracing.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/main/java/org/summerclouds/common/core/form/definition/FmPassword.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/main/java/org/summerclouds/common/core/form/definition/FmLayout2x50.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/main/java/org/summerclouds/common/core/consts/Identifier.java

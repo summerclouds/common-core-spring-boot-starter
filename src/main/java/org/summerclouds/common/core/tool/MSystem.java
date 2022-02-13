@@ -47,8 +47,8 @@ import java.util.jar.Manifest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.cfg.CfgString;
 import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.node.IProperties;
@@ -302,7 +302,7 @@ public class MSystem {
         for (Object a : attributes) {
             if (!first) sb.append(',');
             else first = false;
-            MString.serialize(sb, a, null);
+            MString.serialize(sb, a);
         }
         sb.append(']');
         return sb.toString();
@@ -1151,39 +1151,30 @@ public class MSystem {
                 Manifest manifest = new Manifest(is);
                 return manifest;
             } catch (Throwable t) {
-            	log.t(owner, t);
+            	log.t("loading manifest for {1} failed", owner, t);
             }
         }
         throw new NotFoundException("manifest not found for", owner);
     }
 
-    @Value("${system.directory.etc}")
-    private static String ETC_DIRECTORY = "etc";
-
-    @Value("${system.directory.data}")
-    private static String DATA_DIRECTORY = "data";
-
-    @Value("${system.directory.log}")
-    private static String LOG_DIRECTORY = "log";
-
-    @Value("${system.directory.tmp}")
-    private static String TMP_DIRECTORY = "";
-
-    @Value("${system.directory.deploy}")
-    private static String DEPLOY_DIRECTORY = "deploy";
+    private static CfgString ETC_DIRECTORY = new CfgString("system.directory.etc", "etc");
+    private static CfgString DATA_DIRECTORY = new CfgString("system.directory.data", "data");
+    private static CfgString LOG_DIRECTORY = new CfgString("system.directory.log", "log");
+    private static CfgString TMP_DIRECTORY = new CfgString("system.directory.tmp", "");
+    private static CfgString DEPLOY_DIRECTORY = new CfgString("system.directory.deploy", "deploy");
 
 	public static File getFile(SCOPE etc, String name) {
 		switch (etc) {
 		case DATA:
-			return new File(DATA_DIRECTORY + File.pathSeparator + name);
+			return new File(DATA_DIRECTORY.value() + File.pathSeparator + name);
 		case DEPLOY:
-			return new File(DEPLOY_DIRECTORY + File.pathSeparator + name);
+			return new File(DEPLOY_DIRECTORY.value() + File.pathSeparator + name);
 		case ETC:
-			return new File(ETC_DIRECTORY + File.pathSeparator + name);
+			return new File(ETC_DIRECTORY.value() + File.pathSeparator + name);
 		case LOG:
-			return new File(LOG_DIRECTORY + File.pathSeparator + name);
+			return new File(LOG_DIRECTORY.value() + File.pathSeparator + name);
 		case TMP:
-			if (ETC_DIRECTORY.length() == 0)
+			if (ETC_DIRECTORY.value().length() == 0)
 				try {
 					return File.createTempFile(name, "tmp");
 				} catch (IOException e) {

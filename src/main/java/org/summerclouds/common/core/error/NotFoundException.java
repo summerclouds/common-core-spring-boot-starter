@@ -15,11 +15,41 @@
  */
 package org.summerclouds.common.core.error;
 
+import org.summerclouds.common.core.error.RC.STATUS;
+
 public class NotFoundException extends MException {
 
     private static final long serialVersionUID = 1L;
 
+    public static STATUS getDefaultStatus() {
+        return RC.STATUS.NOT_FOUND;
+    }
+
     public NotFoundException(Object... in) {
-        super(RC.STATUS.NOT_FOUND, in);
+        super(getDefaultStatus(),in);
+    }
+
+    public NotFoundException(RC.CAUSE causeHandling, Object... in) {
+        super(causeHandling, getDefaultStatus(), in);
+    }
+
+    public NotFoundException(Throwable cause) {
+        super(getDefaultStatus().rc(), cause);
+    }
+
+    public NotFoundException(IResult cause) {
+        super(cause);
+    }
+
+    public NotFoundException(String msg, Object... in) {
+        super(getDefaultStatus().rc(), msg, in);
+    }
+
+    public NotFoundException(RC.CAUSE causeHandling, String msg, Object... parameters) {
+        super(causeHandling, getDefaultStatus().rc(), msg, parameters);
+    }
+
+    public NotFoundException(int rc) {
+        super(getDefaultStatus().rc());
     }
 }

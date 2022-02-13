@@ -15,11 +15,41 @@
  */
 package org.summerclouds.common.core.error;
 
+import org.summerclouds.common.core.error.RC.STATUS;
+
 public class WrongStateException extends MRuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+    public static STATUS getDefaultStatus() {
+        return RC.STATUS.CONFLICT;
+    }
+
     public WrongStateException(Object... in) {
-        super(RC.STATUS.CONFLICT, in);
+        super(getDefaultStatus(),in);
+    }
+
+    public WrongStateException(RC.CAUSE causeHandling, Object... in) {
+        super(causeHandling, getDefaultStatus(), in);
+    }
+
+    public WrongStateException(Throwable cause) {
+        super(getDefaultStatus().rc(), cause);
+    }
+
+    public WrongStateException(IResult cause) {
+        super(cause);
+    }
+
+    public WrongStateException(String msg, Object... in) {
+        super(getDefaultStatus().rc(), msg, in);
+    }
+
+    public WrongStateException(RC.CAUSE causeHandling, String msg, Object... parameters) {
+        super(causeHandling, getDefaultStatus().rc(), msg, parameters);
+    }
+
+    public WrongStateException(int rc) {
+        super(getDefaultStatus().rc());
     }
 }

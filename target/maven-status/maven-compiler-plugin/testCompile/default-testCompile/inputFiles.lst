@@ -1,11 +1,9 @@
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/HtmlParserTest.java
-/Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MJsonObject.java
-/Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/PojoEmbedded.java
+/Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/util/PojoExample.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/VersionTest.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MStringTest.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MXmlTest.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MCollectionTest.java
-/Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/PojoExample.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/BytecodeTest.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MMathTest.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MatcherTest.java
@@ -13,6 +11,7 @@
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MUriTest.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/PojoTest.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MValidatorTest.java
+/Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/util/PojoEmbedded.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MUtilsTest.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/Rfc1738Test.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/LogTest.java
@@ -25,6 +24,7 @@
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MSystemTest.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/util/StringValue.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MThreadTest.java
+/Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/util/MJsonObject.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MJsonTest.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MCastTest.java
 /Users/mikehummel/MHU/summerclouds/workspace/common-core-spring-boot-starter/src/test/java/org/summerclouds/common/core/test/MNodeTest.java

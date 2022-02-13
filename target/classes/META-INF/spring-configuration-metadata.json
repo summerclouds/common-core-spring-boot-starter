@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "org.summerclouds.common.core",
+      "type": "org.summerclouds.common.core.internal.SpringSummerCloudsAutoConfiguration",
+      "sourceType": "org.summerclouds.common.core.internal.SpringSummerCloudsAutoConfiguration"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

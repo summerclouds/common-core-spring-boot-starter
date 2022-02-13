@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.support.NullValue;
+import org.summerclouds.common.core.cfg.CfgInt;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.MRuntimeException;
 import org.summerclouds.common.core.error.RC;
@@ -39,8 +39,7 @@ import org.summerclouds.common.core.tool.MString;
 
 public class PropertiesNodeBuilder extends INodeBuilder {
 
-	@Value("${org.summerclouds.common.core.node.PropertiesNodeBuilder.maxLevel}")
-    protected static final int CFG_MAX_LEVEL = 100;
+    protected static final CfgInt CFG_MAX_LEVEL = new CfgInt("org.summerclouds.common.core.node.PropertiesNodeBuilder.maxLevel", 100);
 
     @Override
     public INode read(InputStream is) throws MException {
@@ -74,7 +73,7 @@ public class PropertiesNodeBuilder extends INodeBuilder {
 
     protected void readFromCollection(INode node, String key, Collection<?> col, int level) {
         level++;
-        if (level > CFG_MAX_LEVEL) throw new TooDeepStructuresException();
+        if (level > CFG_MAX_LEVEL.value()) throw new TooDeepStructuresException();
 
         NodeList arr = node.createArray(key);
         for (Object item : col) {
@@ -85,7 +84,7 @@ public class PropertiesNodeBuilder extends INodeBuilder {
 
     protected INode readFromMap(Map<?, ?> map, int level) {
         level++;
-        if (level > CFG_MAX_LEVEL) throw new TooDeepStructuresException();
+        if (level > CFG_MAX_LEVEL.value()) throw new TooDeepStructuresException();
 
         INode node = new MNode();
         for (Entry<?, ?> entry : map.entrySet()) {
@@ -119,7 +118,7 @@ public class PropertiesNodeBuilder extends INodeBuilder {
 
     protected INode readObject(Object item, int level) {
         level++;
-        if (level > CFG_MAX_LEVEL) throw new TooDeepStructuresException();
+        if (level > CFG_MAX_LEVEL.value()) throw new TooDeepStructuresException();
 
         if (item == null) {
             MNode obj = new MNode();

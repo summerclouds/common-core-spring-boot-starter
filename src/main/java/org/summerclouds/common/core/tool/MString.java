@@ -2091,16 +2091,15 @@ public class MString {
         if (val instanceof byte[]) return byteToString((byte[]) val);
         if (val instanceof String) return (String) val;
         StringBuilder sb = new StringBuilder();
-        serialize(sb, val, null);
+        serialize(sb, val);
         return sb.toString();
     }
 
-    public static Throwable serialize(StringBuilder sb, Object o, Throwable error) {
+    public static void serialize(StringBuilder sb, Object o) {
         try {
             if (o == null) {
                 sb.append("[null]");
             } else if (o instanceof Throwable) {
-                if (error == null) return (Throwable) o;
                 // another error
                 sb.append("[").append(o).append("]");
             } else if (o.getClass().isArray()) {
@@ -2109,25 +2108,23 @@ public class MString {
                 for (Object p : (Object[]) o) {
                     if (first) first = false;
                     else sb.append(",");
-                    error = serialize(sb, p, error);
+                    serialize(sb, p);
                 }
                 sb.append("]");
             } else sb.append("[").append(o).append("]");
         } catch (Throwable t) {
         }
-        return error;
     }
 
-    public static Throwable serialize(StringBuilder sb, Object[] msg, int maxMsgSize) {
-        return serialize(sb, msg, maxMsgSize, null);
+    public static void serialize(StringBuilder sb, Object[] msg, int maxMsgSize) {
+        serialize(sb, msg, maxMsgSize, null);
     }
 
-    public static Throwable serialize(
+    public static void serialize(
             StringBuilder sb, Object[] msg, int maxMsgSize, List<String> exceptions) {
-        Throwable error = null;
-        if (msg == null) return null;
+        if (msg == null) return;
         for (Object o : msg) {
-            error = serialize(sb, o, error);
+            serialize(sb, o);
             if (maxMsgSize > 0 && sb.length() > maxMsgSize) {
                 // check for exceptions
                 if (exceptions != null) {
@@ -2142,7 +2139,6 @@ public class MString {
                 break;
             }
         }
-        return error;
     }
 
     public static String compileAndExecute(String template, IProperties attributes)

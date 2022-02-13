@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.summerclouds.common.core.test.MSystemTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.002 s <<< FAILURE! - in org.summerclouds.common.core.test.MSystemTest
-testCanonicalClassNames  Time elapsed: 0.001 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <de.mhus.lib.test.MSystemTest$2> but was: <org.summerclouds.common.core.test.MSystemTest$2>
-	at org.summerclouds.common.core.test.MSystemTest.testCanonicalClassNames(MSystemTest.java:74)
-
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s - in org.summerclouds.common.core.test.MSystemTest

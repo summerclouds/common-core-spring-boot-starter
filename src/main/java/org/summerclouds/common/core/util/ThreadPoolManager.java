@@ -17,17 +17,15 @@ package org.summerclouds.common.core.util;
 
 import java.util.Vector;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.summerclouds.common.core.cfg.CfgLong;
 import org.summerclouds.common.core.log.MLog;
 import org.summerclouds.common.core.tool.MThread;
 import org.summerclouds.common.core.util.ThreadPool.ThreadContainer;
 
 public class ThreadPoolManager extends MLog {
 
-	@Value("${org.summerclouds.common.core.util.ThreadPoolManager.sleepTime}")
-    public static long CFG_SLEEP_TIME = 1000 * 60 * 10;
-	@Value("${org.summerclouds.common.core.util.ThreadPoolManager.pendingTime}")
-    public static long CFG_PENDING_TIME = 1000 * 60;
+    public static CfgLong CFG_SLEEP_TIME = new CfgLong("org.summerclouds.common.core.util.ThreadPoolManager.sleepTime", 1000 * 60 * 10);
+    public static CfgLong CFG_PENDING_TIME = new CfgLong("org.summerclouds.common.core.util.ThreadPoolManager.pendingTime", 1000 * 60);
     private Vector<ThreadContainer> pool = new Vector<ThreadContainer>();
     private ThreadGroup group = new ThreadGroup("MThreadPool");
     private Thread housekeeper;
@@ -37,15 +35,15 @@ public class ThreadPoolManager extends MLog {
         @Override
         public void run() {
         	while (true) {
-        		MThread.sleepForSure(CFG_SLEEP_TIME);
+        		MThread.sleepForSure(CFG_SLEEP_TIME.value());
         		if (housekeeper == null) {
     	            log().t("EXIT Housekeeper");
         			return;
         		}
 	            log().t("Housekeeper");
-	            poolClean(CFG_PENDING_TIME);
+	            poolClean(CFG_PENDING_TIME.value());
 	            try {
-	                ThreadPoolDaemon.poolClean(CFG_PENDING_TIME);
+	                ThreadPoolDaemon.poolClean(CFG_PENDING_TIME.value());
 	            } catch (NoClassDefFoundError e) {
 	            	log().e(e);
 	            }

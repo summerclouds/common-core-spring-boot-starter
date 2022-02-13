@@ -13,15 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.aaa;
+package org.summerclouds.common.core.operation;
 
-import java.io.Closeable;
-
-public interface ISubjectEnvironment extends Closeable {
-
-    ISubject getSubject();
-
-    @Override
-    public void close();
-
-}
+public class MonitorToFile {}

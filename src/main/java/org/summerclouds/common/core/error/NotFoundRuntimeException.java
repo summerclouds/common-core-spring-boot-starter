@@ -15,11 +15,41 @@
  */
 package org.summerclouds.common.core.error;
 
+import org.summerclouds.common.core.error.RC.STATUS;
+
 public class NotFoundRuntimeException extends MRuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+    public static STATUS getDefaultStatus() {
+        return RC.STATUS.NOT_FOUND;
+    }
+
     public NotFoundRuntimeException(Object... in) {
-        super(RC.STATUS.NOT_FOUND, in);
+        super(getDefaultStatus(),in);
+    }
+
+    public NotFoundRuntimeException(RC.CAUSE causeHandling, Object... in) {
+        super(causeHandling, getDefaultStatus(), in);
+    }
+
+    public NotFoundRuntimeException(Throwable cause) {
+        super(getDefaultStatus().rc(), cause);
+    }
+
+    public NotFoundRuntimeException(IResult cause) {
+        super(cause);
+    }
+
+    public NotFoundRuntimeException(String msg, Object... in) {
+        super(getDefaultStatus().rc(), msg, in);
+    }
+
+    public NotFoundRuntimeException(RC.CAUSE causeHandling, String msg, Object... parameters) {
+        super(causeHandling, getDefaultStatus().rc(), msg, parameters);
+    }
+
+    public NotFoundRuntimeException(int rc) {
+        super(getDefaultStatus().rc());
     }
 }

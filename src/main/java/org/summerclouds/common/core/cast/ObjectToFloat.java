@@ -51,7 +51,7 @@ public class ObjectToFloat implements Caster<Object, Float> {
             if (ret != null) ret.setValue(r);
             return r;
         } catch (Throwable e) {
-            log.t(in, e.toString());
+            log.t("parse of {1} failed", in, e);
         }
         return def;
     }

@@ -18,9 +18,9 @@ package org.summerclouds.common.core.util;
 import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.summerclouds.common.core.aaa.ISubject;
-import org.summerclouds.common.core.aaa.ISubjectEnvironment;
 import org.summerclouds.common.core.log.Log;
+import org.summerclouds.common.core.security.ISubject;
+import org.summerclouds.common.core.security.ISubjectEnvironment;
 import org.summerclouds.common.core.tool.MSecurity;
 import org.summerclouds.common.core.tool.MThread;
 import org.summerclouds.common.core.tool.MTracing;

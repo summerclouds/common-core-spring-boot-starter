@@ -17,9 +17,13 @@ package org.summerclouds.common.core.log;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
 public class SLF4JFactory extends LogFactory {
 
+	private static final Marker FATAL = MarkerFactory.getMarker("FATAL");
+	
     @Override
     public LogFacade create(String name) {
         return new SLF4JLog(LoggerFactory.getLogger(name));
@@ -105,13 +109,13 @@ public class SLF4JFactory extends LogFactory {
         /** Log a message to the Log4j Logger with <code>FATAL</code> priority. */
         @Override
         public void fatal(Object message) {
-            getLogger().error(String.valueOf(message));
+            getLogger().error(FATAL, String.valueOf(message));
         }
 
         /** Log an error to the Log4j Logger with <code>FATAL</code> priority. */
         @Override
         public void fatal(Object message, Throwable t) {
-            getLogger().error(String.valueOf(message), t);
+            getLogger().error(FATAL, String.valueOf(message), t);
         }
 
         /**

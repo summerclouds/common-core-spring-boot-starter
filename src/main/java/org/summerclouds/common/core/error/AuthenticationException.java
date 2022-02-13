@@ -15,31 +15,42 @@
  */
 package org.summerclouds.common.core.error;
 
+import org.summerclouds.common.core.error.RC.STATUS;
+
 public class AuthenticationException extends MRuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public AuthenticationException() {
-        super(RC.STATUS.ACCESS_DENIED);
+    public static STATUS getDefaultStatus() {
+        return RC.STATUS.ACCESS_DENIED;
     }
 
-    public AuthenticationException(
-            String message,
-            Throwable cause,
-            boolean enableSuppression,
-            boolean writableStackTrace) {
-        super(RC.ACCESS_DENIED, message, cause, enableSuppression, writableStackTrace);
+    public AuthenticationException(Object... in) {
+        super(getDefaultStatus(),in);
     }
 
-    public AuthenticationException(String message, Throwable cause) {
-        super(RC.ACCESS_DENIED, message, cause);
-    }
-
-    public AuthenticationException(String message) {
-        super(RC.ACCESS_DENIED, message);
+    public AuthenticationException(RC.CAUSE causeHandling, Object... in) {
+        super(causeHandling, getDefaultStatus(), in);
     }
 
     public AuthenticationException(Throwable cause) {
-        super(RC.ACCESS_DENIED, cause);
+        super(getDefaultStatus().rc(), cause);
     }
+
+    public AuthenticationException(IResult cause) {
+        super(cause);
+    }
+
+    public AuthenticationException(String msg, Object... in) {
+        super(getDefaultStatus().rc(), msg, in);
+    }
+
+    public AuthenticationException(RC.CAUSE causeHandling, String msg, Object... parameters) {
+        super(causeHandling, getDefaultStatus().rc(), msg, parameters);
+    }
+
+    public AuthenticationException(int rc) {
+        super(getDefaultStatus().rc());
+    }
+
 }
