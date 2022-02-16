@@ -254,6 +254,12 @@ public class MCollection {
         return out;
     }
 
+    public static <T> List<T> toList(Iterable<T> iter) {
+        LinkedList<T> out = new LinkedList<>();
+        for (T item : iter) out.add(item);
+        return out;
+    }
+    
     public static <T> List<T> toList(@SuppressWarnings("unchecked") T... array) {
         LinkedList<T> out = new LinkedList<>();
         for (T item : array) out.add(item);
@@ -308,6 +314,14 @@ public class MCollection {
         return set;
     }
 
+    @SuppressWarnings("unchecked")
+	public static <T> Set<T> toSet(T ... items) {
+        HashSet<T> set = new HashSet<>();
+        for (T item : items)
+        	set.add(item);
+        return set;
+    }
+    
     /**
      * Returns true if the given item is part of the list. The list itself is a char separated list
      * of items. White spaces are not allowed! The search is case sensitive.
@@ -660,4 +674,13 @@ public class MCollection {
                 });
         return out;
     }
+
+	public static <T> int compare(Collection<T> o1, Collection<T> o2) {
+		int ret = Integer.compare(o1.size(), o2.size());
+		if (ret != 0) return ret;
+		// big overhead !!!
+		TreeSet<T> t1 = new TreeSet<>(o1);
+		TreeSet<T> t2 = new TreeSet<>(o2);
+		return t1.toString().compareTo(t2.toString());
+	}
 }

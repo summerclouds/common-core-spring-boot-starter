@@ -1,6 +1,7 @@
 package org.summerclouds.common.core.tool;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import java.util.WeakHashMap;
 
 import org.springframework.beans.BeansException;
@@ -81,6 +82,10 @@ public class MSpring {
 	public static Long getValueLong(String key) {
 		if (environment == null) return null;
 		return environment.getProperty(key,Long.class);
+	}
+
+	public static <T> Map<String, T> getBeansOfType(Class<T> clazz) {
+		return context.getBeansOfType(clazz);
 	}
 	
 }
