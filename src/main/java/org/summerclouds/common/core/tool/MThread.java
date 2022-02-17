@@ -101,14 +101,14 @@ public class MThread extends MLog implements Runnable {
 
         private final long parentThreadId = Thread.currentThread().getId();
         private final ISpan span =  MTracing.get().current();
-        private final ISubject subject = MSecurity.get().getSubject();
+        private final ISubject subject = MSecurity.get().getCurrent();
 
         public Container() {}
 
         @Override
         public void run() {
             cleanup();
-            try (ISubjectEnvironment env = MSecurity.get().asSubjectWithoutTracing(subject)) {
+            try (ISubjectEnvironment env = MSecurity.get().asSubject(subject)) {
                 try (IScope scope =
                         MTracing.get()
                                 .enter(

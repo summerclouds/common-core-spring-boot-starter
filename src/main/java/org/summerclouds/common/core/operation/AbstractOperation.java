@@ -18,7 +18,6 @@ package org.summerclouds.common.core.operation;
 import java.util.HashSet;
 import java.util.UUID;
 
-import org.summerclouds.common.core.error.AuthorizationException;
 import org.summerclouds.common.core.form.DefRoot;
 import org.summerclouds.common.core.form.IFormProvider;
 import org.summerclouds.common.core.log.MLog;
@@ -39,12 +38,7 @@ public abstract class AbstractOperation extends MLog implements Operation {
 
     @Override
     public boolean hasAccess(TaskContext context) {
-        try {
-            if (MSecurity.get().isAnnotated(getClass())) MSecurity.get().checkPermission(getClass());
-        } catch (AuthorizationException e) {
-            return false;
-        }
-        return true;
+        return MSecurity.get().hasPermission(getClass());
     }
 
     @Override
