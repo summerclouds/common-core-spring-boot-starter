@@ -18,9 +18,9 @@ import org.summerclouds.common.core.tracing.NoopTracing;
 
 @Configuration
 @ConfigurationProperties(prefix = "org.summerclouds.common.core")
-public class SpringSummerCloudsAutoConfiguration implements ApplicationContextAware {
+public class SpringSummerCloudsCoreAutoConfiguration implements ApplicationContextAware {
 
-	public SpringSummerCloudsAutoConfiguration() {
+	public SpringSummerCloudsCoreAutoConfiguration() {
 		System.out.println(">>> Start SpringSummerCloudsAutoConfiguration");
 	}
 	@Override

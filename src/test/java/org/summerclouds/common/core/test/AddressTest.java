@@ -22,13 +22,13 @@ import java.util.Locale;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.summerclouds.common.core.internal.SpringSummerCloudsAutoConfiguration;
+import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
 import org.summerclouds.common.core.util.Address;
 import org.summerclouds.common.core.util.Address.SALUTATION;
 import org.summerclounds.common.junit.TestCase;
 
 @SpringBootTest
-@ContextConfiguration(classes=SpringSummerCloudsAutoConfiguration.class)
+@ContextConfiguration(classes=SpringSummerCloudsCoreAutoConfiguration.class)
 public class AddressTest extends TestCase {
 
     @Test

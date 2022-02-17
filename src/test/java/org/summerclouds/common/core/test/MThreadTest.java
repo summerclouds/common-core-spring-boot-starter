@@ -22,13 +22,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.summerclouds.common.core.internal.SpringSummerCloudsAutoConfiguration;
+import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
 import org.summerclouds.common.core.tool.MThread;
 import org.summerclouds.common.core.tool.MThreadDaemon;
 import org.summerclounds.common.junit.TestCase;
 
 @SpringBootTest
-@ContextConfiguration(classes=SpringSummerCloudsAutoConfiguration.class)
+@ContextConfiguration(classes=SpringSummerCloudsCoreAutoConfiguration.class)
 public class MThreadTest extends TestCase {
 
     protected boolean done;
