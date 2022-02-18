@@ -38,7 +38,7 @@ public abstract class AbstractOperation extends MLog implements Operation {
 
     @Override
     public boolean hasAccess(TaskContext context) {
-        return MSecurity.get().hasPermission(getClass());
+        return MSecurity.hasPermission(getClass());
     }
 
     @Override

@@ -4,4 +4,6 @@ import org.summerclouds.common.core.lang.ICloseable;
 
 public interface IScope extends ICloseable {
 
+	ISpan getSpan();
+	
 }

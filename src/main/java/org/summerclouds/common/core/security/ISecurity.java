@@ -1,6 +1,5 @@
 package org.summerclouds.common.core.security;
 
-import java.util.List;
 import java.util.Locale;
 
 public interface ISecurity {
@@ -11,18 +10,10 @@ public interface ISecurity {
 	
 	void subjectCleanup();
 
-//	boolean isAnnotated(Class<?> clazz);
-//
-//	void checkPermission(Class<?> clazz);
-	
 	ISubjectEnvironment asSubject(String username);
 	
 	ISubjectEnvironment asSubject(ISubject subject);
 	
-	default ISubjectEnvironment asAdmin() {
-		return asSubject(getAdminName());
-	}
-
 	String getAdminName();
 	
 	boolean hasPermission(Class<?> object, String action, String instance);
@@ -37,17 +28,7 @@ public interface ISecurity {
 	boolean hasPermission(ISubject subject, String ace);
 	
 	boolean hasPermission(
-            ISubject subject, String domain, String action, String instance);
-	
-	boolean hasPermissionByList(List<String> map, ISubject account, String objectIdent);
-	
-	boolean hasPermissionByList(String list, ISubject account, String objectIdent);
-	
-//	boolean hasPermission(ISubject subject, Annotation[] annotations);
-//	
-//	boolean hasPermission(ISubject subject, Class<?> clazz);
-//	
-//	boolean hasPermission(ISubject subject, Method method);
+            ISubject subject, String object, String action, String instance);
 	
 	boolean hasRole(String role);
 	
@@ -57,24 +38,7 @@ public interface ISecurity {
 	
 	boolean isAdmin(ISubject subject);
 	
-//	boolean isAnnotated(Method method);
-	
 	boolean isAuthenticated();
-	
-//	boolean isPermitted(
-//            List<String> rules, Class<?> permission, String level, Object instance);
-//	
-//	boolean isPermitted(
-//            List<String> rules, String permission, String level, String instance);
-//	
-//	boolean isPermitted(String ace);
-//	
-//	boolean isPermitted(String permission, String level, String instance);
-//	
-//	boolean isPermitted(ISubject subject, String ace);
-//	
-//	boolean isPermitted(
-//            ISubject subject, String permission, String level, String instance);
 	
 	void setLocale(Locale locale);
 		

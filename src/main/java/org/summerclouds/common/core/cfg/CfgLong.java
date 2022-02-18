@@ -22,6 +22,10 @@ public class CfgLong {
 			set = true;
 			return value;
 		} else {
+			if (MSpring.isStarted()) {
+				set = true;
+				value = def;
+			}
 			return def;
 		}
 	}

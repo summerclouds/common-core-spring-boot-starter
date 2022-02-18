@@ -51,6 +51,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class MJson {
 
+	private MJson() {};
+	
     public static final TransformStrategy DEFAULT_STRATEGY = new SerializerTransformer();
     private static ObjectMapper mapper = new ObjectMapper();
     private static JsonFactory factory = new JsonFactory();

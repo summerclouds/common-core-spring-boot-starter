@@ -15,12 +15,15 @@
  */
 package org.summerclouds.common.core.tool;
 
+import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MHttp {
 
+	private MHttp() {};
+	
     public static final Map<Integer, String> HTTP_STATUS_CODES =
             Collections.unmodifiableMap(
                     new HashMap<Integer, String>() {
@@ -84,6 +87,8 @@ public class MHttp {
     public static final String METHOD_PATCH = "PATCH";
     public static final String METHOD_CONNECT = "CONNECT";
 
+	public static final String HEADER_AUTHORIZATION = "Authorization";
+
     public enum METHOD {
         GET,
         HEAD,
@@ -123,5 +128,9 @@ public class MHttp {
 
         return def;
     }
+
+	public static String toBasicAuthorization(String user, String passwd) {
+		return "Basic " + Base64.getEncoder().encodeToString((user + ":" + passwd).getBytes());
+	}
 
 }

@@ -21,7 +21,6 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
-import org.summerclouds.common.core.tool.Base64;
 import org.summerclouds.common.core.tool.MBigMath;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MMath;
@@ -153,9 +152,9 @@ public class MMathTest extends TestCase {
     public void testBase64Uuid() {
         for (int i = 0; i < 10; i++) {
             UUID id = UUID.randomUUID();
-            String base = Base64.uuidToBase64(id);
+            String base = MCast.uuidToBase64(id);
             System.out.println("UUID Compress: " + id + " to " + base + " " + base.length());
-            UUID id2 = Base64.base64ToUuid(base);
+            UUID id2 = MCast.base64ToUuid(base);
             assertEquals(id, id2);
         }
     }

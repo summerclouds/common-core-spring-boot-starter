@@ -681,30 +681,4 @@ public class CSVReader {
         return currentLine;
     }
 
-    // --------------------------- main() method ---------------------------
-
-    /**
-     * Test driver
-     *
-     * @param args not used
-     */
-    public static void main(String[] args) {
-        if (DEBUGGING) {
-            try {
-                // read test file
-                @SuppressWarnings("resource")
-                CSVReader csv = new CSVReader(new FileReader("test.csv"), ',', '\"', true, false);
-                try {
-                    while (true) {
-                        System.out.println("--> " + csv.get());
-                    }
-                } catch (EOFException e) {
-                }
-                csv.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println(e.getMessage());
-            }
-        } // end if
-    } // end main
 } // end CSVReader class.

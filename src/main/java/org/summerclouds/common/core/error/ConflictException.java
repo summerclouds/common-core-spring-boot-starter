@@ -34,8 +34,4 @@ public class ConflictException extends MException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public ConflictException(int rc) {
-        super(getDefaultStatus().rc());
-    }
-
 }

@@ -15,9 +15,9 @@
  */
 package org.summerclouds.common.core.tool;
 
-public class Bits {
+public class MBits {
 
-    Bits() {}
+    private MBits() {}
 
     public static boolean getBoolean(byte abyte0[], int i) {
         return abyte0[i] != 0;

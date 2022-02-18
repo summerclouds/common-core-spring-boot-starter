@@ -8,8 +8,6 @@ public interface ITracing {
 
 	void cleanup();
 
-	IScope enter(ISpan span, String name);
-
 	IScope enter(String name, String ... keyValue);
 
 }

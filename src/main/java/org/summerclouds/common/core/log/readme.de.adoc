@@ -34,4 +34,16 @@ Wird in einer Klasse von MLog abgeleitet kann die Tool-Funktion log() genutzt we
 zu loggen. Der Logger wird erst beim ersten Aufruf erstellt. Durch diese emfolhene
 Vorgehen kann ebenfalls Rechenzeit gespart bzw. verteilt werden.
 
+=== Plain Log
+
+In manchen Situationen ist es nicht möglich einen voll ausgerollten
+Log-Service zu nutzen. In diesem Fall kann der `plain log` genutzt
+werden. Es werden alle Einträge direkt in die Konsole ausgegeben.
+
+=== Log Factory
+
+Eine Log-Factory stellt eine Implementierung einer echten Log
+Factory dar. Die Factory erstellt für jedes benötigte LogFacade 
+eine Fasade für den eigentlichen Logger bereit.
+
 

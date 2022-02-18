@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.summerclouds.common.core.error.NotSupportedException;
+import org.summerclouds.common.core.log.PlainLog;
 import org.summerclouds.common.core.pojo.PojoAttribute;
 import org.summerclouds.common.core.pojo.PojoModel;
 import org.summerclouds.common.core.tool.MJson;
@@ -151,7 +152,7 @@ public class SerializerTransformer extends TransformStrategy {
                     Object value = jsonToPojo(from.get(name), null, helper);
                     if (value == null) attr.set(to, null, true);
                     else if (type.isInstance(value)) attr.set(to, value, true);
-                    else System.out.println("Can't set ...");
+                    else PlainLog.i("Can't set ...");
                 }
                 return to;
             } catch (Throwable t) {

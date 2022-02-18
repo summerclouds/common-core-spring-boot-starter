@@ -24,6 +24,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,7 +42,6 @@ import org.summerclouds.common.core.node.IProperties;
 import org.summerclouds.common.core.node.MNode;
 import org.summerclouds.common.core.node.MProperties;
 import org.summerclouds.common.core.node.NodeList;
-import org.summerclouds.common.core.tool.Base64;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MCollection;
 import org.summerclouds.common.core.tool.MDate;
@@ -1024,7 +1024,7 @@ public class MPojo {
                     if (hasValidChars((String) value)) a.setAttribute("string", (String) value);
                     else {
                         a.setAttribute("encoding", "base64");
-                        a.setAttribute("string", Base64.encode((String) value));
+                        a.setAttribute("string", Base64.getEncoder().encodeToString( ((String) value).getBytes() ));
                     }
                 } else if (value.getClass().isEnum()) {
                     a.setAttribute("enum", MCast.toString(((Enum<?>) value).ordinal()));
@@ -1106,7 +1106,7 @@ public class MPojo {
                 if (a.hasAttribute("string")) {
                     String data = a.getAttribute("encoding");
                     if ("base64".equals(data)) {
-                        String value = new String(Base64.decode(a.getAttribute("string")));
+                        String value = new String(Base64.getDecoder().decode(a.getAttribute("string")));
                         attr.set(to, value, force);
                     } else {
                         String value = a.getAttribute("string");
@@ -1392,7 +1392,7 @@ public class MPojo {
 
     public static void base64ToObject(String content, Object obj, PojoModelFactory factory)
             throws IOException, ClassNotFoundException {
-        ByteArrayInputStream bais = new ByteArrayInputStream(Base64.decode(content));
+        ByteArrayInputStream bais = new ByteArrayInputStream(Base64.getDecoder().decode(content));
         ObjectInputStream ois = new ObjectInputStream(bais);
         MPojo.objectStreamToPojo(ois, obj, factory);
     }
@@ -1402,6 +1402,6 @@ public class MPojo {
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         MPojo.pojoToObjectStream(obj, oos, factory);
 
-        return Base64.encode(baos.toByteArray());
+        return Base64.getEncoder().encodeToString(baos.toByteArray());
     }
 }

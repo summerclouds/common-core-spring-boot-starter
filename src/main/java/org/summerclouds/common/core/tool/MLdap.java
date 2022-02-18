@@ -37,6 +37,8 @@ import org.summerclouds.common.core.log.Log;
 
 public class MLdap {
 
+	private MLdap() {};
+	
     @SuppressWarnings("unused")
     private static final Log log = Log.getLog(MLdap.class);
 

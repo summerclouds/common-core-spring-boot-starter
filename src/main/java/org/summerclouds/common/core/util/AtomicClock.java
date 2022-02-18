@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.tool;
+package org.summerclouds.common.core.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +25,10 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import org.summerclouds.common.core.log.Log;
+import org.summerclouds.common.core.log.PlainLog;
+import org.summerclouds.common.core.tool.MCollection;
+import org.summerclouds.common.core.tool.MPeriod;
+import org.summerclouds.common.core.tool.MThread;
 
 // https://developer.gemalto.com/faq/how-obtain-time-internet-java-rfc868
 public class AtomicClock {
@@ -140,9 +144,8 @@ public class AtomicClock {
         for (int i = 0; i < 100; i++) {
             long atomic = getCurrentTime();
             long local = System.currentTimeMillis();
-            System.out.println("Atomic: " + atomic);
-            System.out.println("Local : " + local + "     " + (atomic - local));
-            System.out.flush();
+            PlainLog.i("Atomic", atomic);
+            PlainLog.i("Local", local, (atomic - local));
             MThread.sleep(100);
         }
     }

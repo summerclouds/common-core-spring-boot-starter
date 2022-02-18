@@ -129,7 +129,7 @@ public interface Lock extends Closeable {
                 while (isLocked()) {
                     long start = System.currentTimeMillis();
                     if (scope != null)
-                        scope = MTracing.get().enter("waitUntilUnlock", "name", getName());
+                        scope = MTracing.enter("waitUntilUnlock", "name", getName());
                     try {
                         wait(timeout);
                     } catch (InterruptedException e) {

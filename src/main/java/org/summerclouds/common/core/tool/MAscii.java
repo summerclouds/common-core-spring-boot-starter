@@ -21,6 +21,8 @@ import org.summerclouds.common.core.util.ReadOnlyList;
 
 public class MAscii {
 
+	private MAscii() {}
+	
     /*
     (nul)   0 0000 0x00 | (sp)   32 0040 0x20 | @      64 0100 0x40 | `      96 0140 0x60
     (soh)   1 0001 0x01 | !      33 0041 0x21 | A      65 0101 0x41 | a      97 0141 0x61

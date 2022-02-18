@@ -45,6 +45,8 @@ import org.summerclouds.common.core.util.ReadOnlyList;
 
 public class MCollection {
 
+	private MCollection() {};
+	
     public static final List<?> EMPTY_LIST = new EmptyList<>();
     public static final Set<?> EMPTY_SET = new EmptySet<>();
     public static final Map<?, ?> EMPTY_MAP = new EmptyMap<>();

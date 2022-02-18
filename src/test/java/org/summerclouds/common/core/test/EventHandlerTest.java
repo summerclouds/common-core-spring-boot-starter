@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ConcurrentModificationException;
 
 import org.junit.jupiter.api.Test;
-import org.summerclouds.common.core.tool.MEventHandler;
+import org.summerclouds.common.core.util.EventHandler;
 import org.summerclounds.common.junit.TestCase;
 
 /** Unit test for simple App. */
@@ -32,8 +32,8 @@ public class EventHandlerTest extends TestCase {
      */
     @Test
     public void testListeners() {
-        MEventHandler<MyListener> eh =
-                new MEventHandler<MyListener>() {
+        EventHandler<MyListener> eh =
+                new EventHandler<MyListener>() {
                     @Override
                     public void onFire(MyListener listener, Object event, Object... values) {}
                 };
@@ -55,8 +55,8 @@ public class EventHandlerTest extends TestCase {
     /** Test unregister for normal and weak listeners */
     @Test
     public void testUnregister() {
-        MEventHandler<MyListener> eh =
-                new MEventHandler<MyListener>() {
+        EventHandler<MyListener> eh =
+                new EventHandler<MyListener>() {
                     @Override
                     public void onFire(MyListener listener, Object event, Object... values) {}
                 };
@@ -77,8 +77,8 @@ public class EventHandlerTest extends TestCase {
     /** Test if weak mode is supported. */
     @Test
     public void testWeakMode() {
-        MEventHandler<MyListener> eh =
-                new MEventHandler<MyListener>(true) {
+        EventHandler<MyListener> eh =
+                new EventHandler<MyListener>(true) {
                     @Override
                     public void onFire(MyListener listener, Object event, Object... values) {}
                 };
@@ -99,8 +99,8 @@ public class EventHandlerTest extends TestCase {
 
     @Test
     public void testIterator() {
-        MEventHandler<MyListener> eh =
-                new MEventHandler<MyListener>(true) {
+        EventHandler<MyListener> eh =
+                new EventHandler<MyListener>(true) {
                     @Override
                     public void onFire(MyListener listener, Object event, Object... values) {}
                 };
@@ -122,8 +122,8 @@ public class EventHandlerTest extends TestCase {
     @Test
     public void testConcurrentModification() {
 
-        MEventHandler<MyListener> eh =
-                new MEventHandler<MyListener>(true) {
+        EventHandler<MyListener> eh =
+                new EventHandler<MyListener>(true) {
                     @Override
                     public void onFire(MyListener listener, Object event, Object... values) {}
                 };
@@ -149,8 +149,8 @@ public class EventHandlerTest extends TestCase {
     @Test
     public void testFireMethod() throws SecurityException, NoSuchMethodException {
 
-        MEventHandler<MyListener> eh =
-                new MEventHandler<MyListener>(true) {
+        EventHandler<MyListener> eh =
+                new EventHandler<MyListener>(true) {
 
                     @Override
                     public void onFire(MyListener listener, Object event, Object... values) {
@@ -174,9 +174,9 @@ public class EventHandlerTest extends TestCase {
     }
 
     public class MyListenerModify extends MyListener {
-        private MEventHandler<MyListener> eh;
+        private EventHandler<MyListener> eh;
 
-        public MyListenerModify(MEventHandler<MyListener> eh) {
+        public MyListenerModify(EventHandler<MyListener> eh) {
             this.eh = eh;
         }
 

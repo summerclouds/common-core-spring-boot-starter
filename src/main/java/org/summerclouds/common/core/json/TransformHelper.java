@@ -18,6 +18,7 @@ package org.summerclouds.common.core.json;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 
+import org.summerclouds.common.core.log.PlainLog;
 import org.summerclouds.common.core.pojo.DefaultFilter;
 import org.summerclouds.common.core.pojo.PojoModel;
 import org.summerclouds.common.core.pojo.PojoParser;
@@ -88,8 +89,7 @@ public class TransformHelper {
     }
 
     public void log(String string, Throwable t) {
-        System.out.println(string);
-        t.printStackTrace();
+    	PlainLog.i(string, t);
     }
 
     public String getPrefix() {
@@ -111,7 +111,7 @@ public class TransformHelper {
     }
 
     public void log(String msg) {
-        System.out.println(msg);
+        PlainLog.i(msg);
     }
     /**
      * Return true if the level is ok

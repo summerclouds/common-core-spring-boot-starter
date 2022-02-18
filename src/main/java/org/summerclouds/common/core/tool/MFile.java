@@ -58,6 +58,8 @@ import org.summerclouds.common.core.util.MUri;
 /** @author hummel */
 public class MFile {
 
+	private MFile() {};
+	
     public static final String DEFAULT_MIME = "text/plain";
     //	private static ResourceNode<?> mimeConfigCache;
     private static Properties mhuMimeConfigCache;

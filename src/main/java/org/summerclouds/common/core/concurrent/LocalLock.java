@@ -51,7 +51,7 @@ public class LocalLock extends MLog implements Lock {
             synchronized (this) {
                 while (isLocked()) {
                     if (scope != null)
-                        scope = MTracing.get().enter("waitUntilUnlock", "name", getName());
+                        scope = MTracing.enter("waitUntilUnlock", "name", getName());
                     try {
                         wait();
                     } catch (InterruptedException e) {
@@ -87,7 +87,7 @@ public class LocalLock extends MLog implements Lock {
                 long start = System.currentTimeMillis();
                 while (isLocked()) {
                     if (scope != null)
-                        scope = MTracing.get().enter("waitUntilUnlock", "name", getName());
+                        scope = MTracing.enter("waitUntilUnlock", "name", getName());
                     try {
                         wait(timeout);
                     } catch (InterruptedException e) {

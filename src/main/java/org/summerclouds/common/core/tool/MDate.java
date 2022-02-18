@@ -15,8 +15,6 @@
  */
 package org.summerclouds.common.core.tool;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,9 +22,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class MDate extends Date {
+public class MDate {
 
-    private static final long serialVersionUID = 1L;
+	private MDate() {}
 
     public static final Date NULL_DATE = new Date(0);
 
@@ -41,44 +39,6 @@ public class MDate extends Date {
 
     static {
         httpHeaderDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-    }
-
-    public MDate() {
-        super();
-    }
-
-    public MDate(long date) {
-        super(date);
-    }
-
-    public MDate(Timestamp timestamp) {
-        this(timestamp == null ? 0 : timestamp.getTime());
-    }
-
-    public MDate(String string) {
-        Date date = MCast.toDate(string, null);
-        if (date != null) this.setTime(date.getTime());
-    }
-
-    @Override
-    public String toString() {
-        return toIso8601(this);
-    }
-
-    public java.sql.Date toSqlDate() {
-        return new java.sql.Date(getTime());
-    }
-
-    public Time toSqlTime() {
-        return new java.sql.Time(getTime());
-    }
-
-    public Timestamp toSqlTimestamp() {
-        return new java.sql.Timestamp(getTime());
-    }
-
-    public Calendar toCalendar() {
-        return MCast.toCalendar(this);
     }
 
     public static boolean isEarlierAs(Date a, Date b) {

@@ -155,13 +155,15 @@
  4.9 2006-03-04 convert to Intellij. Make code more robust by moving
  initialisation to a static block so field reordering will not screw it up.
 */
-package org.summerclouds.common.core.tool;
+package org.summerclouds.common.core.util;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.TimeZone;
+
+import org.summerclouds.common.core.tool.MString;
 
 /**
  * Convert Gregorian YYYY MM DD back and forth to ordinal days since 1970 Jan 1, Thursday (sometimes

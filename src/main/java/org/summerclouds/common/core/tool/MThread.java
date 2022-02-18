@@ -17,7 +17,7 @@ package org.summerclouds.common.core.tool;
 
 import java.util.function.Consumer;
 
-import org.summerclouds.common.core.error.RuntimeInterruptedException;
+import org.summerclouds.common.core.error.InterruptedRuntimeException;
 import org.summerclouds.common.core.error.TimeoutRuntimeException;
 import org.summerclouds.common.core.lang.Checker;
 import org.summerclouds.common.core.lang.Named;
@@ -100,18 +100,17 @@ public class MThread extends MLog implements Runnable {
     private class Container implements Runnable {
 
         private final long parentThreadId = Thread.currentThread().getId();
-        private final ISpan span =  MTracing.get().current();
-        private final ISubject subject = MSecurity.get().getCurrent();
+        private final ISpan span =  MTracing.current();
+        private final ISubject subject = MSecurity.getCurrent();
 
         public Container() {}
 
         @Override
         public void run() {
             cleanup();
-            try (ISubjectEnvironment env = MSecurity.get().asSubject(subject)) {
+            try (ISubjectEnvironment env = MSecurity.asSubject(subject)) {
                 try (IScope scope =
-                        MTracing.get()
-                                .enter(
+                        MTracing.enter(
                                         span,
                                         "Thread: " + name,
                                         "thread",
@@ -176,7 +175,7 @@ public class MThread extends MLog implements Runnable {
         try {
             Thread.sleep(_millisec);
         } catch (InterruptedException e) {
-            throw new RuntimeInterruptedException(e);
+            throw new InterruptedRuntimeException(e);
         }
     }
 

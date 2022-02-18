@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.tool;
+package org.summerclouds.common.core.util;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -23,14 +23,14 @@ import java.util.WeakHashMap;
 import org.summerclouds.common.core.lang.IRegistry;
 import org.summerclouds.common.core.log.MLog;
 
-public class MEventHandler<L> extends MLog implements IRegistry<L> {
+public class EventHandler<L> extends MLog implements IRegistry<L> {
 
     private HashMap<L, String> listeners = new HashMap<L, String>();
     private WeakHashMap<L, String> weak = new WeakHashMap<L, String>();
     private boolean weakHandler = false;
 
     /** Create the handler in normal mode. */
-    public MEventHandler() {
+    public EventHandler() {
         this(false);
     }
 
@@ -39,7 +39,7 @@ public class MEventHandler<L> extends MLog implements IRegistry<L> {
      *
      * @param weakHandler If true handler is in weak mode. All registered handlers are weak.
      */
-    public MEventHandler(boolean weakHandler) {
+    public EventHandler(boolean weakHandler) {
         this.weakHandler = weakHandler;
     }
     /**

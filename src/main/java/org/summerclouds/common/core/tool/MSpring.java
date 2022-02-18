@@ -9,8 +9,18 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.summerclouds.common.core.error.MRuntimeException;
 import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.internal.ContextListener;
+import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
+import org.summerclouds.common.core.log.PlainLog;
 
 public class MSpring {
+
+	public enum STATUS {
+		BOOT,
+		STARTED,
+		STOPPED, 
+		CLOSED
+	};
 
 	private static ApplicationContext context;
 	
@@ -18,12 +28,14 @@ public class MSpring {
 
 	private static Environment environment;
 
+	private static STATUS status = STATUS.BOOT;
+
 	public static <T> T lookup(Class<T> class1) {
 		if (class1 == null) throw new NullPointerException();
 		try {
 			return context.getBean(class1);
 		} catch (BeansException e) {
-			System.out.println("*** Bean error " + class1.getCanonicalName());
+			PlainLog.e("Bean error {1}", class1.getCanonicalName());
 			e.printStackTrace();
 			throw new MRuntimeException(RC.STATUS.ERROR, class1.getCanonicalName(), e);
 		}
@@ -43,7 +55,7 @@ public class MSpring {
 	private static synchronized <T,D> T localDefaultBean(Class<T> class1, Class<D> def) {
 		Object obj = defaultBeans.get(def.getCanonicalName());
 		if (obj == null) {
-			System.out.println("*** Create bean " + class1.getCanonicalName() + " fallback " + def.getCanonicalName());
+			PlainLog.e("Create bean {1} fallback {2}", class1.getCanonicalName(), def.getCanonicalName());
 			try {
 				obj = def.getConstructor().newInstance();
 				defaultBeans.put(def.getCanonicalName(), obj);
@@ -62,10 +74,12 @@ public class MSpring {
 	}
 
 	public static void setContext(ApplicationContext appContext) {
+		MSystem.acceptCaller(SpringSummerCloudsCoreAutoConfiguration.class);
 		context = appContext;
 	}
 
 	public static void setEnvironment(Environment env) {
+		MSystem.acceptCaller(SpringSummerCloudsCoreAutoConfiguration.class);
 		environment = env;
 	}
 
@@ -86,6 +100,26 @@ public class MSpring {
 
 	public static <T> Map<String, T> getBeansOfType(Class<T> clazz) {
 		return context.getBeansOfType(clazz);
+	}
+	
+	//XXX Prefix ?
+	public static String toValueKey(Object owner, String key) {
+		if (owner == null) return key;
+		return MSystem.getOwnerName(owner).replace('.', '_') + '.' + key;
+	}
+	
+	public static boolean isStarted() {
+		return context != null && environment != null && status == STATUS.STARTED;
+	}
+
+	public static void setStatus(STATUS status) {
+		MSystem.acceptCaller(ContextListener.class);
+		PlainLog.i("Status changed", status);
+		MSpring.status = status;
+	}
+	
+	public static STATUS getStatus() {
+		return status;
 	}
 	
 }

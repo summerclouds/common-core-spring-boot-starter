@@ -1,6 +1,5 @@
 package org.summerclouds.common.core.security;
 
-import java.util.List;
 import java.util.Locale;
 
 public class DummySecurity implements ISecurity {
@@ -59,16 +58,6 @@ public class DummySecurity implements ISecurity {
 
 	@Override
 	public boolean hasPermission(ISubject subject, String domain, String action, String instance) {
-		return true;
-	}
-
-	@Override
-	public boolean hasPermissionByList(List<String> map, ISubject account, String objectIdent) {
-		return true;
-	}
-
-	@Override
-	public boolean hasPermissionByList(String list, ISubject account, String objectIdent) {
 		return true;
 	}
 

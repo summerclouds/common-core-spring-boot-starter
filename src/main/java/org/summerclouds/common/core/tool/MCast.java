@@ -23,8 +23,10 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.nio.ByteBuffer;
 import java.text.NumberFormat;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -36,6 +38,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.UUID;
 
 import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.cast.Caster;
@@ -69,6 +72,8 @@ import org.summerclouds.common.core.util.VectorMap;
  */
 public final class MCast {
 
+	private MCast() {}
+	
     //	private static Log log = Log.getLog(MCast.class);
     //	private static SimpleDateFormat dateFormat = new SimpleDateFormat(
     //			"yyyy-MM-dd_HH:mm:ss.SSS z");
@@ -1294,4 +1299,19 @@ public final class MCast {
         }
         return val;
     }
+    
+    public static String uuidToBase64(UUID uuid) {
+        ByteBuffer bb = ByteBuffer.allocate(Long.BYTES * 2);
+        bb.putLong(uuid.getMostSignificantBits());
+        bb.putLong(uuid.getLeastSignificantBits());
+        byte[] array = bb.array();
+        return Base64.getEncoder().encodeToString(array).substring(0, 22);
+    }
+
+    public static UUID base64ToUuid(String uuidAsBase) {
+        if (uuidAsBase.length() == 22) uuidAsBase = uuidAsBase + "==";
+        ByteBuffer byteBuffer = ByteBuffer.wrap(Base64.getDecoder().decode(uuidAsBase));
+        return new UUID(byteBuffer.getLong(), byteBuffer.getLong());
+    }
+
 }

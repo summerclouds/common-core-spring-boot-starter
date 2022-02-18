@@ -49,6 +49,7 @@ import java.util.regex.Pattern;
 
 import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.cfg.CfgString;
+import org.summerclouds.common.core.error.ForbiddenRuntimeException;
 import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.node.IProperties;
@@ -243,7 +244,7 @@ public class MSystem {
         StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         for (StackTraceElement step : stack) {
             String n = step.getClassName();
-            if (!n.startsWith("java.lang") && !n.startsWith("de.mhus.lib.core")) return n;
+            if (!n.startsWith("java.lang") && !n.startsWith("org.summerclouds.common.core")) return n;
         }
         return "?";
     }
@@ -1187,6 +1188,14 @@ public class MSystem {
 		
 		}
 		return null;
+	}
+
+	public static void acceptCaller(Class<?> ... classes ) {
+		StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+		String caller = trace[3].getClassName();
+		for (Class<?> clazz : classes)
+			if (caller.equals(getCanonicalClassName(clazz))) return;
+		throw new ForbiddenRuntimeException("caller {1} not accepted",caller);
 	}
 
 }

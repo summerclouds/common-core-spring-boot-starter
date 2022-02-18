@@ -2,7 +2,7 @@ package org.summerclouds.common.core.error;
 
 import org.summerclouds.common.core.error.RC.STATUS;
 
-public class ForbiddenException extends MException {
+public class ForbiddenRuntimeException extends MRuntimeException {
 
     private static final long serialVersionUID = 1L;
 
@@ -10,27 +10,27 @@ public class ForbiddenException extends MException {
         return RC.STATUS.FORBIDDEN;
     }
 
-    public ForbiddenException(Object... in) {
+    public ForbiddenRuntimeException(Object... in) {
         super(getDefaultStatus(),in);
     }
 
-    public ForbiddenException(RC.CAUSE causeHandling, Object... in) {
+    public ForbiddenRuntimeException(RC.CAUSE causeHandling, Object... in) {
         super(causeHandling, getDefaultStatus(), in);
     }
 
-    public ForbiddenException(Throwable cause) {
+    public ForbiddenRuntimeException(Throwable cause) {
         super(getDefaultStatus().rc(), cause);
     }
 
-    public ForbiddenException(IResult cause) {
+    public ForbiddenRuntimeException(IResult cause) {
         super(cause);
     }
 
-    public ForbiddenException(String msg, Object... in) {
+    public ForbiddenRuntimeException(String msg, Object... in) {
         super(getDefaultStatus().rc(), msg, in);
     }
 
-    public ForbiddenException(RC.CAUSE causeHandling, String msg, Object... parameters) {
+    public ForbiddenRuntimeException(RC.CAUSE causeHandling, String msg, Object... parameters) {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 

@@ -9,19 +9,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.summerclouds.common.core.log.LogFactory;
+import org.summerclouds.common.core.log.PlainLog;
 import org.summerclouds.common.core.log.SLF4JFactory;
 import org.summerclouds.common.core.node.DefaultNodeFactory;
 import org.summerclouds.common.core.node.INodeFactory;
 import org.summerclouds.common.core.tool.MSpring;
-import org.summerclouds.common.core.tracing.ITracing;
-import org.summerclouds.common.core.tracing.NoopTracing;
 
 @Configuration
 @ConfigurationProperties(prefix = "org.summerclouds.common.core")
 public class SpringSummerCloudsCoreAutoConfiguration implements ApplicationContextAware {
 
 	public SpringSummerCloudsCoreAutoConfiguration() {
-		System.out.println(">>> Start SpringSummerCloudsAutoConfiguration");
+		PlainLog.i("Start SpringSummerCloudsAutoConfiguration");
 	}
 	@Override
     public void setApplicationContext(ApplicationContext appContext) {
@@ -32,7 +31,7 @@ public class SpringSummerCloudsCoreAutoConfiguration implements ApplicationConte
 	public void setEnvironment(Environment env) {
 		MSpring.setEnvironment(env);
 	}
-	
+
 	@Bean
 	@ConditionalOnMissingBean
 	INodeFactory defaultINodeFactory() {
@@ -41,14 +40,13 @@ public class SpringSummerCloudsCoreAutoConfiguration implements ApplicationConte
 	
 	@Bean
 	@ConditionalOnMissingBean
-	ITracing defaultITracing() {
-		return new NoopTracing();
+	LogFactory defaultLogFactory() {
+		return new SLF4JFactory();
 	}
 	
 	@Bean
-	@ConditionalOnMissingBean
-	LogFactory defaultLogFactory() {
-		return new SLF4JFactory();
+	ContextListener springSummerCloudsContextListener() {
+		return new ContextListener();
 	}
 	
 }

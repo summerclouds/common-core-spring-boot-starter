@@ -24,6 +24,8 @@ import java.net.UnknownHostException;
 
 public class MNet {
 
+	private MNet() {};
+	
     public static boolean isIPv4NetMatch(String network, String ipAddr) {
 
         String[] parts = network.split("/");

@@ -17,6 +17,8 @@ package org.summerclouds.common.core.tool;
 
 public class MLorem {
 
+	private MLorem() {};
+	
     public static String create() {
         StringBuilder out = new StringBuilder();
         int c = (int) (Math.random() * 10d) + 1;

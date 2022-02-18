@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.error;
+package org.summerclouds.common.core.cmd;
 
-public class RuntimeInterruptedException extends RuntimeException {
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-    private static final long serialVersionUID = 1L;
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CmdDescription {
 
-    public RuntimeInterruptedException() {
-        super();
-    }
+    String description() default "";
 
-    public RuntimeInterruptedException(Throwable cause) {
-        super(cause);
-    }
+    String[] flags() default {};
 }

@@ -49,19 +49,34 @@ public class Log {
 
 	protected Log(String name) {
 		this.name = name;
-		facade = M.l(LogFactory.class, ConsoleFactory.class).create(name);
+
 	}
 
 	// -------------------------------------------------------- Logging Methods
 
 	public void log(LEVEL level, String msg, Object... param) {
-		if (facade == null)
-			return;
-
+		if (facade == null) {
+			try {
+				facade = M.l(LogFactory.class, ConsoleFactory.class).create(name);
+			} catch (Throwable t) {
+				System.out.println("*** " + t);
+			}
+		}
 		// level mapping
 		if (globalUpgrade || localUpgrade) {
 			if (level == LEVEL.DEBUG || level == LEVEL.TRACE)
 				level = LEVEL.INFO;
+		}
+
+		if (facade == null) {
+			if (level != LEVEL.TRACE) {
+				msg = RC.toMessage(CAUSE.ENCAPSULATE, msg, param, maxMsgSize);
+				Throwable error = RC.findCause(CAUSE.ENCAPSULATE, param);
+				System.out.println(level + " " + msg);
+				if (error != null)
+					error.printStackTrace();
+			}
+			return;
 		}
 
 		switch (level) {

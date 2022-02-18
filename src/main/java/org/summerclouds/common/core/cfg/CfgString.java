@@ -16,6 +16,9 @@ public class CfgString {
 	public String value() {
 		if (value != null) return value;
 		value = MSpring.getValue(name);
+		if (value == null && MSpring.isStarted()) {
+			value = def;
+		}
 		return value == null ? def : value;
 	}
 

@@ -17,6 +17,8 @@ package org.summerclouds.common.core.tool;
 
 public class MMath {
 
+	private MMath() {};
+	
     public static final int ROTATE_LEFT = 1;
     public static final int ROTATE_RIGHT = 2;
 
