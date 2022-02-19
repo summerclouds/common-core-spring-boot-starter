@@ -50,7 +50,4 @@ public class ValidationException extends MRuntimeException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public ValidationException(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }

@@ -49,7 +49,4 @@ public class UsageException extends MRuntimeException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public UsageException(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }

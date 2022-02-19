@@ -49,7 +49,4 @@ public class NotSupportedException extends MRuntimeException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public NotSupportedException(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }

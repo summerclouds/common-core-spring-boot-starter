@@ -49,7 +49,4 @@ public class TooDeepStructuresException extends MRuntimeException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public TooDeepStructuresException(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }

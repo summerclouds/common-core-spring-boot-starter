@@ -34,7 +34,4 @@ public class AuthorizationException extends MRuntimeException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public AuthorizationException(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }

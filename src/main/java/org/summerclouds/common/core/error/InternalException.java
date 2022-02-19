@@ -34,7 +34,4 @@ public class InternalException extends MException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public InternalException(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }

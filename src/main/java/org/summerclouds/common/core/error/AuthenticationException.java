@@ -49,8 +49,4 @@ public class AuthenticationException extends MRuntimeException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public AuthenticationException(int rc) {
-        super(getDefaultStatus().rc());
-    }
-
 }

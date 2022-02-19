@@ -49,8 +49,4 @@ public class AccessDeniedException extends MRuntimeException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public AccessDeniedException(int rc) {
-        super(getDefaultStatus().rc());
-    }
-
 }

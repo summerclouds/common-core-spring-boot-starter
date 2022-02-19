@@ -2,7 +2,7 @@ package org.summerclouds.common.core.error;
 
 import org.summerclouds.common.core.error.RC.STATUS;
 
-public class ErrorException extends MException {
+public class ErrorRuntimeException extends MRuntimeException {
 
     private static final long serialVersionUID = 1L;
 
@@ -10,28 +10,28 @@ public class ErrorException extends MException {
         return RC.STATUS.ERROR;
     }
 
-    public ErrorException(Object... in) {
+    public ErrorRuntimeException(Object... in) {
         super(getDefaultStatus(),in);
     }
 
-    public ErrorException(RC.CAUSE causeHandling, Object... in) {
+    public ErrorRuntimeException(RC.CAUSE causeHandling, Object... in) {
         super(causeHandling, getDefaultStatus(), in);
     }
 
-    public ErrorException(Throwable cause) {
+    public ErrorRuntimeException(Throwable cause) {
         super(getDefaultStatus().rc(), cause);
     }
 
-    public ErrorException(IResult cause) {
+    public ErrorRuntimeException(IResult cause) {
         super(cause);
     }
 
-    public ErrorException(String msg, Object... in) {
+    public ErrorRuntimeException(String msg, Object... in) {
         super(getDefaultStatus().rc(), msg, in);
     }
 
-    public ErrorException(RC.CAUSE causeHandling, String msg, Object... parameters) {
+    public ErrorRuntimeException(RC.CAUSE causeHandling, String msg, Object... parameters) {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
-
+    
 }

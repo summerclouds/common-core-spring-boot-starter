@@ -49,7 +49,4 @@ public class TimeoutException extends MException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public TimeoutException(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }

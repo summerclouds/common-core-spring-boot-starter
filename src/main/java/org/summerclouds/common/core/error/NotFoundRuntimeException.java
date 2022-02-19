@@ -49,7 +49,4 @@ public class NotFoundRuntimeException extends MRuntimeException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public NotFoundRuntimeException(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }

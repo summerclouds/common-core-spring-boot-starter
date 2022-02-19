@@ -49,7 +49,4 @@ public class NotFoundException extends MException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public NotFoundException(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }

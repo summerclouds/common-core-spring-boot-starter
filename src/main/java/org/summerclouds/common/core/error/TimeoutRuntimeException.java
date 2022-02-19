@@ -49,7 +49,4 @@ public class TimeoutRuntimeException extends MRuntimeException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public TimeoutRuntimeException(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }

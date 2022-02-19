@@ -49,8 +49,4 @@ public class MaxDepthReached extends MRuntimeException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public MaxDepthReached(int rc) {
-        super(getDefaultStatus().rc());
-    }
-    
 }

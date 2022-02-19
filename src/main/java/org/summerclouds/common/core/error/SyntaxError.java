@@ -50,7 +50,4 @@ public class SyntaxError extends MException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public SyntaxError(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }

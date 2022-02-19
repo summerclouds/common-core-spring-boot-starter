@@ -49,7 +49,4 @@ public class WrongStateException extends MRuntimeException {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
 
-    public WrongStateException(int rc) {
-        super(getDefaultStatus().rc());
-    }
 }
