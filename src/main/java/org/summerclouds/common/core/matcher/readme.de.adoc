@@ -1,0 +1,82 @@
+
+
+== Matcher
+
+Matcher prüft ob ein Ausdruck gegen einen Wert wahr ist.
+
+Matcher hat dabei verschiedene Möglichkeiten Werte zu testen. Standart
+sind regular Expressions. Aber auch File-System oder SQL Prüfungen 
+sind möglich.
+
+Syntax:
+
+----
+<exp>
+
+exp:=<exp> <link> <exp>
+exp:=not <exp>
+exp:=!<exp>
+exp:=(<exp>)
+
+exp:=<regex exp>
+exp:=fs <file system exp>
+exp:=sql <sql exp>
+
+link:=and | or | '&&' | '||'
+
+regex exp:=<regular expression value>
+file system exp:=<value>|*<value>|<value>*|*<value>*
+sql exp:=<value>|%<value>|<value>%|%<value>%
+----
+
+Beispiele:
+
+[java]
+----
+Matcher filter = new Matcher(".*aaa.* and .*bbb.*");
+System.out.println(filter);
+assertEquals(false, filter.matches("aaa"));
+assertEquals(false, filter.matches("blablaaabla"));
+assertEquals(false, filter.matches("bbb"));
+assertEquals(false, filter.matches("blablabbbla"));
+assertEquals(false, filter.matches("xyz"));
+assertEquals(true, filter.matches("blablaaabbbla"));
+----
+
+== Condition
+
+Condition prüft einen Ausdruck gegen mehrere Werte.
+
+Syntax:
+
+----
+cond:=<parameter> <comp> <exp>
+cond:=<parameter> <exp>         # same as comp:= '=='
+cond:=<cond> <link> <cond>
+cond:=(<cond>)
+cond:=not <cond>
+cond:=!<cond>
+
+comp:= '==' | '<' | '>' | '<=' | '>=' | '!=' | regex | fs | sql
+
+exp:=<value>
+exp:=<parameter>
+
+parameter:=${<name>}
+parameter:=$<name>
+
+link:=and | or | '&&' | '||'
+----
+
+Beispiel:
+
+[java]
+----
+HashMap<String, Object> val = new HashMap<String, Object>();
+val.put("param1", "aloa");
+
+Condition cond = new Condition("($param1 bla or $param1 aloa)");
+System.out.println(cond);
+assertEquals(true, cond.matches(val));
+----
+

@@ -4,6 +4,12 @@
 
 Diese Klassen werden benutzt um Inhalte umzuwandeln. Es können weitere
 spezialisierte Cast-Mechanismen implementiert und in MCast registriert
-werden.
+werden. Es wird immer ein Standartwert übergeben und nie eine
+Exception geschmissen.
 
-Die Basis-Typen werden durch einen performanteren Weg umgewandelt.
+Die Basis-Typen werden durch einen performanteren Weg umgewandelt. Alle 
+anderen Typen können durch implementieren von `Caster` und die
+Registrierung in `MCast` erweitert werden.
+
+Die Klasse `MCast` stellt Tools bereit, die auf diese Implementierungen
+zugreifen.

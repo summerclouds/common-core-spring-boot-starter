@@ -15,6 +15,8 @@
  */
 package org.summerclouds.common.core.tool;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -340,4 +342,21 @@ public class MDate {
             return httpHeaderDateFormat.format(date);
         }
     }
+
+	public static Calendar toCalendar(Timestamp timestamp) {
+		return MCast.toCalendar(timestamp);
+	}
+
+	public static Time toSqlTime(String string) {
+        return new java.sql.Time(toDate(string,null).getTime() ); //XXX
+	}
+	
+    public static java.sql.Date toSqlDate(String string) {
+        return new java.sql.Date(toDate(string,null).getTime() ); //XXX
+    }
+
+    public static Timestamp toSqlTimestamp(String string) {
+        return new java.sql.Timestamp(toDate(string,null).getTime() ); //XXX
+    }
+
 }

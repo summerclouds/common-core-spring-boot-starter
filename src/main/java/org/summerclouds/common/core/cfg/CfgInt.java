@@ -1,38 +1,22 @@
 package org.summerclouds.common.core.cfg;
 
-import org.summerclouds.common.core.tool.MSpring;
+public class CfgInt extends ICfg<Integer> {
 
-public class CfgInt {
-
-	private String name;
-	private int def;
-	private int value;
-	private boolean set = false;
-
-	public CfgInt(String name, int def) {
-		this.name = name;
-		this.def = def;
+	public CfgInt(Class<?> owner, String param, Integer def) {
+		super(owner, param, def);
 	}
-	
-	public int value() {
-		if (set) return value;
-		Integer v = MSpring.getValueInt(name);
-		if (v != null) {
-			value = v;
-			set = true;
-			return value;
-		} else {
-			if (MSpring.isStarted()) {
-				set = true;
-				value = def;
-			}
-			return def;
-		}
+
+	public CfgInt(String name, Integer def) {
+		super(name, def);
 	}
 
 	@Override
-	public String toString() {
-		return String.valueOf(value());
+	protected Integer valueOf(String value) {
+		try {
+			return Integer.valueOf(value);
+		} catch (Throwable t) {
+			return null;
+		}
 	}
 
 }

@@ -1,0 +1,44 @@
+//@manual
+
+== Cfg-Klassen
+
+Diese Klassen können alternativ zu Springs `@Value` genutzt werden
+und geben den entsprechenden Wert aus Spring zurück oder den
+Standartwert. Vorher wird noch geprüft ob es eine Environment-Variable
+für diesen Wert gibt.
+
+Die Klassen können vor allem für statische Variablen oder in nicht
+Spring-Anwendungen genutzt werden (Mischimplementierung).
+
+NOTE: Solange spring nicht gestartet wurde wird der Standartwert
+bzw. der Wert aus dem Environment zurückgegeben.
+
+Der Spring Name ergibt sich aus dem CanonicalClassName, wobei 
+Punkte durch unterstriche erstzt werden. Danach Punkt und der
+Attributname.
+
+Beispiel:
+
+----
+
+Owner: org.summerclouds.common.SampleClass
+Name: interval
+
+will look for 
+
+org_summerclouds_common_SampleClass:
+  interval: value
+
+----
+
+Der Environment-Name wird mit dem Prefix `app.` geführt. In diesem
+Beispiel: `app.org_summerclouds_common_SampleClass.interval=value`
+
+== BeanRef
+
+Die Klasse ist eine alternative zu Springs `@Autowire` und läd eine
+Bean aus der Spring Registry. Wurde Spring noch nicht gestartet bzw.
+die Referenz ist nicht ladbar wird der Default als Objekt 
+zurückgegeben.
+
+

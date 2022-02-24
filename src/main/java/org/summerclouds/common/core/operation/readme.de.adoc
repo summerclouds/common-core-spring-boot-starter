@@ -1,0 +1,33 @@
+
+== Operation Interface
+
+Das Interface `Operation` kann genutzt werden um zentrale 
+Operationen bereitzustellen. Es muss noch durch eine 
+Implementierung für andere Teile bereitgestellt werden.
+
+Operationen sind vergleichbar mit RPC Calls, erweitern diese
+aber durch einheitliche Aufruf und Rückgabe Strukturen. Ausserdem
+sind Validierungen für Bereitschaft und Berechtigungen
+bereits vorgesehen.
+
+Die Rückgabe von Operationen folgt dem IResult Schema (siehe
+MException) und erlaubt dir Rückgabe von Return Codes nach
+dem HTTP Schema (siehe RC.java).
+
+== Operation Strategien
+
+Die Strategien implementieren eigenschaften für Operationen, 
+z.B. die synchronisierte Abarbeitung.
+
+* `SynchronizedExecuteStrategy` - wartet mit der Bearbeitung 
+bis vorherige Operationen abgeschlossen sind.
+* `WaitExecuteStrategy` - wartet mit der Bearbeitung und
+endet ggf. mit einem Timeout falls zu lange gewartet werden muss.
+* `SkipExecuteStrategy` - Übersprint die Abarbeitung falls die Operation
+bereits bearbeitet wird.
+
+== Parameter Definitionen
+
+Die Definitions-Klassen ermöglichen es Parameter und Parameter-Sets
+in einem Model zu beschreiben. Die Nutzung ist über Operationen
+hinaus möglich.

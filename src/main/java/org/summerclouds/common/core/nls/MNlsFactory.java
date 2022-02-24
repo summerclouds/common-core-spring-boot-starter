@@ -15,36 +15,18 @@
  */
 package org.summerclouds.common.core.nls;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Properties;
 
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.summerclouds.common.core.M;
-import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.resource.ClassLoaderResourceProvider;
 import org.summerclouds.common.core.resource.MResourceProvider;
-import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MSystem;
 
 public class MNlsFactory extends MNlsBundle {
 
-    @SuppressWarnings("unused")
-    private INode config;
-
     public MNlsFactory() {
-        this(null);
-        //		forkBase();
-    }
-
-    public MNlsFactory(INode config) {
-        this.config = config;
-    }
-
-    public MNls create(Object owner) {
-        return load(null, null, toResourceName(owner), null);
     }
 
     public MNls load(Class<?> owner) {
@@ -57,11 +39,15 @@ public class MNlsFactory extends MNlsBundle {
         return MSystem.getClassName(owner).replace('.', '/');
     }
 
+    public MNls load(Class<?> owner, String locale) {
+        return load(null, owner, null, locale == null ? null : MCast.toLocale(locale) );
+    }
+    
     public MNls load(Class<?> owner, Locale locale) {
-        return load(null, owner, null, locale == null ? null : locale.toString());
+        return load(null, owner, null, locale);
     }
 
-    public MNls load(MResourceProvider res, Class<?> owner, String resourceName, String locale) {
+    public MNls load(MResourceProvider res, Class<?> owner, String resourceName, Locale locale) {
         return load(res, owner, resourceName, locale, true);
     }
 
@@ -69,22 +55,11 @@ public class MNlsFactory extends MNlsBundle {
             MResourceProvider res,
             Class<?> owner,
             String resourceName,
-            String locale,
+            Locale locale,
             boolean searchAlternatives) {
-        return load(res, owner, resourceName, locale, searchAlternatives, 0);
-    }
-
-    protected MNls load(
-            MResourceProvider res,
-            Class<?> owner,
-            String resourceName,
-            String locale,
-            boolean searchAlternatives,
-            int level) {
-        if (level > 50) return null;
+    	
         try {
-            // if (res == null) res = base(MDirectory.class);
-
+        	
             if (resourceName == null) {
                 if (owner.getCanonicalName() != null)
                     resourceName = owner.getCanonicalName().replace('.', '/');
@@ -95,56 +70,13 @@ public class MNlsFactory extends MNlsBundle {
                 res = findResourceProvider(owner);
             }
 
-            if (locale == null) locale = getDefaultLocale();
+            if (locale == null) locale = Locale.getDefault();
 
-            InputStream is = null;
-            Properties properties = new Properties();
+        	ResourceBundleMessageSource source = new ResourceBundleMessageSource();
+        	source.setBasename( resourceName);
+        	source.setDefaultLocale(locale);
 
-            is = res.getInputStream(locale.toString() + "/" + resourceName + ".properties");
-            String prefix = getResourcePrefix();
-
-            if (searchAlternatives) {
-
-                if (prefix != null && is == null)
-                    is =
-                            res.getInputStream(
-                                    prefix
-                                            + "/"
-                                            + getDefaultLocale()
-                                            + "/"
-                                            + resourceName
-                                            + ".properties");
-                if (is == null)
-                    is =
-                            res.getInputStream(
-                                    getDefaultLocale() + "/" + resourceName + ".properties");
-                if (prefix != null && is == null)
-                    is = res.getInputStream(prefix + "/" + resourceName + ".properties");
-                if (is == null) is = res.getInputStream(resourceName + ".properties");
-            }
-
-            if (is != null) {
-                log().t("Load Resource", resourceName, locale);
-                InputStreamReader r = new InputStreamReader(is, MString.CHARSET_UTF_8);
-                properties.load(r);
-                is.close();
-
-                for (String include : properties.getProperty(".include", "").split(",")) {
-                    include = include.trim();
-                    MNls parent = load(null, null, include, locale, false, level + 1);
-                    if (parent != null) {
-                        for (Map.Entry<Object, Object> entry : parent.properties.entrySet()) {
-                            if (!properties.containsKey(entry.getKey()))
-                                properties.put(entry.getKey(), entry.getValue());
-                        }
-                    }
-                }
-
-                return new MNls(properties, "");
-            } else {
-                log().d("Resource not found", resourceName, locale);
-            }
-
+        	return new MNls(source, null);
         } catch (Throwable e) {
             log().e(e);
         }
@@ -160,20 +92,17 @@ public class MNlsFactory extends MNlsBundle {
         if (owner != null) return new ClassLoaderResourceProvider(owner.getClassLoader());
         else return new ClassLoaderResourceProvider();
     }
-
-    public String getDefaultLocale() {
-        return Locale.getDefault().toString();
-    }
-
-    public MNls load(InputStream is) {
-        Properties properties = new Properties();
-        try {
-            properties.load(is);
-        } catch (IOException e) {
-            log().e(e);
-        }
-        return new MNls(properties, "");
-    }
+//
+//    public MNls load(InputStream is) {
+//    	
+//        Properties properties = new Properties();
+//        try {
+//            properties.load(is);
+//        } catch (IOException e) {
+//            log().e(e);
+//        }
+//        return new MNls(properties, "");
+//    }
 
     public static MNlsFactory lookup(Object owner) {
         return M.l(MNlsFactory.class);
@@ -181,6 +110,6 @@ public class MNlsFactory extends MNlsBundle {
 
     @Override
     public MNls createNls(String locale) {
-        return load(null, null, getPath(), locale, false);
+        return load(null, null, getPath(), MCast.toLocale(locale), false);
     }
 }

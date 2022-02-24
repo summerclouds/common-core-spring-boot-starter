@@ -1,0 +1,56 @@
+
+== Properties Implementierung
+
+Die Properties Implementierung erweitert die Standart `Properties`
+Implementierung um Funktionen die einzelne Datentypen zurückgeben.
+
+
+== Node-Tree und Properties Implementierung
+
+Node-Tree (INode) erweitert MProperties um die Möglichkeit
+weitere Knoten und Arrays zu verwalten. Damit wird die Struktur
+kompatibel zu Json und Yaml. Xml kann Teilweise genutzt werden.
+
+Es wird möglich ohne Verlust Json, Yaml bzw Xml und Properties
+mit Verlust zu speichern und zu laden.
+
+Die Implementierung ist für Service-Kommunikation und für Konfigurationen
+nutzbar.
+
+Beispiel:
+
+[java]
+----
+DefaultNodeFactory dcf = new DefaultNodeFactory();
+
+// Read and write YAML
+File file = new File("target/config.yaml");
+INode c = dcf.read(file);
+dcf.write(c, file);
+
+// Read and write JSON
+File file = new File("target/config.json");
+INode c = dcf.read(file);
+dcf.write(c, file);
+
+// Read and write XML
+File file = new File("target/config.xml");
+INode c = dcf.read(file);
+dcf.write(c, file);
+
+// Load JSON and write Yaml
+String json =
+        MString.replaceAll(
+                "{'test1':'wow','test2':'alf','boolon':true,'booloff':false,"
+                        + "'sub': [  "
+                        + "{'test1':'wow1','test2':'alf1'} , "
+                        + "{'test1':'wow2','test2':'alf2'} , "
+                        + "{'test1':'wow3','test2':'alf3'}  "
+                        + "] }",
+                "'",
+                "\"");
+
+INode c = INode.readFromJsonString(json);
+dcf.write(c, new File("target/config.yaml"));
+----
+

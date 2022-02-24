@@ -1,0 +1,24 @@
+
+== String Parser
+
+Die Parser Implementierung parst String mit Platzhaltern und 
+erstellt ein Model des Strings. Über das Model können dann
+die Platzhalter gefüllt werden.
+
+Platzhalter sind `${variable name:default value}` oder 
+`$variable name:default value$`. Zwei `$$` werden als einzelnes
+`$` interpretiert.
+
+Beispiel:
+
+[java]
+----
+String pattern = "Welcome ${name},";
+
+MProperties attr = new MProperties();
+attr.setString("name", "Mickey");
+
+String str = StringCompiler.compile(pattern).execute(attr);
+
+assertEquals("Welcome Mickey,", str);
+---- 

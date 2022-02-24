@@ -32,6 +32,7 @@ import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -1136,7 +1137,7 @@ public class MSystem {
         int p = className.lastIndexOf('.');
         if (p > 0) {
             className = className.substring(0, p) + "$" + className.substring(p + 1);
-            Class<?> type = activator.getClazz(className);
+            Class<?> type = activator.findClass(className);
             if (type.isEnum()) return (Class<? extends Enum<?>>) type;
         }
         return null;
@@ -1198,4 +1199,14 @@ public class MSystem {
 		throw new ForbiddenRuntimeException("caller {1} not accepted",caller);
 	}
 
+	public static <T> T createObject(String clazzName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		return createObject(MSpring.getDefaultClassLoader(), clazzName);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> T createObject(ClassLoader loader, String clazzName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		Class<?> clazz = loader.loadClass(clazzName);
+		return (T) clazz.getConstructor().newInstance();
+	}
+	
 }

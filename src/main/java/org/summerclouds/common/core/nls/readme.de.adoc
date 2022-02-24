@@ -1,0 +1,10 @@
+
+== Native Language Support (NLS)
+
+Dies ist eine NLS Implementierung die Springs `MessageSource`
+nutzt.
+
+Benutze `MNls.lookup(owner)` um eine NLS zu laden. Es wird
+des Owners CanonicalClassName genutzt um die Properties-Datei
+aus den Resourcen zu laden. Siehe Springs 
+`ResourceBundleMessageSource`.

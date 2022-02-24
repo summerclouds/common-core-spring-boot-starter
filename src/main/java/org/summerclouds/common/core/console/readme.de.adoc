@@ -1,0 +1,7 @@
+//@manual
+
+== Console Implementierung
+
+Die Implementierung nutzt jline um in die Konsole auszugeben. Es soll
+`Console.get()` um die aktuelle Konsole zu laden.
+

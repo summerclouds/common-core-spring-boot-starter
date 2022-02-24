@@ -1,38 +1,22 @@
 package org.summerclouds.common.core.cfg;
 
-import org.summerclouds.common.core.tool.MSpring;
+public class CfgLong extends ICfg<Long> {
 
-public class CfgLong {
-
-	private String name;
-	private long def;
-	private long value;
-	private boolean set = false;
-
-	public CfgLong(String name, long def) {
-		this.name = name;
-		this.def = def;
+	public CfgLong(Class<?> owner, String param, Long def) {
+		super(owner, param, def);
 	}
-	
-	public long value() {
-		if (set) return value;
-		Long v = MSpring.getValueLong(name);
-		if (v != null) {
-			value = v;
-			set = true;
-			return value;
-		} else {
-			if (MSpring.isStarted()) {
-				set = true;
-				value = def;
-			}
-			return def;
-		}
+
+	public CfgLong(String name, Long def) {
+		super(name, def);
 	}
-	
+
 	@Override
-	public String toString() {
-		return String.valueOf(value());
+	protected Long valueOf(String value) {
+		try {
+			return Long.valueOf(value);
+		} catch (Throwable t) {
+			return null;
+		}
 	}
 
 }

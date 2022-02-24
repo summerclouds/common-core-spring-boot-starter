@@ -63,7 +63,7 @@ public abstract class MNlsBundle extends MLog {
             return null;
         }
         out = createNls(locale);
-        if (out == null || !(out instanceof MNls) || ((MNls) out).size() == 0) out = new Object();
+        if (out == null || !(out instanceof MNls) ) out = new Object(); // set dummy
         cache.put(locale, out);
         if (out instanceof MNls) return (MNls) out;
         return null;

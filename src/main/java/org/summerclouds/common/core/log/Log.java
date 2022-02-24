@@ -60,6 +60,7 @@ public class Log {
 				facade = M.l(LogFactory.class, ConsoleFactory.class).create(name);
 			} catch (Throwable t) {
 				System.out.println("*** " + t);
+				t.printStackTrace();
 			}
 		}
 		// level mapping

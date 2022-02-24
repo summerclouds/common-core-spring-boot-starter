@@ -12,6 +12,7 @@ import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.internal.ContextListener;
 import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
 import org.summerclouds.common.core.log.PlainLog;
+import org.summerclouds.common.core.util.Activator;
 
 public class MSpring {
 
@@ -30,6 +31,8 @@ public class MSpring {
 
 	private static STATUS status = STATUS.BOOT;
 
+	private static Activator activator;
+
 	public static <T> T lookup(Class<T> class1) {
 		if (class1 == null) throw new NullPointerException();
 		try {
@@ -43,6 +46,7 @@ public class MSpring {
 
 	public static <T,D> T lookup(Class<T> class1, Class<D> def) {
 		if (class1 == null) throw new NullPointerException();
+		if (context == null) return localDefaultBean(class1, def);
 		try {
 			return context.getBean(class1);
 		} catch (BeansException e) {
@@ -120,6 +124,15 @@ public class MSpring {
 	
 	public static STATUS getStatus() {
 		return status;
+	}
+
+	public static ClassLoader getDefaultClassLoader() {
+		return MSpring.class.getClassLoader();
+	}
+
+	public static Activator getDefaultActivator() {
+		if (activator == null) activator = new Activator();
+		return activator;
 	}
 	
 }

@@ -24,8 +24,8 @@ import org.summerclouds.common.core.util.ThreadPool.ThreadContainer;
 
 public class ThreadPoolManager extends MLog {
 
-    public static CfgLong CFG_SLEEP_TIME = new CfgLong("org.summerclouds.common.core.util.ThreadPoolManager.sleepTime", 1000 * 60 * 10);
-    public static CfgLong CFG_PENDING_TIME = new CfgLong("org.summerclouds.common.core.util.ThreadPoolManager.pendingTime", 1000 * 60);
+    public static CfgLong CFG_SLEEP_TIME = new CfgLong("org.summerclouds.common.core.util.ThreadPoolManager.sleepTime", 1000l * 60 * 10);
+    public static CfgLong CFG_PENDING_TIME = new CfgLong("org.summerclouds.common.core.util.ThreadPoolManager.pendingTime", 1000l * 60);
     private Vector<ThreadContainer> pool = new Vector<ThreadContainer>();
     private ThreadGroup group = new ThreadGroup("MThreadPool");
     private Thread housekeeper;

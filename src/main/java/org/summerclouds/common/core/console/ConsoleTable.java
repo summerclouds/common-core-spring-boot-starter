@@ -318,8 +318,8 @@ public class ConsoleTable {
                     else if (maxColSize > 0) width = Math.min(width, maxColSize);
 
                     if (maxTableWidth > 0 && h.weight > 0) {
-                        weight.value += h.weight;
-                        weightWidth.value += width;
+                        weight.setValue( weight.getValue() + h.weight);
+                        weightWidth.setValue(weightWidth.getValue() + width);
                     }
                     tableWidth += width;
                     if (!h.last && colSeparator != null) tableWidth += colSeparator.length();
@@ -327,8 +327,8 @@ public class ConsoleTable {
                     h.width = width;
                 });
 
-        if (weight.value > 0) {
-            final int delta = maxTableWidth - (tableWidth - weightWidth.value);
+        if (weight.getValue() > 0) {
+            final int delta = maxTableWidth - (tableWidth - weightWidth.getValue());
             if (delta > 0) {
                 header.forEach(
                         h -> {
@@ -336,7 +336,7 @@ public class ConsoleTable {
                                 // find width
                                 int width = h.contentWidth;
                                 tableWidth -= width;
-                                width = delta * h.weight / weight.value;
+                                width = delta * h.weight / weight.getValue();
                                 tableWidth += width;
                                 h.width = width;
                             }

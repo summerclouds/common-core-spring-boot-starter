@@ -275,7 +275,7 @@ public class MThread extends MLog implements Runnable {
                                     try {
                                         T val = provider.getValue();
                                         if (nullAllowed || val != null) {
-                                            value.value = val;
+                                            value.setValue(val);
                                             return;
                                         }
                                     } catch (Throwable t) {
@@ -291,7 +291,7 @@ public class MThread extends MLog implements Runnable {
             if (System.currentTimeMillis() - start > timeout) throw new TimeoutRuntimeException();
             sleep(200);
         }
-        return value.value;
+        return value.getValue();
     }
 
     /**
@@ -315,9 +315,9 @@ public class MThread extends MLog implements Runnable {
                             @Override
                             public void run() {
                                 try {
-                                    value.value = provider.getValue();
+                                    value.setValue( provider.getValue() );
                                 } catch (Throwable t) {
-                                    error.value = t;
+                                    error.setValue(t);
                                 }
                             }
                         });
@@ -326,12 +326,12 @@ public class MThread extends MLog implements Runnable {
             if (System.currentTimeMillis() - start > timeout) throw new TimeoutRuntimeException();
             sleep(200);
         }
-        if (error.value != null) {
-            if (error.value instanceof RuntimeException) throw (RuntimeException) error.value;
-            if (error.value instanceof Exception) throw (Exception) error.value;
-            throw new Exception(error.value);
+        if (error.getValue() != null) {
+            if (error.getValue() instanceof RuntimeException) throw (RuntimeException) error.getValue();
+            if (error.getValue() instanceof Exception) throw (Exception) error.getValue();
+            throw new Exception(error.getValue());
         }
-        return value.value;
+        return value.getValue();
     }
 
     /**

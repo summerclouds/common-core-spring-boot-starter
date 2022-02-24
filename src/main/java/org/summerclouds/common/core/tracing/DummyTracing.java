@@ -11,7 +11,7 @@ public class DummyTracing implements ITracing {
 	}
 
 	@Override
-	public IScope enter(ISpan span, String name, String... keyValue) {
+	public IScope enter(ISpan span, String name, Object... keyValue) {
 		return DUMMY_SCOPE;
 	}
 
@@ -21,8 +21,13 @@ public class DummyTracing implements ITracing {
 	}
 
 	@Override
-	public IScope enter(String name, String... keyValue) {
+	public IScope enter(String name, Object... keyValue) {
 		return DUMMY_SCOPE;
+	}
+
+	@Override
+	public String getCurrentId() {
+		return "?";
 	}
 
 }

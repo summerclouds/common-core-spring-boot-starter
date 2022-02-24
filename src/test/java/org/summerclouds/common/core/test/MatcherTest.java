@@ -286,6 +286,16 @@ public class MatcherTest extends TestCase {
             System.out.println(cond);
             assertEquals(false, cond.matches(val));
         }
+        {
+            Condition cond = new Condition("${param1} regex .*lo.*");
+            System.out.println(cond);
+            assertEquals(true, cond.matches(val));
+        }
+        {
+            Condition cond = new Condition("${param1} fs *loa");
+            System.out.println(cond);
+            assertEquals(true, cond.matches(val));
+        }
         try {
             new Condition("1 == 2");
             fail();

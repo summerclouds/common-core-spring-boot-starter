@@ -21,7 +21,7 @@ public class MTracing {
 		return inst.current();
 	}
 
-	public static IScope enter(ISpan span, String name, String ... keyValue) {
+	public static IScope enter(ISpan span, String name, Object ... keyValue) {
 		ITracing inst = get();
 		if (inst == null) throw new ConflictRuntimeException("tracing bean not found");
 		return inst.enter(span, name, keyValue);
@@ -33,10 +33,16 @@ public class MTracing {
 		return inst.enter(span, name);
 	}
 
-	public static IScope enter(String name, String ... keyValue) {
+	public static IScope enter(String name, Object ... keyValue) {
 		ITracing inst = get();
 		if (inst == null) throw new ConflictRuntimeException("tracing bean not found");
 		return inst.enter(name, keyValue);
+	}
+
+	public static String getCurrentId() {
+		ITracing inst = get();
+		if (inst == null) throw new ConflictRuntimeException("tracing bean not found");
+		return inst.getCurrentId();
 	}
 
 }

@@ -32,7 +32,7 @@ public class Value<T> implements Valueable<T>, Serializable {
         value = initial;
     }
 
-    public volatile T value;
+    private volatile T value;
 
     @Override
     public String toString() {

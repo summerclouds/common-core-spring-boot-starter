@@ -85,20 +85,20 @@ public final class MCast {
 
     private static VectorMap<Class<?>, Class<?>, Caster<?, ?>> casters = new VectorMap<>();
 
-    private static final ObjectToBoolean OBJECT_TO_BOOLEAN = new ObjectToBoolean();
-    private static final ObjectToInteger OBJECT_TO_INTEGER = new ObjectToInteger();
-    private static final ObjectToByte OBJECT_TO_BYTE = new ObjectToByte();
-    private static final ObjectToShort OBJECT_TO_SHORT = new ObjectToShort();
-    private static final ObjectToLong OBJECT_TO_LONG = new ObjectToLong();
-    private static final ObjectToDouble OBJECT_TO_DOUBLE = new ObjectToDouble();
-    private static final ObjectToFloat OBJECT_TO_FLOAT = new ObjectToFloat();
-    private static final ObjectToCalendar OBJECT_TO_CALENDAR = new ObjectToCalendar();
-    private static final ObjectToDate OBJECT_TO_DATE = new ObjectToDate();
-    private static final ObjectToSqlDate OBJECT_TO_SQLDATE = new ObjectToSqlDate();
-    private static final DoubleToString DOUBLE_TO_STRING = new DoubleToString();
-    private static final FloatToString FLOAT_TO_STRING = new FloatToString();
-    private static final ObjectToString OBJECT_TO_STRING = new ObjectToString();
-    private static final ObjectToBigDecimal OBJECT_TO_BIGDECIMAL = new ObjectToBigDecimal();
+    public static final ObjectToBoolean OBJECT_TO_BOOLEAN = new ObjectToBoolean();
+    public static final ObjectToInteger OBJECT_TO_INTEGER = new ObjectToInteger();
+    public static final ObjectToByte OBJECT_TO_BYTE = new ObjectToByte();
+    public static final ObjectToShort OBJECT_TO_SHORT = new ObjectToShort();
+    public static final ObjectToLong OBJECT_TO_LONG = new ObjectToLong();
+    public static final ObjectToDouble OBJECT_TO_DOUBLE = new ObjectToDouble();
+    public static final ObjectToFloat OBJECT_TO_FLOAT = new ObjectToFloat();
+    public static final ObjectToCalendar OBJECT_TO_CALENDAR = new ObjectToCalendar();
+    public static final ObjectToDate OBJECT_TO_DATE = new ObjectToDate();
+    public static final ObjectToSqlDate OBJECT_TO_SQLDATE = new ObjectToSqlDate();
+    public static final DoubleToString DOUBLE_TO_STRING = new DoubleToString();
+    public static final FloatToString FLOAT_TO_STRING = new FloatToString();
+    public static final ObjectToString OBJECT_TO_STRING = new ObjectToString();
+    public static final ObjectToBigDecimal OBJECT_TO_BIGDECIMAL = new ObjectToBigDecimal();
 
     static {
         addCaster(OBJECT_TO_BOOLEAN, true);
@@ -1313,5 +1313,10 @@ public final class MCast {
         ByteBuffer byteBuffer = ByteBuffer.wrap(Base64.getDecoder().decode(uuidAsBase));
         return new UUID(byteBuffer.getLong(), byteBuffer.getLong());
     }
+
+	public static Locale toLocale(String locale) {
+		Locale l = new Locale.Builder().setLanguageTag(locale).build();
+		return l;
+	}
 
 }

@@ -15,32 +15,25 @@
  */
 package org.summerclouds.common.core.nls;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
 
-import org.summerclouds.common.core.error.MException;
-import org.summerclouds.common.core.error.NotSupportedException;
-import org.summerclouds.common.core.node.AbstractProperties;
-import org.summerclouds.common.core.parser.StringCompiler;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.summerclouds.common.core.tool.MSystem;
-import org.summerclouds.common.core.util.SetCast;
 
-public class MNls extends AbstractProperties {
+public class MNls {
 
-    private static final long serialVersionUID = 1L;
-    protected Properties properties = null;
     protected String prefix = "";
+	private MessageSource source;
 
     public MNls() {
-        this(new Properties(), "");
+        this(new ResourceBundleMessageSource(), "");
     }
 
-    public MNls(Properties properties, String prefix) {
-        this.properties = properties;
+    public MNls(MessageSource source, String prefix) {
+        this.source = source;
         this.prefix = prefix == null || "".equals(prefix) ? "" : prefix + ".";
     }
 
@@ -51,90 +44,26 @@ public class MNls extends AbstractProperties {
         return find(in, attr);
     }
 
-    public String find(String in) {
-        return find(in, (Map<String, Object>) null);
+    public static String find(MNlsProvider provider, String in, Object ... args) {
+        return find(provider == null ? null : provider.getNls(), in, args);
     }
 
-    public String find(String in, Map<String, Object> attributes) {
-        return find(this, in, attributes);
+    public static String find(MNls nls, String in, Object ... args) {
+        return nls.find(in, args);
     }
-
-    public static String find(MNlsProvider provider, String in) {
-        return find(provider == null ? null : provider.getNls(), in, null);
-    }
-
-    public static String find(MNls nls, String in) {
-        return find(nls, in, null);
-    }
-
-    public static String find(MNls nls, String in, Map<String, Object> attributes) {
-        String def = null;
-        if (in == null) return "";
-        int pos = in.indexOf("=");
-        if (pos == 0) { // no key defined
-            return in.substring(1);
-        }
-        if (pos > 0) { // default defined
-            def = in.substring(pos + 1);
-            in = in.substring(0, pos);
-        }
-
-        if (def == null) def = in;
-        if (nls == null) return def;
-
-        try {
-            String ret = nls.getString(in, def);
-            if (ret == null) return def;
-
-            if (attributes != null && ret.indexOf('$') >= 0) {
-                ret = StringCompiler.compile(ret).execute(attributes);
-            }
-
-            return ret;
-        } catch (MException e) {
-        }
-
-        return in;
-    }
-
-    @Override
-    public Object getProperty(String name) {
-        return properties.get(prefix + name);
-    }
-
-    @Override
-    public boolean isProperty(String name) {
-        return properties.containsKey(prefix + name);
-    }
-
-    @Override
-    public void removeProperty(String key) {
-        properties.remove(prefix + key);
-    }
-
-    @Override
-    public void setProperty(String key, Object value) {
-        properties.put(prefix + key, value);
-    }
-
-    @Override
-    public boolean isEditable() {
-        return true;
-    }
-
-    @Override
-    public Set<String> keys() {
-        return new SetCast<Object, String>(properties.keySet());
+    
+    public String find(String name, Object ... args) {
+        return source.getMessage(prefix + name, args, null);
     }
 
     @Override
     public String toString() {
-        return MSystem.toString(this, properties);
+        return MSystem.toString(this, source);
     }
 
     public MNls createSubstitute(String prefix) {
         if (prefix == null) return this;
-        return new MNls(properties, this.prefix + prefix);
+        return new MNls(source, this.prefix + prefix);
     }
 
     public static MNls lookup(Object owner) {
@@ -149,28 +78,4 @@ public class MNls extends AbstractProperties {
         return null;
     }
 
-    @Override
-    public int size() {
-        return properties.size();
-    }
-
-    @Override
-    public boolean containsValue(Object value) {
-        throw new NotSupportedException();
-    }
-
-    @Override
-    public Collection<Object> values() {
-        throw new NotSupportedException();
-    }
-
-    @Override
-    public Set<java.util.Map.Entry<String, Object>> entrySet() {
-        throw new NotSupportedException();
-    }
-
-    @Override
-    public void clear() {
-        properties.clear();
-    }
 }

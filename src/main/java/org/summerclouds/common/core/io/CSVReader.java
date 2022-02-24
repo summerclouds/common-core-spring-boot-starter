@@ -17,7 +17,6 @@ package org.summerclouds.common.core.io;
 
 import java.io.BufferedReader;
 import java.io.EOFException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -63,8 +62,6 @@ public class CSVReader {
 
     /** parser: We have just hit a quote, might be doubled or might be last one. */
     private static final int AFTER_END_QUOTE = 3;
-
-    private static final boolean DEBUGGING = false;
 
     /** category of end of line char. */
     private static final int EOL = 0;
