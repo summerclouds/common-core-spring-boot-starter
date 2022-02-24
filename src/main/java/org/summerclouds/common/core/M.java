@@ -242,17 +242,6 @@ public class M {
     }
 
     /**
-     * M.l()
-     *
-     * @param class1
-     * @param def
-     * @return the service
-     */
-    public static <T, D extends T> T l(Class<T> class1, Class<D> def) {
-        return MSpring.lookup(class1, def);
-    }
-
-    /**
      * Return the node value as string or default.
      *
      * @param node

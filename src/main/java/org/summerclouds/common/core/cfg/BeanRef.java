@@ -5,19 +5,17 @@ import org.summerclouds.common.core.tool.MSpring;
 public class BeanRef<T> {
 
 	private Class<T> clazz;
-	private Class<? extends T> def;
 	private T inst;
 
-	public BeanRef(Class<T> clazz, Class<? extends T> def) {
+	public BeanRef(Class<T> clazz) {
 		this.clazz = clazz;
-		this.def = def;
 	}
 
 	public T bean() {
 		if (!MSpring.isStarted())
-			return MSpring.lookup(clazz, def);
+			return MSpring.lookup(clazz);
 		if (inst == null)
-			inst = MSpring.lookup(clazz, def);
+			inst = MSpring.lookup(clazz);
 		return inst;
 	}
 

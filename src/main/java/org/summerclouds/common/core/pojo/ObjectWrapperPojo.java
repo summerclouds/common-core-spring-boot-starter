@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import org.summerclouds.common.core.M;
-import org.summerclouds.common.core.util.Activator;
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.util.MObjectInputStream;
 
 public class ObjectWrapperPojo<T> {

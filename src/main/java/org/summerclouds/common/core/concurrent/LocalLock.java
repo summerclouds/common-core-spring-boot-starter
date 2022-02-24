@@ -16,6 +16,7 @@
 package org.summerclouds.common.core.concurrent;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.log.MLog;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MTracing;
@@ -40,6 +41,8 @@ public class LocalLock extends MLog implements Lock {
     }
 
     protected void register() {
+    	if (lockManager == null) // fallback for non spring
+    		lockManager = M.l(LockManager.class);
         lockManager.register(this);
     }
 

@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.console;
+package org.summerclouds.common.core.activator;
 
-import org.summerclouds.common.core.activator.DefaultImplementation;
+public interface ObjectFactory {
 
-@DefaultImplementation(DefaultConsoleFactory.class)
-public interface ConsoleFactory {
-
-    public Console create();
+    Object create(Class<?> clazz);
 }

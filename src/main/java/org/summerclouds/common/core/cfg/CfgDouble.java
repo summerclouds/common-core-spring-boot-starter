@@ -1,6 +1,6 @@
 package org.summerclouds.common.core.cfg;
 
-public class CfgDouble extends ICfg<Double> {
+public class CfgDouble extends AbstractCfg<Double> {
 
 	public CfgDouble(Class<?> owner, String param, Double def) {
 		super(owner, param, def);

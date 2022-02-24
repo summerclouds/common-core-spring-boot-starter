@@ -22,6 +22,8 @@ import java.io.ObjectStreamClass;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
 
+import org.summerclouds.common.core.activator.Activator;
+
 public class MObjectInputStream extends ObjectInputStream {
 
     private ClassLoader cl = null;

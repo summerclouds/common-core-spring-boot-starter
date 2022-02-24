@@ -2,14 +2,13 @@ package org.summerclouds.common.core.tool;
 
 import org.summerclouds.common.core.cfg.BeanRef;
 import org.summerclouds.common.core.error.ConflictRuntimeException;
-import org.summerclouds.common.core.tracing.DummyTracing;
 import org.summerclouds.common.core.tracing.IScope;
 import org.summerclouds.common.core.tracing.ISpan;
 import org.summerclouds.common.core.tracing.ITracing;
 
 public class MTracing {
 
-	private static BeanRef<ITracing> instance = new BeanRef<>(ITracing.class, DummyTracing.class);
+	private static BeanRef<ITracing> instance = new BeanRef<>(ITracing.class);
 
 	public static ITracing get() {
 		return instance.bean();

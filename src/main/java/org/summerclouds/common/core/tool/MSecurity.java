@@ -5,7 +5,6 @@ import java.util.List;
 import org.summerclouds.common.core.cfg.BeanRef;
 import org.summerclouds.common.core.error.ConflictRuntimeException;
 import org.summerclouds.common.core.log.Log;
-import org.summerclouds.common.core.security.DummySecurity;
 import org.summerclouds.common.core.security.ISecurity;
 import org.summerclouds.common.core.security.ISubject;
 import org.summerclouds.common.core.security.ISubjectEnvironment;
@@ -16,7 +15,7 @@ public class MSecurity {
 	
 	private static final Log log = Log.getLog(MSecurity.class);
 	
-	private static BeanRef<ISecurity> instance = new BeanRef<>(ISecurity.class, DummySecurity.class);
+	private static BeanRef<ISecurity> instance = new BeanRef<>(ISecurity.class);
 	
 	public static ISecurity get() {
 		return instance.bean();

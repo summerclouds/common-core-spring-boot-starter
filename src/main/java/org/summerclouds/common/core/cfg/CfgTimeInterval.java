@@ -2,7 +2,7 @@ package org.summerclouds.common.core.cfg;
 
 import org.summerclouds.common.core.tool.MPeriod;
 
-public class CfgTimeInterval extends ICfg<String> {
+public class CfgTimeInterval extends AbstractCfg<String> {
 
 	public CfgTimeInterval(Class<?> owner, String param, String def) {
 		super(owner, param, def);

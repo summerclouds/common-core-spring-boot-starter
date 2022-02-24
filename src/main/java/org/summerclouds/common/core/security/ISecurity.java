@@ -2,6 +2,9 @@ package org.summerclouds.common.core.security;
 
 import java.util.Locale;
 
+import org.summerclouds.common.core.activator.DefaultImplementation;
+
+@DefaultImplementation(DummySecurity.class)
 public interface ISecurity {
 
 	ISubject getCurrent();

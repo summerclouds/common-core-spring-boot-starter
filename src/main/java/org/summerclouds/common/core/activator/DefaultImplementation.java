@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.console;
+package org.summerclouds.common.core.activator;
 
-import org.summerclouds.common.core.activator.DefaultImplementation;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-@DefaultImplementation(DefaultConsoleFactory.class)
-public interface ConsoleFactory {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface DefaultImplementation {
 
-    public Console create();
+    Class<?> value();
 }

@@ -17,7 +17,9 @@ package org.summerclouds.common.core.concurrent;
 
 import java.util.function.Function;
 
-//@DefaultImplementation(LockManagerImpl.class)
+import org.summerclouds.common.core.activator.DefaultImplementation;
+
+@DefaultImplementation(LockManagerImpl.class)
 public interface LockManager {
 
     Lock getLock(String name);

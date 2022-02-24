@@ -1,6 +1,6 @@
 package org.summerclouds.common.core.cfg;
 
-public class CfgFloat extends ICfg<Float> {
+public class CfgFloat extends AbstractCfg<Float> {
 
 	public CfgFloat(Class<?> owner, String param, Float def) {
 		super(owner, param, def);

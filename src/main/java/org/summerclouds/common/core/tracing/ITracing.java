@@ -1,5 +1,8 @@
 package org.summerclouds.common.core.tracing;
 
+import org.summerclouds.common.core.activator.DefaultImplementation;
+
+@DefaultImplementation(DummyTracing.class)
 public interface ITracing {
 
 	ISpan current();

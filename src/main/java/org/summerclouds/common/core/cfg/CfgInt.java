@@ -1,6 +1,6 @@
 package org.summerclouds.common.core.cfg;
 
-public class CfgInt extends ICfg<Integer> {
+public class CfgInt extends AbstractCfg<Integer> {
 
 	public CfgInt(Class<?> owner, String param, Integer def) {
 		super(owner, param, def);

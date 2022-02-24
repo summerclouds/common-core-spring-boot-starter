@@ -15,8 +15,8 @@
  */
 package org.summerclouds.common.core.form;
 
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.node.INode;
-import org.summerclouds.common.core.util.Activator;
 
 public class ActivatorAdapterProvider implements ComponentAdapterProvider {
 

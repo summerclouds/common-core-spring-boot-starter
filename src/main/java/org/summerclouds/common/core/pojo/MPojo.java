@@ -33,6 +33,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.cast.Caster;
 import org.summerclouds.common.core.consts.Identifier;
 import org.summerclouds.common.core.json.TransformHelper;
@@ -48,7 +49,6 @@ import org.summerclouds.common.core.tool.MDate;
 import org.summerclouds.common.core.tool.MString;
 import org.summerclouds.common.core.tool.MSystem;
 import org.summerclouds.common.core.tool.MXml;
-import org.summerclouds.common.core.util.Activator;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Element;
 

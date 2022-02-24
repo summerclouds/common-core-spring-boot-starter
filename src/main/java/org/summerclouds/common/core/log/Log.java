@@ -57,7 +57,7 @@ public class Log {
 	public void log(LEVEL level, String msg, Object... param) {
 		if (facade == null) {
 			try {
-				facade = M.l(LogFactory.class, ConsoleFactory.class).create(name);
+				facade = M.l(LogFactory.class).create(name);
 			} catch (Throwable t) {
 				System.out.println("*** " + t);
 				t.printStackTrace();

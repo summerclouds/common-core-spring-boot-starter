@@ -41,6 +41,7 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.cast.Caster;
 import org.summerclouds.common.core.cast.DoubleToString;
 import org.summerclouds.common.core.cast.FloatToString;
@@ -58,7 +59,6 @@ import org.summerclouds.common.core.cast.ObjectToSqlDate;
 import org.summerclouds.common.core.cast.ObjectToString;
 import org.summerclouds.common.core.cast.ObjectToUUID;
 import org.summerclouds.common.core.node.MProperties;
-import org.summerclouds.common.core.util.Activator;
 import org.summerclouds.common.core.util.MObjectInputStream;
 import org.summerclouds.common.core.util.VectorMap;
 
@@ -1219,7 +1219,7 @@ public final class MCast {
                 break;
             default:
                 try {
-                    t = M.l(Activator.class).findClass(type);
+                    t = M.l(Activator.class).loadClass(type);
                 } catch (ClassNotFoundException e) {
                     return def;
                 }

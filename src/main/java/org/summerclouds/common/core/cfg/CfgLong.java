@@ -1,6 +1,6 @@
 package org.summerclouds.common.core.cfg;
 
-public class CfgLong extends ICfg<Long> {
+public class CfgLong extends AbstractCfg<Long> {
 
 	public CfgLong(Class<?> owner, String param, Long def) {
 		super(owner, param, def);

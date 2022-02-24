@@ -5,7 +5,8 @@
 Diese Klassen können alternativ zu Springs `@Value` genutzt werden
 und geben den entsprechenden Wert aus Spring zurück oder den
 Standartwert. Vorher wird noch geprüft ob es eine Environment-Variable
-für diesen Wert gibt.
+für diesen Wert gibt. Wenn nicht wird noch eine System-Property 
+geprüft.
 
 Die Klassen können vor allem für statische Variablen oder in nicht
 Spring-Anwendungen genutzt werden (Mischimplementierung).
@@ -31,8 +32,8 @@ org_summerclouds_common_SampleClass:
 
 ----
 
-Der Environment-Name wird mit dem Prefix `app.` geführt. In diesem
-Beispiel: `app.org_summerclouds_common_SampleClass.interval=value`
+Der Environment-Name und System-Property wird mit dem Prefix `app.` 
+geführt. In diesem Beispiel: `app.org_summerclouds_common_SampleClass.interval=value`
 
 == BeanRef
 

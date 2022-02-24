@@ -49,12 +49,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.cfg.CfgString;
 import org.summerclouds.common.core.error.ForbiddenRuntimeException;
 import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.node.IProperties;
-import org.summerclouds.common.core.util.Activator;
 
 import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.description.type.TypeDescription;
@@ -1009,6 +1009,10 @@ public class MSystem {
         return out;
     }
 
+    public static Class<?> getClass(String type) throws ClassNotFoundException {
+    	return getClass(MSpring.getDefaultClassLoader(), type);
+    }
+    
     public static Class<?> getClass(ClassLoader cl, String type) throws ClassNotFoundException {
         if (type == null) return null;
         if (type.equals("int") || type.equals("integer")) return int.class;
@@ -1137,7 +1141,7 @@ public class MSystem {
         int p = className.lastIndexOf('.');
         if (p > 0) {
             className = className.substring(0, p) + "$" + className.substring(p + 1);
-            Class<?> type = activator.findClass(className);
+            Class<?> type = activator.loadClass(className);
             if (type.isEnum()) return (Class<? extends Enum<?>>) type;
         }
         return null;
@@ -1206,6 +1210,11 @@ public class MSystem {
 	@SuppressWarnings("unchecked")
 	public static <T> T createObject(ClassLoader loader, String clazzName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Class<?> clazz = loader.loadClass(clazzName);
+		return (T) clazz.getConstructor().newInstance();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T createObject(ClassLoader loader, Class<?> clazz) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		return (T) clazz.getConstructor().newInstance();
 	}
 	
