@@ -22,12 +22,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.MRuntimeException;
 import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.error.TooDeepStructuresException;
 import org.summerclouds.common.core.log.Log;
+import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MString;
 import org.summerclouds.common.core.tool.MXml;
 import org.summerclouds.common.core.util.MUri;
@@ -364,4 +366,75 @@ public interface INode extends IProperties {
     INode getAsObject(String key);
 
     NodeList getParentArray();
+
+    /**
+     * find or create a node in a node path. 
+     * Path elements separated by slash and can have indexes wih brackets
+     * e.g. nr1/nr2[4]/nr3
+     * @param root Root element
+     * @param path The path to the node
+     * @return
+     */
+	static INode findOrCreateNode(INode root, String path) {
+		
+		if (path.startsWith("/")) path = path.substring(1);
+		if (path.length() == 0) return root;
+		
+		MNode next = null;
+		int pos = path.indexOf('/');
+		String name = pos >= 0 ? path.substring(0, pos) : path;
+		name = name.trim();
+		if (name.endsWith("]")) {
+			// array
+			int index = MCast.toint( MString.beforeIndex( MString.afterIndex(name, '['), ']'), -1);
+			name = MString.beforeIndex(name, '[');
+			NodeList array = root.getArrayOrCreate(name);
+			while (array.size() < index+1)
+				array.createObject();
+			next = (MNode) array.get(index);
+		} else {
+			next = (MNode) root.getObjectOrNull(name);
+			if (next == null) {
+				next = new MNode();
+				root.addObject(name, next);
+			}
+		}
+		return pos < 0 ? next : findOrCreateNode(next, path.substring(pos+1));
+	}
+
+	static String getPath(INode node) {
+		StringBuilder sb = new StringBuilder();
+		getPath(node, sb, 0);
+		if (sb.length() == 0) sb.append("/");
+		return sb.toString();
+	}
+	
+	private static void getPath(INode node, StringBuilder sb, int level) {
+		if (level > M.MAX_DEPTH_LEVEL) throw new TooDeepStructuresException("too much node elements",sb);
+
+		INode parent = node.getParent();
+		NodeList list = node.getParentArray();
+		if (list != null) {
+			int index = -1;
+			for (int i = 0; i < list.size(); i++)
+				if (list.get(i) == node) {
+					index = i;
+					break;
+				}
+			sb.insert(0, "]");
+			sb.insert(0, index);
+			sb.insert(0, "[");
+			sb.insert(0, list.getName());
+			sb.insert(0, "/");
+			if (parent != null)
+				getPath(parent, sb, level+1);
+		} else
+		if (parent != null) {
+			sb.insert(0, node.getName());
+			sb.insert(0, "/");
+			getPath(parent, sb, level+1);
+		} 
+
+	}
+
 }

@@ -1,13 +1,16 @@
 package org.summerclouds.common.core.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.cfg.CfgString;
 import org.summerclouds.common.core.concurrent.Lock;
 import org.summerclouds.common.core.concurrent.LockManager;
+import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.log.Log;
+import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.tool.MSecurity;
 import org.summerclouds.common.core.tool.MSpring;
 import org.summerclouds.common.core.tool.MTracing;
@@ -37,7 +40,7 @@ public class NonSpringApplicationTest extends TestCase {
 	}
 
 	@Test
-	public void testValue() {
+	public void testValue() throws MException {
 		{
 			CfgString value = new CfgString( "aaa", "");
 			assertEquals("", value.value());
@@ -54,14 +57,32 @@ public class NonSpringApplicationTest extends TestCase {
 			{
 				String rnd = "xxx" + Math.random();
 				System.setProperty("app.aaa", rnd);
-				if (rnd.equals(System.getProperty("app.aaa"))) {
-					CfgString value = new CfgString( "aaa", "fallback");
-					assertEquals(rnd, value.value());
-				}
+
+				CfgString value = new CfgString( "aaa", "fallback");
+				assertEquals(rnd, value.value());
 			}
 		else
 			log().i("Skip value test with sys prop");
+
+		if (!MSpring.isStarted())
+		{
+			String rnd = "xxx" + Math.random();
+			System.setProperty("app.bbb.ccc.rnd", rnd);
+			System.setProperty("app.bbb.ccc.rnd2", rnd);
+
+			INode bbb = MSpring.getValueNode("bbb", null);
+			assertNotNull(bbb);
 			
+			INode ccc = bbb.getObject("ccc");
+			String r = ccc.getString("rnd");
+			assertEquals(rnd, r);
+			String r2 = ccc.getString("rnd2");
+			assertEquals(rnd, r2);
+		}
+	else
+		log().i("Skip value test with sys prop");
+		
+		
 	}
 
 	@Test
