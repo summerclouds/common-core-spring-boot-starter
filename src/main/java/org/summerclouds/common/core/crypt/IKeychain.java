@@ -1,10 +1,8 @@
-package org.summerclouds.common.core.util;
+package org.summerclouds.common.core.crypt;
 
 import java.util.UUID;
 
 import org.summerclouds.common.core.activator.DefaultImplementation;
-import org.summerclouds.common.core.tool.MKeychain.KeyEntry;
-import org.summerclouds.common.core.tool.MKeychain.KeychainSource;
 
 @DefaultImplementation(DummyKeychain.class)
 public interface IKeychain {

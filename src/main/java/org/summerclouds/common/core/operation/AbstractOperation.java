@@ -16,7 +16,6 @@
 package org.summerclouds.common.core.operation;
 
 import java.util.HashSet;
-import java.util.UUID;
 
 import org.summerclouds.common.core.form.DefRoot;
 import org.summerclouds.common.core.form.IFormProvider;
@@ -34,11 +33,10 @@ public abstract class AbstractOperation extends MLog implements Operation {
     private Object owner;
     private OperationDescription description;
     private MNls nls;
-    private UUID uuid = UUID.randomUUID();
 
     @Override
     public boolean hasAccess(TaskContext context) {
-        return MSecurity.hasPermission(getClass());
+        return MSecurity.hasPermission(Operation.class, MSecurity.EXECUTE, getClass().getCanonicalName());
     }
 
     @Override
@@ -104,9 +102,9 @@ public abstract class AbstractOperation extends MLog implements Operation {
 
         String path = clazz.getCanonicalName();
 
-        org.summerclouds.common.core.operation.util.OperationDescription desc =
+        org.summerclouds.common.core.operation.OperationComponent desc =
                 getClass()
-                        .getAnnotation(org.summerclouds.common.core.operation.util.OperationDescription.class);
+                        .getAnnotation(org.summerclouds.common.core.operation.OperationComponent.class);
         if (desc != null) {
             if (MString.isSet(desc.title())) title = desc.title();
             if (desc.clazz() != Object.class) {
@@ -131,7 +129,7 @@ public abstract class AbstractOperation extends MLog implements Operation {
             labels = IProperties.explodeToMProperties(desc.labels());
         }
         OperationDescription ret =
-                new OperationDescription(getUuid(), path, version, this, title, labels, form);
+                new OperationDescription(path, version, this, title, labels, form);
         prepareCreatedDescription(ret);
         return ret;
     }
@@ -177,8 +175,4 @@ public abstract class AbstractOperation extends MLog implements Operation {
         return MNls.find(this, text);
     }
 
-    @Override
-    public UUID getUuid() {
-        return uuid;
-    }
 }

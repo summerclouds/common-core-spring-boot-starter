@@ -71,7 +71,7 @@ public class Log {
 
 		if (facade == null) {
 			if (level != LEVEL.TRACE) {
-				msg = RC.toMessage(CAUSE.ENCAPSULATE, msg, param, maxMsgSize);
+				msg = RC.toMessage(-1, CAUSE.ENCAPSULATE, msg, param, maxMsgSize);
 				Throwable error = RC.findCause(CAUSE.ENCAPSULATE, param);
 				System.out.println(level + " " + msg);
 				if (error != null)
@@ -113,7 +113,7 @@ public class Log {
 			param = parameterMapper.map(this, param);
 
 		msg = "[" + Thread.currentThread().getId() + "]" + (msg != null ? msg : "");
-		msg = RC.toMessage(CAUSE.ENCAPSULATE, msg, param, maxMsgSize);
+		msg = RC.toMessage(-1, CAUSE.ENCAPSULATE, msg, param, maxMsgSize);
 		Throwable error = RC.findCause(CAUSE.ENCAPSULATE, param);
 
 		switch (level) {

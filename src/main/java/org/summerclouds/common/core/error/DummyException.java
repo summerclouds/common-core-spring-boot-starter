@@ -15,7 +15,7 @@
  */
 package org.summerclouds.common.core.error;
 
-public class DummyException extends MException {
+public class DummyException extends MRuntimeException {
 
     private static final long serialVersionUID = 1L;
     private StackTraceElement[] stackTrace;

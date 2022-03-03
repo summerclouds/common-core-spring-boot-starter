@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.operation.util;
+package org.summerclouds.common.core.operation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface OperationDescription {
+public @interface OperationComponent {
 
     /**
      * Display title of the operation. Default is the simple name of the current class.

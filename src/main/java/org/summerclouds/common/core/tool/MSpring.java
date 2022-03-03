@@ -1,19 +1,25 @@
 package org.summerclouds.common.core.tool;
 
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.internal.ContextListener;
@@ -170,5 +176,35 @@ public class MSpring {
 		if (activator == null) activator = new Activator();
 		return activator;
 	}
+	
+	public static <T> List<Class<? extends T>> findAnnotatedClasses(String scanPackageList, Class<? extends Annotation> annotationType) {
+		
+		if (MString.isEmpty(scanPackageList)) {
+			// TODO - default package
+		}
+		
+		ArrayList<Class<? extends T>> entities = new ArrayList<>();
+        ClassPathScanningCandidateComponentProvider provider = createComponentScanner(annotationType);
+        for (String scanPackage : scanPackageList.split(","))
+	        for (BeanDefinition beanDef : provider.findCandidateComponents(scanPackage)) {
+	        	try {
+	        		@SuppressWarnings("unchecked")
+					Class<? extends T> cl = (Class<? extends T>) MSystem.getClass(beanDef.getBeanClassName());
+		        	entities.add(cl);
+	        	} catch (Throwable t) {
+	        		PlainLog.e("can't load xdb entity {1}",beanDef.getBeanClassName());
+	        	}
+	        }
+        return entities;
+    }
+ 
+    private static ClassPathScanningCandidateComponentProvider createComponentScanner(Class<? extends Annotation> annotationType) {
+        // Don't pull default filters (@Component, etc.):
+        ClassPathScanningCandidateComponentProvider provider
+                = new ClassPathScanningCandidateComponentProvider(false);
+        provider.addIncludeFilter(new AnnotationTypeFilter(annotationType));
+        return provider;
+    }
+
 	
 }

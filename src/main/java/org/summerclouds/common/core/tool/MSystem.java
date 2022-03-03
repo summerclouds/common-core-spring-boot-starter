@@ -22,6 +22,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.lang.instrument.Instrumentation;
@@ -53,6 +55,9 @@ import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.cfg.CfgString;
 import org.summerclouds.common.core.error.ForbiddenRuntimeException;
 import org.summerclouds.common.core.error.NotFoundException;
+import org.summerclouds.common.core.io.ThreadLocalInputStream;
+import org.summerclouds.common.core.io.ThreadLocalPrinter;
+import org.summerclouds.common.core.lang.ICloseable;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.node.IProperties;
 
@@ -82,6 +87,69 @@ public class MSystem {
     private static ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
     private static String hostname; // cached hostname
 
+	private static PrintStream out;
+	private static PrintStream err;
+	private static InputStream in;
+
+	public static PrintStream originalOut() {
+		return out == null ? System.out : out;
+	}
+	
+	public static PrintStream originalErr() {
+		return err == null ? System.err : err;
+	}
+	
+	public static InputStream originalIn() {
+		return in == null ? System.in : in;
+	}
+	
+	/**
+	 * Set for the current thread different IO streams.
+	 * 
+	 * @param newOut
+	 * @param newErr
+	 * @param newIn
+	 * @return
+	 */
+	public static ICloseable useIO(OutputStream newOut, OutputStream newErr, InputStream newIn) {
+
+		synchronized (MSystem.class) {
+			if (!(System.out instanceof ThreadLocalPrinter)) {
+				out = System.out;
+				System.setOut(new ThreadLocalPrinter(out));
+			}
+			if (!(System.err instanceof ThreadLocalPrinter)) {
+				err = System.err;
+				System.setErr(new ThreadLocalPrinter(err));
+			}
+			if (!(System.in instanceof ThreadLocalInputStream)) {
+				in = System.in;
+				System.setIn(new ThreadLocalInputStream(in));
+			}
+		}
+		
+		ICloseable closeOut = newOut == null ? null : ((ThreadLocalPrinter)System.out).use(newOut);
+		ICloseable closeErr = newErr == null ? null : ((ThreadLocalPrinter)System.err).use(newOut);
+		ICloseable closeIn  = newIn  == null ? null : ((ThreadLocalInputStream)System.in).use(newIn);
+
+		return new ICloseable() {
+			
+			@Override
+			public void close() {
+				try {
+					if (closeOut != null) closeOut.close();
+				} catch (Throwable t) {}
+				try {
+					if (closeErr != null) closeErr.close();
+				} catch (Throwable t) {}
+				try {
+					if (closeIn != null) closeIn.close();
+				} catch (Throwable t) {}
+			}
+		};
+	}
+	
+    
     /**
      * Returns the name of the current system. COMPUTERNAME or HOSTNAME.
      *

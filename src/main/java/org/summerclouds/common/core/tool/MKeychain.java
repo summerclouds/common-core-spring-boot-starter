@@ -15,13 +15,12 @@
  */
 package org.summerclouds.common.core.tool;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import org.summerclouds.common.core.cfg.BeanRef;
-import org.summerclouds.common.core.error.MException;
-import org.summerclouds.common.core.util.IKeychain;
-import org.summerclouds.common.core.util.SecureString;
+import org.summerclouds.common.core.crypt.IKeychain;
+import org.summerclouds.common.core.crypt.KeyEntry;
+import org.summerclouds.common.core.crypt.KeychainSource;
 
 public class MKeychain {
 
@@ -29,26 +28,26 @@ public class MKeychain {
 	
 	private static final BeanRef<IKeychain> instance = new BeanRef<>(IKeychain.class);
 
-    static final String TYPE_RSA_PRIVATE_KEY = "rsa.cipher.private.key";
-    static final String TYPE_RSA_PUBLIC_KEY = "rsa.cipher.public.key";
-    static final String TYPE_AES_PRIVATE_KEY = "aes.cipher.private.key";
-    static final String TYPE_AES_PUBLIC_KEY = "aes.cipher.public.key";
-    static final String TYPE_DSA_PRIVATE_KEY = "dsa.sign.private.key";
+    public static final String TYPE_RSA_PRIVATE_KEY = "rsa.cipher.private.key";
+    public static final String TYPE_RSA_PUBLIC_KEY = "rsa.cipher.public.key";
+    public static final String TYPE_AES_PRIVATE_KEY = "aes.cipher.private.key";
+    public static final String TYPE_AES_PUBLIC_KEY = "aes.cipher.public.key";
+    public static final String TYPE_DSA_PRIVATE_KEY = "dsa.sign.private.key";
 
-    static final String TYPE_DSA_PUBLIC_KEY = "dsa.sign.public.key";
-    static final String TYPE_ECC_PRIVATE_KEY = "ecc.sign.private.key";
-    static final String TYPE_ECC_PUBLIC_KEY = "ecc.sign.public.key";
+    public static final String TYPE_DSA_PUBLIC_KEY = "dsa.sign.public.key";
+    public static final String TYPE_ECC_PRIVATE_KEY = "ecc.sign.private.key";
+    public static final String TYPE_ECC_PUBLIC_KEY = "ecc.sign.public.key";
 
-    static final String TYPE_TEXT = "text";
-    static final String TYPE_CIPHER = "cipher";
-    static final String TYPE_SIGNATURE = "signature";
+    public static final String TYPE_TEXT = "text";
+    public static final String TYPE_CIPHER = "cipher";
+    public static final String TYPE_SIGNATURE = "signature";
 
-    static final String SOURCE_DEFAULT = "default";
+    public static final String SOURCE_DEFAULT = "default";
 
-    static final String SUFFIX_CIPHER_PRIVATE_KEY = ".cipher.private.key";
-    static final String SUFFIX_CIPHER_PUBLIC_KEY = ".cipher.public.key";
-    static final String SUFFIX_SIGN_PRIVATE_KEY = ".sign.private.key";
-    static final String SUFFIX_SIGN_PUBLIC_KEY = ".sign.public.key";
+    public static final String SUFFIX_CIPHER_PRIVATE_KEY = ".cipher.private.key";
+    public static final String SUFFIX_CIPHER_PUBLIC_KEY = ".cipher.public.key";
+    public static final String SUFFIX_SIGN_PRIVATE_KEY = ".sign.private.key";
+    public static final String SUFFIX_SIGN_PUBLIC_KEY = ".sign.public.key";
 
     public static IKeychain get() {
     	return instance.bean();
@@ -109,104 +108,6 @@ public class MKeychain {
      */
     public static KeyEntry getEntry(String name) {
     	return get().getEntry(name);
-    }
-    
-    public static interface KeyEntry {
-
-        /**
-         * Returns the unique id of the entry.
-         *
-         * @return The unique id
-         */
-        UUID getId();
-
-        /**
-         * Returns the type of the entry as string. A list of default types is defined in MVault.
-         *
-         * @return The type of the entry, never null.
-         */
-        String getType();
-
-        /**
-         * Return a readable description describe the key and/or the usage.
-         *
-         * @return description
-         */
-        String getDescription();
-
-        /**
-         * Return the value of the entry as text.
-         *
-         * @return The entry as text.
-         */
-        SecureString getValue();
-
-        /**
-         * Return a technical name of the entry.
-         *
-         * @return The name
-         */
-        String getName();
-    }    
-    
-    public static interface KeychainSource {
-
-        /**
-         * Return a entry by id or null if not found.
-         *
-         * @param id
-         * @return The id or null
-         */
-        KeyEntry getEntry(UUID id);
-
-        /**
-         * Return a not editable list of current stored entry ids.
-         *
-         * @return a list of ids.
-         */
-        Iterable<UUID> getEntryIds();
-
-        /**
-         * Return a unique name of the source.
-         *
-         * @return the name
-         */
-        String getName();
-
-        /**
-         * Return a editable instance or null if not supported
-         *
-         * @return editable vault source
-         */
-        MutableVaultSource getEditable();
-
-        /**
-         * Return a entry by name or null if not found. Return the first entry found.
-         *
-         * @param name
-         * @return The id or null
-         */
-        KeyEntry getEntry(String name);
-    }
-    
-    public static interface MutableVaultSource extends KeychainSource {
-
-        void addEntry(KeyEntry entry) throws MException;
-
-        void removeEntry(UUID id) throws MException;
-
-        void doLoad() throws IOException;
-
-        void doSave() throws IOException;
-
-        /**
-         * Return true if load and save is needed to persist changed data.
-         *
-         * @return true if storage is in memory
-         */
-        boolean isMemoryBased();
-
-        void updateEntry(KeyEntry entry) throws MException;
     }
 
 }

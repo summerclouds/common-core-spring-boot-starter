@@ -11,6 +11,20 @@ import org.summerclouds.common.core.security.ISubjectEnvironment;
 
 public class MSecurity {
 
+    // default rights
+    public static final String READ = "read";
+    public static final String CREATE = "create";
+    public static final String UPDATE = "update";
+    public static final String DELETE = "delete";
+    public static final String VIEW = "view";
+    public static final String ADMIN = "admin";
+    public static final String EXECUTE = "execute";
+
+    public static final String WILDCARD_TOKEN = "*";
+    public static final String PART_DIVIDER_TOKEN = ":";
+    public static final String SUBPART_DIVIDER_TOKEN = ",";
+	public static final String ACE_DIVIDER = ";";
+
 	private MSecurity() {};
 	
 	private static final Log log = Log.getLog(MSecurity.class);

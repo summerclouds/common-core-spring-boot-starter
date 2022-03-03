@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.summerclouds.common.core.cmd.CmdArgument;
-import org.summerclouds.common.core.cmd.CmdDescription;
 import org.summerclouds.common.core.cmd.CmdOption;
 import org.summerclouds.common.core.error.UsageException;
 import org.summerclouds.common.core.log.MLog;
@@ -71,11 +70,12 @@ public class MArgs extends MLog {
         List<Usage> u = new ArrayList<>();
         Usage[] a = new Usage[50]; // max 50 should be ok
         Map<String, Usage> map = new HashMap<>();
-        CmdDescription cmd = pojo.getClass().getAnnotation(CmdDescription.class);
-        if (cmd != null) {
-            u.add(new Help(cmd.description()));
-            for (String flag : cmd.flags()) u.add(new Flag(flag, null));
-        }
+        //XXX
+//        CmdDescription cmd = pojo.getClass().getAnnotation(OperationDescription.class);
+//        if (cmd != null) {
+//            u.add(new Help(cmd.description()));
+//            for (String flag : cmd.flags()) u.add(new Flag(flag, null));
+//        }
         for (PojoAttribute<?> entry : model) {
             CmdOption cOpt = entry.getAnnotation(CmdOption.class);
             if (cOpt != null) {

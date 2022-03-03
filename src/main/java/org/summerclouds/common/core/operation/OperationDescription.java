@@ -21,7 +21,6 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.UUID;
 
 import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.form.DefRoot;
@@ -61,38 +60,36 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
     private MNlsProvider nlsProvider;
 
     private Version version;
-    private UUID uuid;
 
     private String path;
 
     public OperationDescription() {}
 
     public OperationDescription(
-            UUID uuid, Class<?> clazz, MNlsProvider nlsProvider, String version, String title) {
-        this(uuid, clazz, nlsProvider, null, title, null, null);
+            Class<?> clazz, MNlsProvider nlsProvider, String version, String title) {
+        this(clazz, nlsProvider, null, title, null, null);
     }
 
     public OperationDescription(
-            UUID uuid, Class<?> clazz, MNlsProvider nlsProvider, Version version, String title) {
-        this(uuid, clazz, nlsProvider, version, title, null, null);
+            Class<?> clazz, MNlsProvider nlsProvider, Version version, String title) {
+        this(clazz, nlsProvider, version, title, null, null);
     }
 
-    public OperationDescription(UUID uuid, Class<?> clazz, MNlsProvider nlsProvider, String title) {
-        this(uuid, clazz, nlsProvider, null, title, null, null);
+    public OperationDescription(Class<?> clazz, MNlsProvider nlsProvider, String title) {
+        this(clazz, nlsProvider, null, title, null, null);
     }
 
     public OperationDescription(Operation owner, Version version, String title, DefRoot form) {
-        this(owner.getUuid(), owner.getClass(), owner, version, title, null, form);
+        this(owner.getClass(), owner, version, title, null, form);
     }
 
     public OperationDescription(Operation owner, String title, DefRoot form) {
-        this(owner.getUuid(), owner.getClass(), owner, null, title, null, form);
+        this(owner.getClass(), owner, null, title, null, form);
     }
 
     public OperationDescription(
             Operation owner, String path, String title, DefRoot form, String... labels) {
         this(
-                owner.getUuid(),
                 path,
                 null,
                 owner,
@@ -102,24 +99,22 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
     }
 
     public OperationDescription(
-            UUID uuid,
             Class<?> clazz,
             MNlsProvider nlsProvider,
             Version version,
             String title,
             DefRoot form) {
-        this(uuid, clazz, nlsProvider, version, title, null, form);
+        this(clazz, nlsProvider, version, title, null, form);
     }
 
     public OperationDescription(
-            UUID uuid,
             Class<?> clazz,
             MNlsProvider nlsProvider,
             Version version,
             String title,
             IProperties labels,
             DefRoot form) {
-        this(uuid, clazz.getCanonicalName(), version, nlsProvider, title, labels, form);
+        this(clazz.getCanonicalName(), version, nlsProvider, title, labels, form);
     }
 
     protected void setForm(DefRoot form) {
@@ -147,23 +142,22 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
     }
 
     public OperationDescription(
-            UUID uuid, String path, Version version, String title, DefRoot form, String... labels) {
-        this(uuid, path, version, null, title, IProperties.explodeToMProperties(labels), form);
+    		String path, Version version, String title, DefRoot form, String... labels) {
+        this(path, version, null, title, IProperties.explodeToMProperties(labels), form);
     }
 
     public OperationDescription(
-            UUID uuid, String path, Version version, MNlsProvider nlsProvider, String title) {
-        this(uuid, path, version, nlsProvider, title, null, null);
+            String path, Version version, MNlsProvider nlsProvider, String title) {
+        this(path, version, nlsProvider, title, null, null);
     }
 
     public OperationDescription(
-            UUID uuid,
             String path,
             Version version,
             String title,
             IProperties labels,
             DefRoot form) {
-        this(uuid, path, version, null, title, labels, form);
+        this(path, version, null, title, labels, form);
     }
 
     /**
@@ -178,14 +172,12 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
      * @param form
      */
     public OperationDescription(
-            UUID uuid,
             String path,
             Version version,
             MNlsProvider nlsProvider,
             String title,
             IProperties labels,
             DefRoot form) {
-        this.uuid = uuid;
         this.path = path;
         this.nlsProvider = nlsProvider;
         this.title = title;
@@ -197,7 +189,6 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
 
     public OperationDescription(OperationDescription desc) {
         this(
-                desc.getUuid(),
                 desc.getPath(),
                 desc.getVersion(),
                 desc.nlsProvider,
@@ -259,7 +250,7 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
 
     @Override
     public String toString() {
-        return MSystem.toString(this, uuid, path, version, labels);
+        return MSystem.toString(this, path, version, labels);
     }
 
     @Override
@@ -277,10 +268,6 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
         return nls("caption=" + getTitle());
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
-
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(1);
@@ -290,7 +277,6 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
         out.writeObject(parameterDef);
         out.writeObject(version);
         out.writeObject(path);
-        out.writeObject(uuid);
     }
 
     @Override
@@ -303,14 +289,12 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
         version = (Version) in.readObject();
         path = (String) in.readObject();
         path = (String) in.readObject();
-        uuid = (UUID) in.readObject();
     }
 
     public ObjectNode toJson() throws Exception {
         ObjectNode json = MJson.createObjectNode();
 
         json.put("path", getPath());
-        json.put("uuid", getUuid().toString());
         json.put("title", getTitle());
         json.put("version", getVersionString());
         DefRoot form = getForm();
@@ -329,12 +313,11 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
     }
 
     public static OperationDescription fromJson(JsonNode json) {
-        UUID uuid = UUID.fromString(json.get("uuid").asText());
         String path = json.get("path").asText();
         String title = json.get("title").asText();
         Version version = new Version(json.get("version").asText());
 
-        OperationDescription desc = new OperationDescription(uuid, path, version, null, title);
+        OperationDescription desc = new OperationDescription(path, version, null, title);
 
         if (json.has("form")) {
             DefRoot form = ModelUtil.fromJson((ObjectNode) json.get("form"));

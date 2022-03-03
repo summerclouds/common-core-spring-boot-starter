@@ -1,11 +1,8 @@
-package org.summerclouds.common.core.util;
+package org.summerclouds.common.core.crypt;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import org.summerclouds.common.core.tool.MKeychain.KeyEntry;
-import org.summerclouds.common.core.tool.MKeychain.KeychainSource;
 
 public class DummyKeychain implements IKeychain {
 

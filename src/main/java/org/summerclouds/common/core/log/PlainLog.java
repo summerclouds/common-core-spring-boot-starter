@@ -68,7 +68,7 @@ public class PlainLog {
 		}
 
 		msg = "[" + Thread.currentThread().getId() + "]" + (msg != null ? msg : "");
-		msg = RC.toMessage(CAUSE.ENCAPSULATE, msg, param, maxMsgSize );
+		msg = RC.toMessage(-1, CAUSE.ENCAPSULATE, msg, param, maxMsgSize );
 		Throwable error = RC.findCause(CAUSE.ENCAPSULATE, param);
 
 		switch (level) {

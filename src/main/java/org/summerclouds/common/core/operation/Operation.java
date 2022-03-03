@@ -15,8 +15,6 @@
  */
 package org.summerclouds.common.core.operation;
 
-import java.util.UUID;
-
 import org.summerclouds.common.core.nls.MNlsProvider;
 import org.summerclouds.common.core.nls.Nls;
 
@@ -36,5 +34,4 @@ public interface Operation extends MNlsProvider, Nls {
 
     boolean releaseBusy(Object owner);
 
-    UUID getUuid();
 }

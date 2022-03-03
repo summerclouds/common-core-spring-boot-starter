@@ -22,6 +22,7 @@ public class SpringSummerCloudsCoreAutoConfiguration implements ApplicationConte
 	public SpringSummerCloudsCoreAutoConfiguration() {
 		PlainLog.i("Start SpringSummerCloudsAutoConfiguration");
 	}
+	
 	@Override
     public void setApplicationContext(ApplicationContext appContext) {
         MSpring.setContext(appContext);

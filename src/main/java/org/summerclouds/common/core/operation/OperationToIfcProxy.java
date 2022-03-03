@@ -157,7 +157,6 @@ public abstract class OperationToIfcProxy extends AbstractOperation {
 
         OperationDescription out =
                 new OperationDescription(
-                        getUuid(),
                         clazz.getCanonicalName(),
                         getInterfaceVersion(),
                         this,
