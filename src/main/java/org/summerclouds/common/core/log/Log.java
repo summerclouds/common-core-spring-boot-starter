@@ -15,12 +15,14 @@
  */
 package org.summerclouds.common.core.log;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.cfg.CfgBoolean;
+import org.summerclouds.common.core.cfg.CfgInt;
 import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.error.RC.CAUSE;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MSystem;
+import org.summerclouds.common.core.tool.MTracing;
 import org.summerclouds.common.core.util.SoftHashMap;
 
 /**
@@ -35,9 +37,9 @@ public class Log {
 		TRACE, DEBUG, INFO, WARN, ERROR, FATAL
 	};
 
-	@Autowired
-	protected ParameterMapper parameterMapper;
-	private static int maxMsgSize = 0;
+	protected ParameterMapper parameterMapper = new DefaultParameterMapper();
+	private static CfgInt maxMsgSize = new CfgInt(Log.class,"maxMsgSize", 10000);
+	private static CfgBoolean logTraceId = new CfgBoolean(Log.class, "logTraceId", true);
 	private static boolean stacktraceTrace;
 
 	private static SoftHashMap<String, Log> registry = new SoftHashMap<>();
@@ -71,7 +73,7 @@ public class Log {
 
 		if (facade == null) {
 			if (level != LEVEL.TRACE) {
-				msg = RC.toMessage(-1, CAUSE.ENCAPSULATE, msg, param, maxMsgSize);
+				msg = RC.toMessage(-1, CAUSE.ENCAPSULATE, msg, param, maxMsgSize.value());
 				Throwable error = RC.findCause(CAUSE.ENCAPSULATE, param);
 				System.out.println(level + " " + msg);
 				if (error != null)
@@ -112,8 +114,8 @@ public class Log {
 		if (parameterMapper != null)
 			param = parameterMapper.map(this, param);
 
-		msg = "[" + Thread.currentThread().getId() + "]" + (msg != null ? msg : "");
-		msg = RC.toMessage(-1, CAUSE.ENCAPSULATE, msg, param, maxMsgSize);
+		msg = RC.toMessage(-1, CAUSE.ENCAPSULATE, msg, param, maxMsgSize.value());
+		msg = postMsg(msg);
 		Throwable error = RC.findCause(CAUSE.ENCAPSULATE, param);
 
 		switch (level) {
@@ -143,6 +145,12 @@ public class Log {
 			String stacktrace = MCast.toString("stacktracetrace", Thread.currentThread().getStackTrace());
 			facade.debug(stacktrace);
 		}
+	}
+
+	private String postMsg(String msg) {
+		if (logTraceId.value())
+			return MTracing.getCurrentId() + "#" + msg;
+		return msg;
 	}
 
 	/**
@@ -304,7 +312,7 @@ public class Log {
 	}
 
 	public static int getMaxMsgSize() {
-		return maxMsgSize;
+		return maxMsgSize.value();
 	}
 
 	public boolean isLocalUpgrade() {

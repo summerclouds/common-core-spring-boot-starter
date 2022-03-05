@@ -23,5 +23,5 @@ public interface ParameterEntryMapper {
      * @param in
      * @return the mapped value
      */
-    Object map(Object in);
+    String map(Object in);
 }

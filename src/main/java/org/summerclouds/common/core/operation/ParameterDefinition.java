@@ -25,6 +25,7 @@ import java.util.Map;
 
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.form.definition.IFmElement;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.node.IProperties;
 import org.summerclouds.common.core.node.IReadProperties;
@@ -46,8 +47,8 @@ public class ParameterDefinition implements Externalizable {
 
     public ParameterDefinition(Map<String, Object> properties) {
         this.properties = new MProperties(properties);
-        name = this.properties.getString("name", "");
-        type = this.properties.getString("type", "");
+        name = this.properties.getString(IFmElement.NAME, "");
+        type = this.properties.getString(IFmElement.TYPE, "");
         loadProperties();
     }
 
@@ -78,7 +79,7 @@ public class ParameterDefinition implements Externalizable {
 
     private void loadProperties() {
         if (type == null) type = "";
-        type = properties.getString("type", type);
+        type = properties.getString(IFmElement.TYPE, type);
 
         mandatory = properties.getBoolean("mandatory", mandatory);
         def = properties.getString("default", null);

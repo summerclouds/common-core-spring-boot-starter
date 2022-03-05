@@ -41,6 +41,7 @@ public class NonSpringApplicationTest extends TestCase {
 
 	@Test
 	public void testValue() throws MException {
+		if (!MSpring.isStarted())
 		{
 			CfgString value = new CfgString( "aaa", "");
 			assertEquals("", value.value());

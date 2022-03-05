@@ -51,7 +51,7 @@ public class Activator extends ClassLoader {
 	        }
 	        
 	        if (out == null)
-	        	out = MSystem.createObject(this, clazz);
+	        	out = MSystem.createObject(clazz);
 	        
 			return out;
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException

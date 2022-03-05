@@ -18,25 +18,28 @@ package org.summerclouds.common.core.log;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import org.summerclouds.common.core.tool.MSpring;
 import org.summerclouds.common.core.util.SoftHashMap;
 
-public class MutableParameterMapper extends AbstractParameterMapper
+public class DefaultParameterMapper extends AbstractParameterMapper
         implements IMutableParameterMapper {
 
-    private HashMap<String, ParameterEntryMapper> mapping = new HashMap<>();
+    private HashMap<String, ParameterEntryMapper> mapping;
     private SoftHashMap<String, ParameterEntryMapper> cache = new SoftHashMap<>();
     private ParameterEntryMapper noMapper =
             new ParameterEntryMapper() {
 
                 @Override
-                public Object map(Object in) {
+                public String map(Object in) {
                     return null;
                 }
             };
 
     @Override
     protected Object map(Object o) {
+    	init();
         if (o == null || mapping.size() == 0) return null;
         Class<?> c = o.getClass();
         if (c.isPrimitive()) return null;
@@ -83,7 +86,15 @@ public class MutableParameterMapper extends AbstractParameterMapper
         return null;
     }
 
-    private void findInterfaces(Class<?> c, List<Class<?>> list) {
+    protected synchronized void init() {
+		if (mapping != null) return;
+		mapping = new HashMap<>();
+		Map<String, ParameterEntryMapper> map = MSpring.getBeansOfType( ParameterEntryMapper.class );
+		if (map != null)
+			mapping.putAll(map);
+	}
+
+	private void findInterfaces(Class<?> c, List<Class<?>> list) {
         for (Class<?> i : c.getInterfaces()) {
             list.add(i);
             findInterfaces(i, list);
@@ -93,13 +104,14 @@ public class MutableParameterMapper extends AbstractParameterMapper
     @Override
     public void clear() {
         synchronized (this) {
-            mapping.clear();
+            mapping = null;
             cache.clear();
         }
     }
 
     @Override
     public void put(String clazz, ParameterEntryMapper mapper) {
+    	init();
         synchronized (this) {
             mapping.put(clazz, mapper);
             cache.remove(clazz);

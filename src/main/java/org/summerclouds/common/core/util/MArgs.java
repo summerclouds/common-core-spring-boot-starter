@@ -24,10 +24,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.summerclouds.common.core.cmd.CmdArgument;
-import org.summerclouds.common.core.cmd.CmdOption;
 import org.summerclouds.common.core.error.UsageException;
 import org.summerclouds.common.core.log.MLog;
+import org.summerclouds.common.core.operation.cmd.CmdArgument;
+import org.summerclouds.common.core.operation.cmd.CmdOption;
 import org.summerclouds.common.core.pojo.MPojo;
 import org.summerclouds.common.core.pojo.PojoAttribute;
 import org.summerclouds.common.core.pojo.PojoModel;

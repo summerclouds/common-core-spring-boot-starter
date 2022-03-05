@@ -15,7 +15,6 @@
  */
 package org.summerclouds.common.core.pojo;
 
-import java.awt.List;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -28,6 +27,7 @@ import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -75,9 +75,9 @@ public class MPojo {
 
                         @Override
                         public PojoModel createPojoModel(Class<?> pojoClass) {
-                            PojoModel model =
+							PojoModel model =
                                     new PojoParser()
-                                            .parse(pojoClass, "_", null)
+                                            .parse(pojoClass, "_")
                                             .filter(
                                                     new DefaultFilter(
                                                             true, false, false, false, true))

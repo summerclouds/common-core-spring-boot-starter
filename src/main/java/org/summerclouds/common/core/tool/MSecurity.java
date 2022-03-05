@@ -83,7 +83,7 @@ public class MSecurity {
 	public static boolean hasPermission(Class<?> object, String action, String instance) {
 		ISecurity sec = get();
 		if (sec == null) throw new ConflictRuntimeException("security bean not found");
-		return hasPermission(object, action, instance);
+		return sec.hasPermission(object, action, instance);
 
 	}
 	

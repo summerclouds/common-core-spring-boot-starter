@@ -27,7 +27,7 @@ public class WaitExecuteStrategy extends ExecuteStrategy {
     private long timeout;
 
     @Override
-    protected OperationResult doExecute2(TaskContext context) throws Exception {
+    protected OperationResult execute(TaskContext context) throws Exception {
         if (executable == null)
             return new NotSuccessful(this, RC.GONE, "executable not found");
         try {

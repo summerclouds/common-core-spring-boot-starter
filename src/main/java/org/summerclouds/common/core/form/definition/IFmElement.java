@@ -34,9 +34,11 @@ public class IFmElement extends DefComponent {
     public static final String ALLOW_NULL = "allow_null";
     public static final String HEIGHT = "height";
     public static final String WIZARD = "wizard";
+    
+    public static final String ELEMENT_NODE = "element";
 
     public IFmElement(String name, IDefAttribute... definitions) {
-        super("element", definitions);
-        setString("name", name);
+        super(ELEMENT_NODE, definitions);
+        setString(NAME, name);
     }
 }

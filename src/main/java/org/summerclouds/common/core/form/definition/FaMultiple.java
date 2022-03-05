@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.operation;
+package org.summerclouds.common.core.form.definition;
 
-public abstract class ExecuteStrategy extends AbstractOperation {
+import org.summerclouds.common.core.form.DefAttribute;
 
-    @Override
-    protected abstract OperationResult execute(TaskContext context) throws Exception;
+public class FaMultiple extends DefAttribute {
 
-    public abstract Operation getExecutable();
-
-    public abstract void setExecutable(Operation executable);
+    public FaMultiple() {
+        super("multiple", "true");
+    }
 }

@@ -51,4 +51,9 @@ public abstract class AbstractCfg<T> {
 	public T getDefault() {
 		return def;
 	}
+	
+	public void set(T value) {
+		this.value = value;
+	}
+	
 }

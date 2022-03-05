@@ -32,6 +32,7 @@ import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.form.DefRoot;
 import org.summerclouds.common.core.form.definition.FaShowInformationPanel;
 import org.summerclouds.common.core.form.definition.FmText;
+import org.summerclouds.common.core.form.definition.IFmElement;
 import org.summerclouds.common.core.node.DefaultNodeFactory;
 import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.node.MNode;
@@ -120,7 +121,7 @@ public class MNodeTest extends TestCase {
             System.out.println(root);
             {
                 assertEquals(true, root.getBoolean("showInformation"));
-                NodeList array = root.getArray("element");
+                NodeList array = root.getArray(IFmElement.ELEMENT_NODE);
                 assertEquals(1, array.size());
                 INode ele = array.get(0);
                 assertEquals("text", ele.getString("type"));
@@ -130,11 +131,11 @@ public class MNodeTest extends TestCase {
             assertTrue(root.isBuild());
             {
                 assertEquals(true, root.getBoolean("showInformation"));
-                NodeList array = root.getArray("element");
+                NodeList array = root.getArray(IFmElement.ELEMENT_NODE);
                 assertEquals(1, array.size());
                 INode ele = array.get(0);
-                assertEquals("text", ele.getString("type"));
-                assertEquals("test1", ele.getString("name"));
+                assertEquals("text", ele.getString(IFmElement.TYPE));
+                assertEquals("test1", ele.getString(IFmElement.NAME));
             }
         }
     }

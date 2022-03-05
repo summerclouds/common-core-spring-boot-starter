@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.cmd;
+package org.summerclouds.common.core.operation.cmd;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CmdOption {
+public @interface CmdArgument {
 
     String description() default "";
 
-    char shortcut() default 0;
+//    String name() default "";
 
-    String name() default "";
+    int index();
+
+    boolean mandatory() default false;
 
     int valueCnt() default 0;
 
     boolean multi() default false;
 
-    boolean mandatory() default false;
-
-    boolean value() default false;
+	String name() default "";
 }

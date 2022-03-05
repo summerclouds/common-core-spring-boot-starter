@@ -34,11 +34,11 @@ public class SuccessfulMap extends Successful {
         setResultNode(new MProperties());
     }
 
-    public SuccessfulMap(String path, String msg, int rc, String... keyValues) {
+    public SuccessfulMap(String path, int rc, String msg, String... keyValues) {
         super(path, msg, rc, keyValues);
     }
 
-    public SuccessfulMap(Operation operation, String msg, int rc, String... keyValues) {
+    public SuccessfulMap(Operation operation, int rc, String msg, String... keyValues) {
         super(operation.getDescription().getPath(), msg, rc, keyValues);
     }
 

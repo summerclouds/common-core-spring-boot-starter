@@ -250,7 +250,7 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
 
     @Override
     public String toString() {
-        return MSystem.toString(this, path, version, labels);
+        return MSystem.toString(this, path, version, labels,parameterDef);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class SynchronizedExecuteStrategy extends ExecuteStrategy {
     private Operation executable;
 
     @Override
-    protected OperationResult doExecute2(TaskContext context) throws Exception {
+    protected OperationResult execute(TaskContext context) throws Exception {
         synchronized (this) {
             if (executable == null)
                 return new NotSuccessful(this, RC.GONE, "executable not found");

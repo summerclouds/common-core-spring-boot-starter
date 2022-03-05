@@ -18,20 +18,20 @@ package org.summerclouds.common.core.crypt;
 public class Rot13 {
 
 	/**
-	 * Encode characters +13 and Numbers +10
+	 * Encode characters +13 and Numbers +5
 	 * @param in
 	 * @return
 	 */
-    public static String encode13And10(String in) {
-        return decode13And10(in);
+    public static String encode13And5(String in) {
+        return decode13And5(in);
     }
 
     /**
-	 * Decode characters +13 and Numbers +10
+	 * Decode characters +13 and Numbers +5
      * @param in
      * @return
      */
-    public static String decode13And10(String in) {
+    public static String decode13And5(String in) {
 
         StringBuilder out = new StringBuilder();
 

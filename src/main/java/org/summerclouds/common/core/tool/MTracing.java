@@ -40,7 +40,7 @@ public class MTracing {
 
 	public static String getCurrentId() {
 		ITracing inst = get();
-		if (inst == null) throw new ConflictRuntimeException("tracing bean not found");
+		if (inst == null) return String.valueOf(Thread.currentThread().getId());
 		return inst.getCurrentId();
 	}
 

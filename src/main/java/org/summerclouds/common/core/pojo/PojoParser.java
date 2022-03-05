@@ -32,18 +32,20 @@ public class PojoParser {
         return parse(pojo, (PojoStrategy) null);
     }
 
-    public PojoParser parse(
+    @SafeVarargs
+    public final PojoParser parse(
             Object pojo,
             String embedGlue,
             boolean allowPublic,
-            Class<? extends Annotation>[] annotationMarker) {
+            Class<? extends Annotation> ... annotationMarker) {
         return parse(
                 pojo,
                 new DefaultStrategy(true, embedGlue, annotationMarker).setAllowPublic(allowPublic));
     }
 
-    public PojoParser parse(
-            Object pojo, String embedGlue, Class<? extends Annotation>[] annotationMarker) {
+    @SafeVarargs
+	public final PojoParser parse(
+            Object pojo, String embedGlue, Class<? extends Annotation> ... annotationMarker) {
         return parse(pojo, new DefaultStrategy(true, embedGlue, annotationMarker));
     }
 

@@ -15,9 +15,9 @@
  */
 package org.summerclouds.common.core.security;
 
-import java.io.Closeable;
+import org.summerclouds.common.core.lang.ICloseable;
 
-public interface ISubjectEnvironment extends Closeable {
+public interface ISubjectEnvironment extends ICloseable {
 
     ISubject getSubject();
 

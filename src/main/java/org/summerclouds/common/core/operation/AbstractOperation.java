@@ -17,6 +17,7 @@ package org.summerclouds.common.core.operation;
 
 import java.util.HashSet;
 
+import org.summerclouds.common.core.error.IResult;
 import org.summerclouds.common.core.form.DefRoot;
 import org.summerclouds.common.core.form.IFormProvider;
 import org.summerclouds.common.core.log.MLog;
@@ -42,12 +43,25 @@ public abstract class AbstractOperation extends MLog implements Operation {
     @Override
     public final OperationResult doExecute(TaskContext context) throws Exception {
         log().d("execute", context.getParameters());
-        OperationResult ret = doExecute2(context);
-        log().d("result", ret);
-        return ret;
+        try {
+	        OperationResult ret = execute(context);
+	        log().d("result", ret);
+	        return ret;
+        } catch (Throwable e) {
+        	try {
+        		onError(e);
+            } catch (Throwable e2) {}
+        	if (e instanceof IResult)
+        		return new NotSuccessful(this, (IResult)e );
+        	throw e;
+        }
     }
 
-    protected abstract OperationResult doExecute2(TaskContext context) throws Exception;
+    protected void onError(Throwable e) {
+		log().e("error while executing operation", getDescription().getPath(), e);
+	}
+
+	protected abstract OperationResult execute(TaskContext context) throws Exception;
 
     @Override
     public boolean isBusy() {
@@ -120,9 +134,7 @@ public abstract class AbstractOperation extends MLog implements Operation {
             strictParameterCheck = desc.strictParameterCheck();
         }
 
-        if (this instanceof IFormProvider) {
-            form = ((IFormProvider) this).getForm();
-        }
+        form = createDescriptionForm();
 
         MProperties labels = null;
         if (desc != null) {
@@ -134,7 +146,14 @@ public abstract class AbstractOperation extends MLog implements Operation {
         return ret;
     }
 
-    /**
+    protected DefRoot createDescriptionForm() {
+        if (this instanceof IFormProvider) {
+            return ((IFormProvider) this).getForm();
+        }
+		return null;
+	}
+
+	/**
      * Overwrite to manipulate created description.
      *
      * @param desc

@@ -1282,7 +1282,7 @@ public class MSystem {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> T createObject(ClassLoader loader, Class<?> clazz) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public static <T> T createObject(Class<?> clazz) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		return (T) clazz.getConstructor().newInstance();
 	}
 	

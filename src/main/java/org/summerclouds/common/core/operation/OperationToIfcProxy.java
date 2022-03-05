@@ -59,7 +59,7 @@ public abstract class OperationToIfcProxy extends AbstractOperation {
     protected abstract void initOperationDescription(IReadProperties parameters);
 
     @Override
-    protected OperationResult doExecute2(TaskContext context) throws Exception {
+    protected OperationResult execute(TaskContext context) throws Exception {
 
         Class<?> clazz = getInterfaceClass();
         ClassLoader cl = getClass().getClassLoader();

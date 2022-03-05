@@ -1,22 +1,29 @@
 package org.summerclouds.common.core.tool;
 
+import java.util.Collection;
+
 import org.summerclouds.common.core.cfg.BeanRef;
+import org.summerclouds.common.core.cfg.CfgString;
 import org.summerclouds.common.core.crypt.IPassword;
 
 public class MPassword {
 
-	public static final String ROT13 = "R1";
-	public static final String ROT13AND10 = "R2";
-	public static final String DUMMY = "DUMMY";
-	public static final String HASH_MD5 = "HASH_MD5";
+	public static final String ROT13 = "r1";
+	public static final String ROT13AND5 = "r2";
+	public static final String DUMMY = "dummy";
+	public static final String MD5 = "md5";
 
 	// legacy
     private static final String PREFIX_DUMMY = "`X";
     private static final String PREFIX_ROT13 = "`B:";
     private static final String PREFIX_SPECIAL1 = "`A";
+    private static final String SPECIAL1 = "s1";
+    // END legacy
     
     public static final String PREFIX = "`";
 	public static final String SEPARATOR = "$";
+	
+	private static final CfgString CFG_DEFAULT = new CfgString(MPassword.class,"default",ROT13AND5);
 
 	private MPassword() {}
 	
@@ -26,12 +33,16 @@ public class MPassword {
 		return instance.bean();
 	}
 
-	public static String[] supportedEncodings() {
+	public static Collection<String> supportedEncodings() {
 		return get().supportedEncodings();
 	}
 	
+	public static String encode(String method, String plain) {
+		return encode(method, plain, null);
+	}
+	
 	public static String encode(String method, String plain, String secret) {
-		return PREFIX + ROT13AND10 + SEPARATOR + get().encode(method, plain, secret);
+		return PREFIX + method + SEPARATOR + get().encode(method, plain, secret);
 	}
 
 	public static String decode(String method, String encoded, String secret) {
@@ -39,7 +50,7 @@ public class MPassword {
 	}
 
     public static String encode(String plain) {
-        return encode(ROT13AND10, plain, null);
+        return encode(CFG_DEFAULT.value(), plain, null);
     }
     
     public static boolean isEncoded(String plain) {
@@ -55,56 +66,35 @@ public class MPassword {
         if (encoded == null) return null;
         if (!isEncoded(encoded)) return encoded;
         // legacy
-        if (encoded.startsWith(PREFIX_ROT13)) return get().decode(ROT13AND10, encoded, null);
-        if (encoded.startsWith(PREFIX_DUMMY)) return get().decode(DUMMY, encoded, null);
-        if (encoded.startsWith(PREFIX_SPECIAL1)) {
-            StringBuilder out = new StringBuilder();
-            for (int i = 2; i < encoded.length(); i++) {
-                char c = encoded.charAt(i);
-                switch (c) {
-                    case '0':
-                        c = '9';
-                        break;
-                    case '1':
-                        c = '0';
-                        break;
-                    case '2':
-                        c = '1';
-                        break;
-                    case '3':
-                        c = '2';
-                        break;
-                    case '4':
-                        c = '3';
-                        break;
-                    case '5':
-                        c = '4';
-                        break;
-                    case '6':
-                        c = '5';
-                        break;
-                    case '7':
-                        c = '6';
-                        break;
-                    case '8':
-                        c = '7';
-                        break;
-                    case '9':
-                        c = '8';
-                        break;
-                }
-                out.append(c);
-            }
-            return out.toString();
-        }
+        if (encoded.startsWith(PREFIX_ROT13)) return get().decode(ROT13AND5, encoded, secret);
+        if (encoded.startsWith(PREFIX_DUMMY)) return get().decode(DUMMY, encoded, secret);
+        if (encoded.startsWith(PREFIX_SPECIAL1)) return get().decode(SPECIAL1, encoded, secret);
         // END legacy
-        int pos = encoded.indexOf('$',1);
+        int pos = encoded.indexOf(SEPARATOR,1);
         if (pos == -1) return encoded;
         String method = encoded.substring(1, pos);
         encoded = encoded.substring(pos+1);
         return get().decode(method, encoded, secret);
     }
 
+    public static boolean validate(String plain, String encoded) {
+    	return validate(plain, encoded, null);
+    }
+    
+    public static boolean validate(String plain, String encoded, String secret) {
+        if (encoded == null) return false;
+        if (!isEncoded(encoded)) return encoded.equals(plain);
+        // legacy
+        if (encoded.startsWith(PREFIX_ROT13)) return get().validate(ROT13AND5, plain, encoded, secret);
+        if (encoded.startsWith(PREFIX_DUMMY)) return get().validate(DUMMY, plain, encoded, secret);
+        if (encoded.startsWith(PREFIX_SPECIAL1)) return get().validate(SPECIAL1, plain, encoded, secret);
+        // END legacy
+        int pos = encoded.indexOf(SEPARATOR,1);
+        if (pos == -1) return encoded.equals(plain);;
+        String method = encoded.substring(1, pos);
+        encoded = encoded.substring(pos+1);
+        return get().validate(method, plain, encoded, secret);
+    }
 
 	
 	

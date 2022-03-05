@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.summerclouds.common.core.error.MException;
-import org.summerclouds.common.core.parser.DefaultScriptPart;
 import org.summerclouds.common.core.parser.StringCompiler;
 import org.summerclouds.common.core.parser.StringPart;
 import org.summerclouds.common.core.tool.MString;
@@ -36,7 +35,7 @@ public class NodeStringCompiler extends StringCompiler {
     @Override
     protected StringPart createDefaultAttributePart(String part) {
         if (part.startsWith(">root:")) return new RootAttributePart(part);
-        if (part.startsWith(">js:")) return new DefaultScriptPart(part);
+//        if (part.startsWith(">js:")) return new DefaultScriptPart(part);
         return new NodeAttributePart(part);
     }
 

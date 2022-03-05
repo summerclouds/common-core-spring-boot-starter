@@ -1,0 +1,38 @@
+
+== Cmd Framework
+
+Warum einen Cmd Framework?
+
+Der Framework gibt die Möglichkeit die Anwendung
+mit einfach von aussen ausführbaren Befehlen zu
+erweitern. Der Framework ist hilfreich für den
+Support und den Betrieb der Anwendung.
+
+Commands werden in einem eigenen Prozess ausgeführt
+und die Ausgabe auf stdio wird in einem InputStream
+bzw. bei der Operation ein StreamResult zurückggegeben. 
+
+Der Aufrufende muss mti diesem InputStream umgehen
+können.
+
+Um ein Command zu definieren können Variablen mit
+den Annotationen `@CmdArgument` oder `@CmdOption`
+markiert werden. Die Daten werden beim Aufruf
+mit den mitgelieferten Werten gefüllt.
+
+InputStream und OutputStream können alternativ
+als parameter übergeben werden. Bitte die
+beiden Konstanten benutzen. In diesem Fall ist
+der Stream in der Rückgabe `null`.
+
+Beispiel:
+
+----
+
+MNode config = new MNode();
+config.put(CmdOperation.PARAMETER_OUTPUT_STREAM, new FileOutputStream("output.log"));
+
+OperationResult res = manager.execute(path, config);
+
+----
+

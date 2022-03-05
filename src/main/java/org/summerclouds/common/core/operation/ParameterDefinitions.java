@@ -21,6 +21,7 @@ import java.util.TreeMap;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.form.definition.IFmElement;
 import org.summerclouds.common.core.node.INode;
+import org.summerclouds.common.core.node.NodeList;
 
 public class ParameterDefinitions extends TreeMap<String, ParameterDefinition> {
 
@@ -61,5 +62,10 @@ public class ParameterDefinitions extends TreeMap<String, ParameterDefinition> {
         for (INode node : form.getObjects()) {
             collect(node, out);
         }
+        NodeList array = form.getArrayOrNull(IFmElement.ELEMENT_NODE);
+        if (array != null)
+	        for (INode node : array) {
+	            collect(node, out);
+	        }
     }
 }

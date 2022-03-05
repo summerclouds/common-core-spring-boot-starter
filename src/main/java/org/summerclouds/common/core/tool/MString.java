@@ -15,7 +15,6 @@
  */
 package org.summerclouds.common.core.tool;
 
-import java.awt.Color;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -1516,21 +1515,6 @@ public class MString {
     } // end toLZ
 
     /**
-     * Get #ffffff html hex number for a colour
-     *
-     * @param c Color object whose html colour number you want as a string
-     * @return # followed by 6 hex digits
-     * @see #toHexString(int)
-     */
-    public static String colorToString(Color c) {
-        String s = Integer.toHexString(c.getRGB() & 0xffffff);
-        if (s.length() < 6) { // pad on left with zeros
-            s = "000000".substring(0, 6 - s.length()) + s;
-        }
-        return '#' + s;
-    }
-
-    /**
      * Removes white space from beginning this string.
      *
      * <p>All characters that have codes less than or equal to <code>'&#92;u0020'</code> (the space
@@ -2069,7 +2053,6 @@ public class MString {
     public static String toString(Object val) {
         try {
             if (val == null) return ":null";
-            if (val instanceof Color) return colorToString((Color) val);
             if (val instanceof byte[]) return byteToString((byte[]) val);
             if (val instanceof String) return (String) val;
             if (val.getClass().isArray()) return Arrays.deepToString((Object[]) val);
@@ -2087,7 +2070,6 @@ public class MString {
      */
     public static String toStringOrNull(Object val) {
         if (val == null) return null;
-        if (val instanceof Color) return colorToString((Color) val);
         if (val instanceof byte[]) return byteToString((byte[]) val);
         if (val instanceof String) return (String) val;
         StringBuilder sb = new StringBuilder();

@@ -42,8 +42,8 @@ public class CryptTest extends TestCase {
 	@Test
 	public void testRot13And10() {
 		String lorem = MLorem.createWithSize(1000) + Math.random() + Math.random();
-		String encoded = Rot13.encode13And10(lorem);
-		String decoded = Rot13.decode13And10(encoded);
+		String encoded = Rot13.encode13And5(lorem);
+		String decoded = Rot13.decode13And5(encoded);
 		assertEquals(lorem, decoded);
 	}
 	

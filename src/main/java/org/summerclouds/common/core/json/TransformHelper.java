@@ -104,7 +104,7 @@ public class TransformHelper {
     public PojoModel createPojoModel(Object from) {
         PojoModel model =
                 new PojoParser()
-                        .parse(from, "_", null)
+                        .parse(from, "_")
                         .filter(new DefaultFilter(true, false, true, true, true))
                         .getModel();
         return model;

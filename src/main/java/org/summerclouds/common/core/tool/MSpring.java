@@ -21,6 +21,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.summerclouds.common.core.activator.Activator;
+import org.summerclouds.common.core.cfg.CfgString;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.internal.ContextListener;
 import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
@@ -143,6 +144,7 @@ public class MSpring {
 	}
 
 	public static <T> Map<String, T> getBeansOfType(Class<T> clazz) {
+		if (context == null) return null;
 		return context.getBeansOfType(clazz);
 	}
 	
@@ -177,10 +179,17 @@ public class MSpring {
 		return activator;
 	}
 	
+	public static <T> List<Class<? extends T>> findAnnotatedClasses(Class<? extends Annotation> annotationType) {
+		return findAnnotatedClasses(null, annotationType);
+	}
+	
 	public static <T> List<Class<? extends T>> findAnnotatedClasses(String scanPackageList, Class<? extends Annotation> annotationType) {
 		
 		if (MString.isEmpty(scanPackageList)) {
-			// TODO - default package
+			scanPackageList = new CfgString("org.summerclouds.scan.packages", null).value();
+		}
+		if (MString.isEmpty(scanPackageList)) {
+			scanPackageList = "org.summerclouds"; // TODO find application main and add package
 		}
 		
 		ArrayList<Class<? extends T>> entities = new ArrayList<>();

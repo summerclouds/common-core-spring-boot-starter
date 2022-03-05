@@ -25,12 +25,12 @@ public class SuccessfulForceMap extends SuccessfulMap {
         super(operation, msg);
     }
 
-    public SuccessfulForceMap(String path, String msg, int rc, String... keyValues) {
-        super(path, msg, rc, keyValues);
+    public SuccessfulForceMap(String path, int rc, String msg, String... keyValues) {
+        super(path, rc, msg, keyValues);
     }
 
-    public SuccessfulForceMap(String path, String msg, int rc) {
-        super(path, msg, rc);
+    public SuccessfulForceMap(String path, int rc, String msg) {
+        super(path, rc, msg);
     }
 
     @SuppressWarnings("deprecation")

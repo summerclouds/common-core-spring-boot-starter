@@ -46,4 +46,22 @@ Eine Log-Factory stellt eine Implementierung einer echten Log
 Factory dar. Die Factory erstellt für jedes benötigte LogFacade 
 eine Fasade für den eigentlichen Logger bereit.
 
+=== Parameter
+
+Prefix:: org_summercloud_core_log_Log
+
+* `maxMsgSize` : int - Set maximal message size or set to 0 to disable, 
+default is 10000
+* `logTraceId` : bool : Set true to add trace id in front of the log message,
+default is true
+
+=== ParameterEntryMapper Beans
+
+Um die Objekt-Anzeige anzupassen können ParameterEntryMapper als
+Beans hinterlegt werden. Der Bean name muss dem Namen der
+Klasse bzw. Interfaces entsprechen, das durch den Mapper
+in einen String umgesetzt wird.
+
+
+
 
