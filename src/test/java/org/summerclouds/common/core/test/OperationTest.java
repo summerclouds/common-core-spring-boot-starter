@@ -19,7 +19,7 @@ import org.summerclouds.common.core.operation.OperationDescription;
 import org.summerclouds.common.core.operation.OperationManager;
 import org.summerclouds.common.core.operation.OperationResult;
 import org.summerclouds.common.core.operation.cmd.CmdOperation;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 @SpringBootTest(classes = {SpringSummerCloudsCoreAutoConfiguration.class},
 properties = { 

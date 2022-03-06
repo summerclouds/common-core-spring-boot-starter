@@ -32,7 +32,7 @@ public class DefaultParameterMapper extends AbstractParameterMapper
             new ParameterEntryMapper() {
 
                 @Override
-                public String map(Object in) {
+                public Object map(Object in) {
                     return null;
                 }
             };

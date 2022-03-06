@@ -21,7 +21,7 @@ import java.util.ConcurrentModificationException;
 
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.util.EventHandler;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 /** Unit test for simple App. */
 public class EventHandlerTest extends TestCase {

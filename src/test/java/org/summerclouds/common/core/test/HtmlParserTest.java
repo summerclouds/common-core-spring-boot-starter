@@ -27,7 +27,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.parser.HtmlParser;
 import org.summerclouds.common.core.tool.MSystem;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class HtmlParserTest extends TestCase {
 

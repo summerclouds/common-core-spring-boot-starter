@@ -24,7 +24,7 @@ import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.node.MProperties;
 import org.summerclouds.common.core.parser.StringCompiler;
 import org.summerclouds.common.core.tool.MString;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class MStringTest extends TestCase {
 

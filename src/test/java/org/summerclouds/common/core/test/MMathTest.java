@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.tool.MBigMath;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MMath;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class MMathTest extends TestCase {
 

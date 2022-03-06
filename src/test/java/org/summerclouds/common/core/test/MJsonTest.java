@@ -32,7 +32,7 @@ import org.summerclouds.common.core.json.SimpleObjectTransformer;
 import org.summerclouds.common.core.json.TransformHelper;
 import org.summerclouds.common.core.test.util.MJsonObject;
 import org.summerclouds.common.core.tool.MJson;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

@@ -10,7 +10,7 @@ import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.error.RC.CAUSE;
 import org.summerclouds.common.core.log.Log;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 @SpringBootTest
 class LogTests extends TestCase  {

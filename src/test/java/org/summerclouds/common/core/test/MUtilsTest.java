@@ -22,7 +22,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.io.StreamBuffer;
 import org.summerclouds.common.core.util.ByteBuffer;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class MUtilsTest extends TestCase {
 

@@ -28,7 +28,7 @@ import org.summerclouds.common.core.test.util.TransferIfc;
 import org.summerclouds.common.core.test.util.TransferImpl;
 import org.summerclouds.common.core.tool.MSystem;
 import org.summerclouds.common.core.util.LocalClassLoader;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class BytecodeTest extends TestCase {
 

@@ -43,7 +43,7 @@ import org.summerclouds.common.core.tool.MFile;
 import org.summerclouds.common.core.tool.MString;
 import org.summerclouds.common.core.tool.MSystem;
 import org.summerclouds.common.core.tool.MXml;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 import org.w3c.dom.Document;
 
 public class MNodeTest extends TestCase {

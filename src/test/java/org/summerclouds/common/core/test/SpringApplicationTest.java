@@ -11,7 +11,7 @@ import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
 import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.tool.MSpring;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 @SpringBootTest(classes = {SpringSummerCloudsCoreAutoConfiguration.class},
 				properties = { 

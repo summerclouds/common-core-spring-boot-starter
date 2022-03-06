@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.tool.MCollection;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class MCollectionTest extends TestCase {
 

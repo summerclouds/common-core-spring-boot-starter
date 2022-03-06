@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.tool.MPassword;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class MPasswordTest extends TestCase {
 

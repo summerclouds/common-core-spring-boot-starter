@@ -13,17 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.log;
+package org.summerclouds.common.core.util;
 
-public interface ParameterEntryMapper {
+public interface Provider<T> {
 
-    /**
-     * Return a new object if you are able to map this object. If not return null.
-     * Return an object that will stringify the object if toString() is called and not
-     * before.
-     * 
-     * @param in
-     * @return the mapped value
-     */
-    Object map(Object in);
+    T get();
 }

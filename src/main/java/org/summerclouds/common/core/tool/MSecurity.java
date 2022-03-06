@@ -80,10 +80,10 @@ public class MSecurity {
 
 	}
 	
-	public static boolean hasPermission(Class<?> object, String action, String instance) {
+	public static boolean hasPermission(Class<?> clazz, String action, String instance) {
 		ISecurity sec = get();
 		if (sec == null) throw new ConflictRuntimeException("security bean not found");
-		return sec.hasPermission(object, action, instance);
+		return sec.hasPermission(clazz, action, instance);
 
 	}
 	
@@ -94,18 +94,18 @@ public class MSecurity {
 
 	}
 	
-	public static boolean hasPermission(String object, String action, String instance) {
+	public static boolean hasPermission(String clazz, String action, String instance) {
 		ISecurity sec = get();
 		if (sec == null) throw new ConflictRuntimeException("security bean not found");
-		return sec.hasPermission(object, action, instance);
+		return sec.hasPermission(clazz, action, instance);
 
 	}
 	
 	public static boolean hasPermission(
-            ISubject subject, Class<?> object, String action, String instance) {
+            ISubject subject, Class<?> clazz, String action, String instance) {
 		ISecurity sec = get();
 		if (sec == null) throw new ConflictRuntimeException("security bean not found");
-		return sec.hasPermission(subject, object, action, instance);
+		return sec.hasPermission(subject, clazz, action, instance);
 	}
 	
 	public static boolean hasPermission(ISubject subject, String ace) {
@@ -116,10 +116,10 @@ public class MSecurity {
 	}
 	
 	public static boolean hasPermission(
-            ISubject subject, String object, String action, String instance) {
+            ISubject subject, String clazz, String action, String instance) {
 		ISecurity sec = get();
 		if (sec == null) throw new ConflictRuntimeException("security bean not found");
-		return sec.hasPermission(subject, object, action, instance);
+		return sec.hasPermission(subject, clazz, action, instance);
 	}
 	
 	public static boolean hasPermissionByList(List<String> map, ISubject account, String objectIdent) {

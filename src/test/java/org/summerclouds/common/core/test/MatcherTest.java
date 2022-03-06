@@ -25,7 +25,7 @@ import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.SyntaxError;
 import org.summerclouds.common.core.matcher.Condition;
 import org.summerclouds.common.core.matcher.Matcher;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class MatcherTest extends TestCase {
 

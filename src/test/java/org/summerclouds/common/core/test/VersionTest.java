@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.util.Version;
 import org.summerclouds.common.core.util.VersionRange;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class VersionTest extends TestCase {
 

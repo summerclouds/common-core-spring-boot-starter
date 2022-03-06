@@ -25,7 +25,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.tool.MFile;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class MFileTest extends TestCase {
 

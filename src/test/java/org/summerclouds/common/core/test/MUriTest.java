@@ -22,7 +22,7 @@ import java.io.File;
 
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.util.MUri;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class MUriTest extends TestCase {
 

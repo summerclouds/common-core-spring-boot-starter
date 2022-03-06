@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.crypt.MD5;
 import org.summerclouds.common.core.crypt.Rot13;
 import org.summerclouds.common.core.tool.MLorem;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class CryptTest extends TestCase {
 

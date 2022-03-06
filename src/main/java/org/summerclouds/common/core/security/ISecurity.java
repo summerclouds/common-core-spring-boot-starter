@@ -19,19 +19,19 @@ public interface ISecurity {
 	
 	String getAdminName();
 	
-	boolean hasPermission(Class<?> object, String action, String instance);
+	boolean hasPermission(Class<?> clazz, String action, String instance);
 	
 	boolean hasPermission(String ace);
 	
-	boolean hasPermission(String object, String action, String instance);
+	boolean hasPermission(String clazz, String action, String instance);
 	
 	boolean hasPermission(
-            ISubject subject, Class<?> object, String action, String instance);
+            ISubject subject, Class<?> clazz, String action, String instance);
 	
 	boolean hasPermission(ISubject subject, String ace);
 	
 	boolean hasPermission(
-            ISubject subject, String object, String action, String instance);
+            ISubject subject, String clazz, String action, String instance);
 	
 	boolean hasRole(String role);
 	

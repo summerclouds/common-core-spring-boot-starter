@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MDate;
 import org.summerclouds.common.core.tool.MPeriod;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class MTimeIntervalTest extends TestCase {
 

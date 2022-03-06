@@ -25,7 +25,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
 import org.summerclouds.common.core.util.Address;
 import org.summerclouds.common.core.util.Address.SALUTATION;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 @SpringBootTest
 @ContextConfiguration(classes=SpringSummerCloudsCoreAutoConfiguration.class)

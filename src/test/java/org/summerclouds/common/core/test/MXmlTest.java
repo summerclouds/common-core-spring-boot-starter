@@ -26,7 +26,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.tool.MXml;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;

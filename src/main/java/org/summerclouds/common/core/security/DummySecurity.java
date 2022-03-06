@@ -32,7 +32,7 @@ public class DummySecurity implements ISecurity {
 	}
 
 	@Override
-	public boolean hasPermission(Class<?> object, String action, String instance) {
+	public boolean hasPermission(Class<?> clazz, String action, String instance) {
 		return true;
 	}
 
@@ -42,12 +42,12 @@ public class DummySecurity implements ISecurity {
 	}
 
 	@Override
-	public boolean hasPermission(String object, String action, String instance) {
+	public boolean hasPermission(String clazz, String action, String instance) {
 		return true;
 	}
 
 	@Override
-	public boolean hasPermission(ISubject subject, Class<?> object, String action, String instance) {
+	public boolean hasPermission(ISubject subject, Class<?> clazz, String action, String instance) {
 		return true;
 	}
 
@@ -57,7 +57,7 @@ public class DummySecurity implements ISecurity {
 	}
 
 	@Override
-	public boolean hasPermission(ISubject subject, String domain, String action, String instance) {
+	public boolean hasPermission(ISubject subject, String clazz, String action, String instance) {
 		return true;
 	}
 

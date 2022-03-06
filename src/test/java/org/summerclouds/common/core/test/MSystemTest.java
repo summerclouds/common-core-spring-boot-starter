@@ -27,7 +27,7 @@ import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.test.util.StringValue;
 import org.summerclouds.common.core.test.util.Template;
 import org.summerclouds.common.core.tool.MSystem;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class MSystemTest extends TestCase {
 

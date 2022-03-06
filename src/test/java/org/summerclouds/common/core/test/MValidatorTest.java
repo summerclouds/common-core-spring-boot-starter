@@ -25,7 +25,7 @@ import java.util.Locale;
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.tool.MSql;
 import org.summerclouds.common.core.tool.MValidator;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class MValidatorTest extends TestCase {
 

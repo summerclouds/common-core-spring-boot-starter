@@ -32,7 +32,7 @@ import org.summerclouds.common.core.pojo.PojoModel;
 import org.summerclouds.common.core.pojo.PojoParser;
 import org.summerclouds.common.core.test.util.PojoExample;
 import org.summerclouds.common.core.tool.MString;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class PojoTest extends TestCase {
 
