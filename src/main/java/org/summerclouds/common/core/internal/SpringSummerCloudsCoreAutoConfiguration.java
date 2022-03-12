@@ -17,6 +17,7 @@ import org.springframework.core.env.Environment;
 import org.summerclouds.common.core.log.LogFactory;
 import org.summerclouds.common.core.log.PlainLog;
 import org.summerclouds.common.core.log.SLF4JFactory;
+import org.summerclouds.common.core.log.ThreadConsoleLogAppender;
 import org.summerclouds.common.core.node.DefaultNodeFactory;
 import org.summerclouds.common.core.node.INodeFactory;
 import org.summerclouds.common.core.operation.OperationManager;
@@ -24,6 +25,7 @@ import org.summerclouds.common.core.tool.MSpring;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.Appender;
 
 @Configuration
@@ -82,6 +84,12 @@ public class SpringSummerCloudsCoreAutoConfiguration implements ApplicationConte
 	@ConditionalOnProperty(name="org.summerclouds.operations.enabled",havingValue="true")
 	OperationManager operationManager() {
 		return new OperationManager();
+	}
+	
+	@Bean
+	@ConditionalOnProperty(name="org.summerclouds.ThreadConsoleLogAppender.enabled",havingValue="true")
+	Appender<ILoggingEvent> threadConsoleLogAppender() {
+		return new ThreadConsoleLogAppender();
 	}
 	
 }

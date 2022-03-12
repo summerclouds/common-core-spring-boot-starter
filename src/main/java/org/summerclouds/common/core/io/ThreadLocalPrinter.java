@@ -64,4 +64,9 @@ public class ThreadLocalPrinter extends PrintStream {
 		}
 		
 	}
+
+	public OutputStream current() {
+		return ((InnerOutputStream)out).output.get();
+	}
+	
 }

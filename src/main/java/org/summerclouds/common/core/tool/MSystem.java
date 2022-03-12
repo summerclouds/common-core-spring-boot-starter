@@ -103,6 +103,43 @@ public class MSystem {
 		return in == null ? System.in : in;
 	}
 	
+	public static void ioCleanup() {
+		
+		if (System.out instanceof ThreadLocalPrinter) {
+			((ThreadLocalPrinter)System.out).use(null);
+		}
+		if (System.err instanceof ThreadLocalPrinter) {
+			((ThreadLocalPrinter)System.err).use(null);
+		}
+		if (System.in instanceof ThreadLocalInputStream) {
+			((ThreadLocalInputStream)System.in).use(null);
+		}
+	}
+	
+	public static boolean isOutOverlay() {
+		return (System.out instanceof ThreadLocalPrinter) && ((ThreadLocalPrinter)System.out).current() != null;
+	}
+
+	public static boolean isErrOverlay() {
+		return (System.err instanceof ThreadLocalPrinter) && ((ThreadLocalPrinter)System.err).current() != null;
+	}
+	
+	public static boolean isInOverlay() {
+		return (System.in instanceof ThreadLocalInputStream) && ((ThreadLocalInputStream)System.in).current() != null;
+	}
+	
+	public static OutputStream getOutOverlay() {
+		return (System.out instanceof ThreadLocalPrinter) ? ((ThreadLocalPrinter)System.out).current() : null;
+	}
+
+	public static OutputStream getErrOverlay() {
+		return (System.err instanceof ThreadLocalPrinter) ? ((ThreadLocalPrinter)System.err).current() : null;
+	}
+	
+	public static InputStream getInOverlay() {
+		return (System.in instanceof ThreadLocalInputStream) ? ((ThreadLocalInputStream)System.in).current() : null;
+	}
+
 	/**
 	 * Set for the current thread different IO streams.
 	 * 

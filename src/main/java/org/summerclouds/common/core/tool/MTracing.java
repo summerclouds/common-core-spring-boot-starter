@@ -41,7 +41,7 @@ public class MTracing {
 	public static String getCurrentId() {
 		ITracing inst = get();
 		if (inst == null) return String.valueOf(Thread.currentThread().getId());
-		return inst.getCurrentId();
+		return inst.getTraceId();
 	}
 
 }

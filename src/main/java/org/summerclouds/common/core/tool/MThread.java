@@ -15,14 +15,22 @@
  */
 package org.summerclouds.common.core.tool;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import org.summerclouds.common.core.error.InterruptedRuntimeException;
 import org.summerclouds.common.core.error.TimeoutRuntimeException;
 import org.summerclouds.common.core.lang.Checker;
+import org.summerclouds.common.core.lang.ICloseable;
+import org.summerclouds.common.core.lang.IThreadControl;
 import org.summerclouds.common.core.lang.Named;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.log.MLog;
+import org.summerclouds.common.core.log.PlainLog;
+import org.summerclouds.common.core.log.ThreadConsoleLogAppender;
 import org.summerclouds.common.core.security.ISubject;
 import org.summerclouds.common.core.security.ISubjectEnvironment;
 import org.summerclouds.common.core.tracing.IScope;
@@ -39,7 +47,8 @@ import org.summerclouds.common.core.util.ValueProvider;
 public class MThread extends MLog implements Runnable {
 
     protected static Log log = Log.getLog(MThread.class);
-
+    private static ThreadLocal<Map<String, Object>> threadContext = new ThreadLocal<>();
+    
     protected Runnable task = this;
     protected String name = null;
     protected Thread thread = null;
@@ -99,34 +108,39 @@ public class MThread extends MLog implements Runnable {
 
     private class Container implements Runnable {
 
-        private final long parentThreadId = Thread.currentThread().getId();
-        private final ISpan span =  MTracing.current();
-        private final ISubject subject = MSecurity.getCurrent();
+//        private final long parentThreadId = Thread.currentThread().getId();
+//        private final ISpan span =  MTracing.current();
+//        private final ISubject subject = MSecurity.getCurrent();
+    	private final HashMap<String, Object> context = new HashMap<>();
 
-        public Container() {}
+        public Container() {
+        	final HashMap<String, Object> context = new HashMap<>();
+        	prepareNewThread(context);
+        }
 
         @Override
         public void run() {
-            cleanup();
-            try (ISubjectEnvironment env = MSecurity.asSubject(subject)) {
-                try (IScope scope =
-                        MTracing.enter(
-                                        span,
-                                        "Thread: " + name,
-                                        "thread",
-                                        "" + thread.getId(),
-                                        "parent",
-                                        "" + parentThreadId)) {
-                    log().t("###: NEW THREAD", parentThreadId, thread.getId());
+        	initNewThread(context);
+//            try (ISubjectEnvironment env = MSecurity.asSubject(subject)) {
+//                try (IScope scope =
+//                        MTracing.enter(
+//                                        span,
+//                                        "Thread: " + name,
+//                                        "thread",
+//                                        "" + thread.getId(),
+//                                        "parent",
+//                                        "" + parentThreadId)) {
+//                    log().t("###: NEW THREAD", parentThreadId, thread.getId());
                     try {
                         if (task != null) task.run();
                     } catch (Throwable t) {
                         taskError(t);
                     }
-                    log.t("###: LEAVE THREAD", thread.getId());
+                    releaseThread(context);
+//                    log.t("###: LEAVE THREAD", thread.getId());
                 }
-            }
-        }
+//            }
+//        }
     }
 
     public void setName(String _name) {
@@ -265,18 +279,21 @@ public class MThread extends MLog implements Runnable {
             final ValueProvider<T> provider, long timeout, boolean nullAllowed) {
         long start = System.currentTimeMillis();
         final Value<T> value = new Value<>();
+    	final HashMap<String, Object> context = new HashMap<>();
+    	prepareNewThread(context);
         ThreadPool t =
                 new ThreadPool(
                         new Runnable() {
 
                             @Override
                             public void run() {
+                            	initNewThread(context);
                                 while (true) {
                                     try {
                                         T val = provider.getValue();
                                         if (nullAllowed || val != null) {
                                             value.setValue(val);
-                                            return;
+                                            break;
                                         }
                                     } catch (Throwable t) {
                                     }
@@ -284,6 +301,7 @@ public class MThread extends MLog implements Runnable {
                                         throw new TimeoutRuntimeException();
                                     sleep(200);
                                 }
+                                releaseThread(context);
                             }
                         });
         t.start();
@@ -308,17 +326,23 @@ public class MThread extends MLog implements Runnable {
         long start = System.currentTimeMillis();
         final Value<T> value = new Value<>();
         final Value<Throwable> error = new Value<>();
+        
+    	final HashMap<String, Object> context = new HashMap<>();
+    	prepareNewThread(context);
+
         ThreadPool t =
                 new ThreadPool(
                         new Runnable() {
 
                             @Override
                             public void run() {
+                            	initNewThread(context);
                                 try {
                                     value.setValue( provider.getValue() );
                                 } catch (Throwable t) {
                                     error.setValue(t);
                                 }
+                                releaseThread(context);
                             }
                         });
         t.start();
@@ -387,39 +411,176 @@ public class MThread extends MLog implements Runnable {
     }
 
     public static void run(Runnable task) {
+    	final HashMap<String, Object> context = new HashMap<>();
+    	prepareNewThread(context);
         new Thread(
                         new Runnable() {
 
                             @Override
                             public void run() {
+                            	initNewThread(context);
                                 try {
                                     task.run();
                                 } catch (Throwable t) {
                                     t.printStackTrace();
                                 }
+                                releaseThread(context);
                             }
                         })
                 .start();
     }
 
     public static void run(Consumer<Thread> consumer) {
+    	final HashMap<String, Object> context = new HashMap<>();
+    	prepareNewThread(context);
         new Thread(
                         new Runnable() {
 
                             @Override
                             public void run() {
+                            	initNewThread(context);
                                 try {
                                     consumer.accept(Thread.currentThread());
                                 } catch (Throwable t) {
                                     t.printStackTrace();
                                 }
+                                releaseThread(context);
                             }
                         })
                 .start();
     }
 
+    /**
+     * Execute to cleanup a used thread for a new task.
+     */
     public static void cleanup() {
-        MSecurity.get().subjectCleanup();
-        MTracing.get().cleanup();
+    	try {
+	        MSecurity.get().subjectCleanup();
+	        MTracing.get().cleanup();
+	        ThreadConsoleLogAppender.cleanup();
+	        MSystem.ioCleanup();
+	    	Map<String, IThreadControl> map = MSpring.getBeansOfType(IThreadControl.class);
+	    	if (map != null) {
+	    		for (IThreadControl control : map.values())
+	    			control.cleanup();
+	    	}
+    	} catch (Throwable t) {
+    		PlainLog.f(t);
+    	}
     }
+    
+    /*
+     * Will be execute in the old thread environment and fill the context with information for the new
+     * created thread.
+     */
+    public static void prepareNewThread(Map<String, Object> context) {
+    	try {
+	    	context.put("parentThreadId", Thread.currentThread().getId());
+	    	ISpan span =  MTracing.current();
+	    	if (span != null)
+	    		context.put("span", span);
+	    	ISubject subject = MSecurity.getCurrent();
+	    	if (subject != null)
+	    		context.put("subject", subject);
+	    	OutputStream logAppenderStream = ThreadConsoleLogAppender.current();
+	    	if (logAppenderStream != null)
+	    		context.put("logAppenderStream", logAppenderStream);
+	    	if (MSystem.isOutOverlay() || MSystem.isErrOverlay() || MSystem.isInOverlay()) {
+	    		context.put("out", MSystem.getOutOverlay());
+	    		context.put("err", MSystem.getErrOverlay());
+	    		context.put("in", MSystem.getInOverlay());
+	    	}
+	    	Map<String, IThreadControl> map = MSpring.getBeansOfType(IThreadControl.class);
+	    	if (map != null) {
+	    		for (IThreadControl control : map.values())
+	    			control.prepareNewThread(context);
+	    	}
+    	} catch (Throwable t) {
+    		PlainLog.f(t);
+    	}
+    }
+    
+    /**
+     * Will be executed in the new thread with context filled in prepareNewThread
+     * @param context
+     */
+    public static void initNewThread(Map<String, Object> context) {
+    	threadContext.set(context);
+    	try {
+    		log.d("new thread {1} created from {2}", Thread.currentThread().getId(), context.get("parentThreadId"));
+    		ISubject subject = (ISubject) context.get("subject");
+    		if (subject != null) {
+    			try {
+    				ISubjectEnvironment env = MSecurity.asSubject(subject);
+    				context.put("subjectEnv", env);
+    	    	} catch (Throwable t) {
+    	    		PlainLog.e(t);
+    	    	}
+    		}
+    		ISpan span = (ISpan) context.get("span");
+    		if (span != null) {
+    			try {
+	    			IScope scope =
+	                      MTracing.enter(
+	                                      span,
+	                                      "thread",
+	                                      "" + Thread.currentThread().getId(),
+	                                      "parent",
+	                                      "" + context.get("parentThreadId"));
+	    			context.put("spanScope", scope);
+    	    	} catch (Throwable t) {
+    	    		PlainLog.e(t);
+    	    	}
+    		}
+    		OutputStream logAppenderStream = (OutputStream) context.get("logAppenderStream");
+    		if (logAppenderStream != null) {
+    			ThreadConsoleLogAppender.sendTo(logAppenderStream);
+    		}
+    		OutputStream out = (OutputStream)context.get("out");
+    		OutputStream err = (OutputStream)context.get("err");
+    		InputStream in = (InputStream)context.get("in");
+
+    		if (out != null && err != null && in != null) {
+    			ICloseable io = MSystem.useIO(out, err, in);
+    			context.put("io", io);
+    		}
+    		
+	    	Map<String, IThreadControl> map = MSpring.getBeansOfType(IThreadControl.class);
+	    	if (map != null) {
+	    		for (IThreadControl control : map.values())
+	    			control.initNewThread(context);
+	    	}
+    	} catch (Throwable t) {
+    		PlainLog.f(t);
+    	}
+    }
+
+    /**
+     * Will be executed before leaving.
+     * 
+     * @param context
+     */
+    public static void releaseThread(Map<String, Object> context) {
+    	try {
+	    	Map<String, IThreadControl> map = MSpring.getBeansOfType(IThreadControl.class);
+	    	if (map != null) {
+	    		for (IThreadControl control : map.values())
+	    			control.releaseThread(context);
+	    	}
+    	} catch (Throwable t) {
+    		PlainLog.f(t);
+    	}
+    	try {
+    		IScope scope = (IScope) context.get("spanScope");
+    		if (scope != null)
+    			scope.close();
+    	} catch (Throwable t) {
+    		PlainLog.f(t);
+    	}
+    }
+
+    public static Map<String, Object> context() {
+    	return threadContext.get();
+    }
+    
 }

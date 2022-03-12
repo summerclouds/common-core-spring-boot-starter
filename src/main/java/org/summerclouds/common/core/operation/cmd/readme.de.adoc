@@ -36,3 +36,9 @@ OperationResult res = manager.execute(path, config);
 
 ----
 
+=== Konfiguration
+
+Um alle Log-Ausgaben in die CMD ausgabe umzuleiten:
+
+org.summerclouds.ThreadConsoleLogAppender.enabled=true
+

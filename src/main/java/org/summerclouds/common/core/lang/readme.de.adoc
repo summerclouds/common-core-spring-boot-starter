@@ -7,3 +7,13 @@ mit weiteren Parametern. Die Klassen 'FunctionX' haben einen Rückgabewert,
 die Klassen 'ConsumerX' keinen. Benutze diese Klassen um einfach 
 Lambda-Funktionen mit mehreren Parametern zu erstellen.
 
+
+== Thread Control
+
+Wenn ein Thread mit MThread erzeugt wird wird über 
+ThreadControl ein Context angelegt über den Einstellungen
+vom Parent-Thread in den neuen Thread übernommen werden.
+
+Einige Einstellungen werden fest übernommen. Weitere 
+Einstellungen können durch das Registrieren von 
+`IThreadControl` hinzugefügt werden.

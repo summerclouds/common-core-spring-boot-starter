@@ -23,6 +23,7 @@ import org.summerclouds.common.core.form.definition.IDefAttribute;
 import org.summerclouds.common.core.form.definition.IDefDefinition;
 import org.summerclouds.common.core.io.OutputStreamProxy;
 import org.summerclouds.common.core.lang.ICloseable;
+import org.summerclouds.common.core.log.ThreadConsoleLogAppender;
 import org.summerclouds.common.core.operation.AbstractOperation;
 import org.summerclouds.common.core.operation.OperationComponent;
 import org.summerclouds.common.core.operation.OperationResult;
@@ -102,7 +103,10 @@ public abstract class CmdOperation extends AbstractOperation {
 
 		try (ICloseable ioEnv = MSystem.useIO(os, os, is)) {
 			try {
-				String res = CmdOperation.this.executeCmd();
+				String res = null;
+				try (ICloseable logEnv = ThreadConsoleLogAppender.sendTo(os)) {
+					res = CmdOperation.this.executeCmd();
+				}
 				ret.put(RESULT_OBJECT, res);
 				System.out.write(MAscii.NUL);
 				if (res == null)

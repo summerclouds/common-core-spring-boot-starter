@@ -39,7 +39,7 @@ public class Log {
 
 	protected ParameterMapper parameterMapper = new DefaultParameterMapper();
 	private static CfgInt maxMsgSize = new CfgInt(Log.class,"maxMsgSize", 10000);
-	private static CfgBoolean logTraceId = new CfgBoolean(Log.class, "logTraceId", true);
+	private static CfgBoolean logTraceId = new CfgBoolean(Log.class, "logTraceId", false);
 	private static boolean stacktraceTrace;
 
 	private static SoftHashMap<String, Log> registry = new SoftHashMap<>();

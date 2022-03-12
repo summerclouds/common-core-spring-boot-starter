@@ -48,4 +48,8 @@ public class ThreadLocalInputStream extends InputStream {
 		}
 		
 	}
+
+	public InputStream current() {
+		return input.get();
+	}
 }
