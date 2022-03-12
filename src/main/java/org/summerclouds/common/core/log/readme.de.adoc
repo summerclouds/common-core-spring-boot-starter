@@ -46,9 +46,9 @@ Eine Log-Factory stellt eine Implementierung einer echten Log
 Factory dar. Die Factory erstellt für jedes benötigte LogFacade 
 eine Fasade für den eigentlichen Logger bereit.
 
-=== Parameter
+=== Konfiguration
 
-Prefix:: org_summercloud_core_log_Log
+Prefix:: org.summercloud.core.log.Log
 
 * `maxMsgSize` : int - Set maximal message size or set to 0 to disable, 
 default is 10000
@@ -62,6 +62,41 @@ Beans hinterlegt werden. Der Bean name muss dem Namen der
 Klasse bzw. Interfaces entsprechen, das durch den Mapper
 in einen String umgesetzt wird.
 
+Beispiel:
 
+[java]
+----
+@Bean("java.lang.Date")
+public ParameterEntryMapper dateMapper() {
+  return new ParameterEntryMapper() {
+    Object map(Object in) {
+      if (in instanceof Date)
+        return MDate.toIsoDate((Date)in);
+      return in;
+    }
+  }
+}
+----
+
+=== Weitere Log Appender
+
+`Core` sucht alle Beans mit dem Typ `Appender` und
+hängt diese als Log-Appender an das Log-System.
+
+Beispiel:
+
+[java]
+----
+
+@Bean
+public Appender extends UnsynchronizedAppenderBase<ILoggingEvent> {
+
+  @Override
+  protected void append(ILoggingEvent event) {
+    ...
+  }
+}
+
+----
 
 

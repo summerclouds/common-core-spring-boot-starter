@@ -17,7 +17,7 @@ public class ThreadLocalPrinter extends PrintStream {
 		((InnerOutputStream)out).output.set(stream);
 		return new InnerCloseable(current);
 	}
-
+	
 	private static class InnerOutputStream extends OutputStream {
 
 		private OutputStream defaultOutput;
@@ -32,6 +32,20 @@ public class ThreadLocalPrinter extends PrintStream {
 			OutputStream out = output.get();
 			if (out == null) out = defaultOutput;
 			out.write(b);
+		}
+		
+		@Override
+		public void flush() throws IOException {
+			OutputStream out = output.get();
+			if (out == null) out = defaultOutput;
+			out.flush();
+		}
+
+		@Override
+		public void close() throws IOException {
+			OutputStream out = output.get();
+			if (out == null) out = defaultOutput;
+			out.close();
 		}
 		
 	}

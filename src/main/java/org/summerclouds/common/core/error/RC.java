@@ -157,7 +157,7 @@ public class RC {
     }
 
     public static String toMessage(int rc, CAUSE causeHandling, String msg, Object[] parameters, int maxSize) {
-        return toMessage(rc, null, msg, parameters, maxSize, null);
+        return toMessage(rc, causeHandling, msg, parameters, maxSize, null);
     }
 
     public static String toMessage(int rc, CAUSE causeHandling, String msg, Object[] parameters, int maxSize, IResult cause) {
@@ -254,14 +254,29 @@ public class RC {
         int nextPos;
         sb.append("\"");
         while ((nextPos = msg.indexOf('"', pos)) != -1) {
-            sb.append(msg.substring(pos, nextPos));
+            encodeBackslash(sb, msg.substring(pos, nextPos));
             sb.append("\\\"");
             pos = nextPos+1;
             if (pos >= msg.length()) break;
         }
         if (pos < msg.length())
-            sb.append(msg.substring(pos));
+            encodeBackslash(sb, msg.substring(pos));
         sb.append("\"");
+    }
+
+    private static void encodeBackslash(StringBuilder sb, String msg) {
+        int pos = 0;
+        int nextPos;
+        while ((nextPos = msg.indexOf('\\', pos)) != -1) {
+            sb.append(msg.substring(pos, nextPos));
+            sb.append("\\\\");
+            pos = nextPos+1;
+            if (pos >= msg.length()) break;
+            if (pos < msg.length())
+                sb.append(msg.substring(pos));
+        }
+        if (pos < msg.length())
+        	sb.append(msg.substring(pos));
     }
 
     public static Throwable findCause(CAUSE causeHandling, Object... in) {

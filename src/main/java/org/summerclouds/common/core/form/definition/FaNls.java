@@ -15,40 +15,27 @@
  */
 package org.summerclouds.common.core.form.definition;
 
-import java.util.UUID;
-
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.form.DefAttribute;
 import org.summerclouds.common.core.node.INode;
 
 public class FaNls extends DefAttribute {
 
-    private String title;
     private String description;
 
-    public FaNls(String value) {
-        this(value, null, null);
-    }
-
     public FaNls(String title, String description) {
-        this(null, title, description);
-    }
-
-    public FaNls(String value, String title, String description) {
-        super("nls", value == null ? UUID.randomUUID().toString() : value);
-        this.title = title;
+        super("title", title);
         this.description = description;
     }
 
     @Override
     public void inject(INode root) throws MException {
         super.inject(root);
-        if (title != null) root.setString("caption", title);
         if (description != null) root.setString("description", description);
     }
 
     @Override
     public String toString() {
-        return getName() + "->[" + title + "," + description + "]";
+        return getName() + "->[" + getValue() + "," + description + "]";
     }
 }

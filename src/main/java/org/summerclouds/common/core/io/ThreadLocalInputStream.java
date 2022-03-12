@@ -18,7 +18,14 @@ public class ThreadLocalInputStream extends InputStream {
 	public int read() throws IOException {
 		InputStream in = input.get();
 		if (in == null) in = defaultIn;
-		return 0;
+		return in.read();
+	}
+
+	@Override
+	public void close() throws IOException {
+		InputStream in = input.get();
+		if (in == null) in = defaultIn;
+		in.close();
 	}
 	
 	public ICloseable use(InputStream in) {

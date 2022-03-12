@@ -15,7 +15,7 @@ public abstract class AbstractCfg<T> {
 	}
 
 	public AbstractCfg(Class<?> owner, String param, T def) {
-		this.name = MSystem.getOwnerName(owner).replace(".", "_") + "." + name;
+		this.name = MSystem.getOwnerName(owner) + "." + name;
 		this.def = def;
 	}
 

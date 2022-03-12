@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.jline.reader.EndOfFileException;
+import org.summerclouds.common.core.error.IResult;
 import org.summerclouds.common.core.error.UsageException;
 import org.summerclouds.common.core.form.DefAttribute;
 import org.summerclouds.common.core.form.DefRoot;
@@ -30,6 +31,7 @@ import org.summerclouds.common.core.operation.util.SuccessfulMap;
 import org.summerclouds.common.core.pojo.PojoAttribute;
 import org.summerclouds.common.core.pojo.PojoModel;
 import org.summerclouds.common.core.pojo.PojoParser;
+import org.summerclouds.common.core.tool.MAscii;
 import org.summerclouds.common.core.tool.MSecurity;
 import org.summerclouds.common.core.tool.MSystem;
 
@@ -43,6 +45,7 @@ public abstract class CmdOperation extends AbstractOperation {
 	public static final String RESULT_EXCEPTION = "_exception";
 	
 	protected TaskContext context;
+	protected String tblOpt;
 
 	@Override
     public boolean hasAccess(TaskContext context) {
@@ -99,11 +102,31 @@ public abstract class CmdOperation extends AbstractOperation {
 
 		try (ICloseable ioEnv = MSystem.useIO(os, os, is)) {
 			try {
-				Object res = CmdOperation.this.executeCmd();
+				String res = CmdOperation.this.executeCmd();
 				ret.put(RESULT_OBJECT, res);
+				System.out.write(MAscii.NUL);
+				if (res == null)
+					System.out.write('0');
+				else {
+					System.out.write(MAscii.NL);
+					System.out.print(res);
+					System.out.write(MAscii.NUL);
+				}
+				System.out.flush();
 			} catch (Throwable t) {
 				t.printStackTrace();
 				ret.put(RESULT_EXCEPTION, t);
+				System.out.write(MAscii.NUL);
+				System.out.write(MAscii.TAB);
+				if (t instanceof IResult) {
+					System.out.print(((IResult)t).getReturnCode());
+					System.out.print(" ");
+					System.out.print(((IResult)t).getMessage());
+				} else {
+					System.out.print("400 ");
+					System.out.print(toString().toString());
+				}
+				System.out.write(MAscii.NUL);
 				throw t;
 			}
 		}
@@ -114,7 +137,7 @@ public abstract class CmdOperation extends AbstractOperation {
     protected void onError(Throwable e) {
 	}
 
-	protected abstract Object executeCmd() throws Exception;
+	protected abstract String executeCmd() throws Exception;
 
 	protected DefRoot createDescriptionForm() {
     	
@@ -138,15 +161,15 @@ public abstract class CmdOperation extends AbstractOperation {
     		ArrayList<IDefAttribute> options = new ArrayList<>();
     		if (optionA != null) {
     			name = optionA.name().length() == 0 ? attr.getName() : optionA.name();
-    			title = "option " + name;
+    			title = "option " + attr.getName();
     			description = optionA.description();
-    			if (optionA.mandatory())
+    			if (optionA.required())
     				options.add(new FaMandatory());
     		} else {
     			name = "" + argumentA.index();
-    			title = "argument " + name;
+    			title = "argument " + attr.getName();
     			description = argumentA.description();
-    			if (argumentA.mandatory())
+    			if (argumentA.required())
     				options.add(new FaMandatory());
     		}
     		if (attr.getManagedClass().isArray() /*|| Collection.class.isAssignableFrom(attr.getManagedClass())*/ ) {

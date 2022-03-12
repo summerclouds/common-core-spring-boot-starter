@@ -33,7 +33,7 @@ public class Cmd2 extends CmdOperation {
 	private double optDouble;
 
 	@Override
-	protected Object executeCmd() throws Exception {
+	protected String executeCmd() throws Exception {
 		System.out.println("argString: " + argString);
 		System.out.println("argLong: " + argLong);
 		System.out.println("argInt: " + argInt);

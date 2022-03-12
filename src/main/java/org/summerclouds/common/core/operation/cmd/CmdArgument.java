@@ -27,11 +27,12 @@ public @interface CmdArgument {
 
     int index();
 
-    boolean mandatory() default false;
+    boolean required() default false;
 
     int valueCnt() default 0;
 
-    boolean multi() default false;
+    boolean multiValued() default false;
 
 	String name() default "";
+
 }

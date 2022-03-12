@@ -83,8 +83,8 @@ public class MArgs extends MLog {
                         new Option(
                                 cOpt.shortcut(),
                                 cOpt.name(),
-                                cOpt.multi() ? -1 : cOpt.value() ? 1 : cOpt.valueCnt(),
-                                cOpt.mandatory(),
+                                cOpt.multiValued() ? -1 : cOpt.value() ? 1 : cOpt.valueCnt(),
+                                cOpt.required(),
                                 cOpt.description());
                 map.put(entry.getName(), opt);
                 u.add(opt);
@@ -94,8 +94,8 @@ public class MArgs extends MLog {
                     Argument arg =
                             new Argument(
                                     cArg.name(),
-                                    cArg.multi() ? -1 : cArg.valueCnt(),
-                                    cArg.mandatory(),
+                                    cArg.multiValued() ? -1 : cArg.valueCnt(),
+                                    cArg.required(),
                                     cArg.description());
                     map.put(entry.getName(), arg);
                     a[cArg.index()] = arg;

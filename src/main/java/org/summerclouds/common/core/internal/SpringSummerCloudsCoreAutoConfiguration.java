@@ -1,5 +1,10 @@
 package org.summerclouds.common.core.internal;
 
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -17,16 +22,37 @@ import org.summerclouds.common.core.node.INodeFactory;
 import org.summerclouds.common.core.operation.OperationManager;
 import org.summerclouds.common.core.tool.MSpring;
 
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.core.Appender;
+
 @Configuration
 @ConfigurationProperties(prefix = "org.summerclouds.common.core")
 public class SpringSummerCloudsCoreAutoConfiguration implements ApplicationContextAware {
+
+	private ApplicationContext context;
 
 	public SpringSummerCloudsCoreAutoConfiguration() {
 		PlainLog.i("Start SpringSummerCloudsAutoConfiguration");
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@PostConstruct
+	public void setup() {
+		
+		// Search and add log appender to the log system
+	    Map<String, Appender> map = context.getBeansOfType(Appender.class);
+	    LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+	    Logger rootLogger = loggerContext.getLogger(Logger.ROOT_LOGGER_NAME);
+	    for (Appender appender : map.values()) {
+	    	PlainLog.i("add log appender", appender.getClass());
+	    	rootLogger.addAppender(appender);
+	    }
+	}
+
 	@Override
     public void setApplicationContext(ApplicationContext appContext) {
+		this.context = appContext;
         MSpring.setContext(appContext);
     }
 	
@@ -53,7 +79,7 @@ public class SpringSummerCloudsCoreAutoConfiguration implements ApplicationConte
 	}
 	
 	@Bean
-	@ConditionalOnProperty(name="org.summerclouds.operations.enable",havingValue="true")
+	@ConditionalOnProperty(name="org.summerclouds.operations.enabled",havingValue="true")
 	OperationManager operationManager() {
 		return new OperationManager();
 	}

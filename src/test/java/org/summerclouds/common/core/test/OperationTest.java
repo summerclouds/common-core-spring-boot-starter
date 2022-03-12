@@ -24,7 +24,7 @@ import org.summerclouds.common.junit.TestCase;
 @SpringBootTest(classes = {SpringSummerCloudsCoreAutoConfiguration.class},
 properties = { 
 		"org.summerclouds.scan.packages=org.summerclouds.common.core.test.operations",
-		"org.summerclouds.operations.enable=true"
+		"org.summerclouds.operations.enabled=true"
 }
 )
 public class OperationTest extends TestCase {

@@ -27,6 +27,13 @@ public @interface OperationComponent {
      * @return display name
      */
     String title() default "";
+    
+    /**
+     * The description
+     * @return
+     */
+    String description() default "";
+
     /**
      * If you need to set the path by a class reference. Default path is the name of the current
      * class.

@@ -29,9 +29,9 @@ public @interface CmdOption {
 
     int valueCnt() default 0;
 
-    boolean multi() default false;
+    boolean multiValued() default false;
 
-    boolean mandatory() default false;
+    boolean required() default false;
 
     boolean value() default false;
 }

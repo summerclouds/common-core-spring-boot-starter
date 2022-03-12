@@ -17,7 +17,7 @@ public class Cmd1 extends CmdOperation {
 	private String opt;
 	
 	@Override
-	protected Object executeCmd() throws Exception {
+	protected String executeCmd() throws Exception {
 		System.out.println("Execute Cmd " + getClass());
 		System.out.println("Opt: " + opt);
 		MThread.sleepForSure(1000);

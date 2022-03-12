@@ -14,9 +14,8 @@ Spring-Anwendungen genutzt werden (Mischimplementierung).
 NOTE: Solange spring nicht gestartet wurde wird der Standartwert
 bzw. der Wert aus dem Environment zurückgegeben.
 
-Der Spring Name ergibt sich aus dem CanonicalClassName, wobei 
-Punkte durch unterstriche erstzt werden. Danach Punkt und der
-Attributname.
+Der Spring Name ergibt sich aus dem CanonicalClassName.
+Danach Punkt und der Attributname.
 
 Beispiel:
 
@@ -27,13 +26,20 @@ Name: interval
 
 will look for 
 
-org_summerclouds_common_SampleClass:
-  interval: value
+org.summerclouds.common.SampleClass.interval=value
+
+or yaml
+
+org:
+  summerclouds:
+    common:
+      SampleClass:
+        interval: value
 
 ----
 
 Der Environment-Name und System-Property wird mit dem Prefix `app.` 
-geführt. In diesem Beispiel: `app.org_summerclouds_common_SampleClass.interval=value`
+geführt. In diesem Beispiel: `app.org.summerclouds.common.SampleClass.interval=value`
 
 == BeanRef
 
