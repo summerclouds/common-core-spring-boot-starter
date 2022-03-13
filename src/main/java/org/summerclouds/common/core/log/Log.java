@@ -149,7 +149,7 @@ public class Log {
 
 	private String postMsg(String msg) {
 		if (logTraceId.value())
-			return MTracing.getCurrentId() + "#" + msg;
+			return MTracing.getTraceId() + "#" + msg;
 		return msg;
 	}
 

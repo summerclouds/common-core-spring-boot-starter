@@ -8,6 +8,11 @@ public class DummySubject implements ISubject {
 	}
 
 	@Override
+	public String toString() {
+		return getName();
+	}
+
+	@Override
 	public Object getPrincipal() {
 		return null;
 	}

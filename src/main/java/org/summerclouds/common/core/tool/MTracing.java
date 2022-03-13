@@ -38,7 +38,7 @@ public class MTracing {
 		return inst.enter(name, keyValue);
 	}
 
-	public static String getCurrentId() {
+	public static String getTraceId() {
 		ITracing inst = get();
 		if (inst == null) return String.valueOf(Thread.currentThread().getId());
 		return inst.getTraceId();
