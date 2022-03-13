@@ -24,6 +24,8 @@ public class CmdCoreRead extends CmdOperation {
 		if (f.isFile()) {
 			System.out.print(MAscii.NUL);
 			System.out.print('f');
+			System.out.println( f.getName() );
+			System.out.print(MAscii.NUL);
 			try (InputStream is = new FileInputStream(f)) {
 				while (true) {
 					int c = is.read();

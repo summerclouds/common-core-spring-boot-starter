@@ -42,3 +42,22 @@ Um alle Log-Ausgaben in die CMD ausgabe umzuleiten:
 
 org.summerclouds.ThreadConsoleLogAppender.enabled=true
 
+=== Protokoll
+
+Bei der Ausführung wird die Ausgabe des Kommandos 
+direkt zum ausführenden Client gesendet (Stream).
+Das Zeichen '0' markiert im Protokoll einen Token
+der zum transport von besoneren Datensätzen
+genutzt wird. Das Folgezeichen definiert welche
+Daten gesendet werden.
+
+* '\0' (0) - Es handelt sich um ein einzelnes '\0' Zeichen
+* '\n' (13) - Das Ergebnis wird in Folge gesendet, 
+beendet mit einem weiteren '\0' Zeichen
+* 'n' (110) - Das Ergebnis ist `null` (ersetzt die Ausgabe '\n')
+* 'e' (101) - Das Ergebnis ist eine Exception, gefolgt von der 
+Exception, beendet mit einem `\0` Zeichen (ersetzt die Ausgabe '\n')
+* 'f' (102) - Es folgt ein Hex-Datensatz/Dateiinhalt, 
+zuerst der Dateiname, beendet mit einem '\0' Zeichen,
+danach der Datenstream in HEX beendet mit '\0'.
+

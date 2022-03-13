@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import org.summerclouds.common.core.cfg.BeanRefMap;
 import org.summerclouds.common.core.error.InterruptedRuntimeException;
 import org.summerclouds.common.core.error.TimeoutRuntimeException;
 import org.summerclouds.common.core.lang.Checker;
@@ -48,6 +49,7 @@ public class MThread extends MLog implements Runnable {
 
     protected static Log log = Log.getLog(MThread.class);
     private static ThreadLocal<Map<String, Object>> threadContext = new ThreadLocal<>();
+    private static BeanRefMap<IThreadControl> threadControllers = new BeanRefMap<>(IThreadControl.class);
     
     protected Runnable task = this;
     protected String name = null;
@@ -459,7 +461,7 @@ public class MThread extends MLog implements Runnable {
 	        MTracing.get().cleanup();
 	        ThreadConsoleLogAppender.cleanup();
 	        MSystem.ioCleanup();
-	    	Map<String, IThreadControl> map = MSpring.getBeansOfType(IThreadControl.class);
+	    	Map<String, IThreadControl> map = threadControllers.beans();
 	    	if (map != null) {
 	    		for (IThreadControl control : map.values())
 	    			control.cleanup();
@@ -490,7 +492,7 @@ public class MThread extends MLog implements Runnable {
 	    		context.put("err", MSystem.getErrOverlay());
 	    		context.put("in", MSystem.getInOverlay());
 	    	}
-	    	Map<String, IThreadControl> map = MSpring.getBeansOfType(IThreadControl.class);
+	    	Map<String, IThreadControl> map = threadControllers.beans();
 	    	if (map != null) {
 	    		for (IThreadControl control : map.values())
 	    			control.prepareNewThread(context);
@@ -545,7 +547,7 @@ public class MThread extends MLog implements Runnable {
     			context.put("io", io);
     		}
     		
-	    	Map<String, IThreadControl> map = MSpring.getBeansOfType(IThreadControl.class);
+	    	Map<String, IThreadControl> map = threadControllers.beans();
 	    	if (map != null) {
 	    		for (IThreadControl control : map.values())
 	    			control.initNewThread(context);
@@ -562,7 +564,7 @@ public class MThread extends MLog implements Runnable {
      */
     public static void releaseThread(Map<String, Object> context) {
     	try {
-	    	Map<String, IThreadControl> map = MSpring.getBeansOfType(IThreadControl.class);
+	    	Map<String, IThreadControl> map = threadControllers.beans();
 	    	if (map != null) {
 	    		for (IThreadControl control : map.values())
 	    			control.releaseThread(context);

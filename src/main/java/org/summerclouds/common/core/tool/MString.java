@@ -112,6 +112,7 @@ public class MString {
 
     /** A pair (index 0 and 1) with null values */
     public static final String[] NULL_PAIR = new String[] {null, null};
+	public static final byte[] EMPTY_BYTES = new byte[0];
 
     /**
      * Return true if the the string is not empty also trimmed.
@@ -1992,6 +1993,15 @@ public class MString {
         }
     }
 
+    public static byte[] toBytesOrEmpty(String data) {
+        if (data == null) return EMPTY_BYTES;
+        try {
+            return data.getBytes(CHARSET_UTF_8);
+        } catch (UnsupportedEncodingException e) {
+            return EMPTY_BYTES;
+        }
+    }
+    
     /**
      * Return a utf-8 decoded string from the data ignoring the VM default char set.
      *

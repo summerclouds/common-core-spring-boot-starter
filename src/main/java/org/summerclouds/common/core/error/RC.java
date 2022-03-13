@@ -1,11 +1,13 @@
 package org.summerclouds.common.core.error;
 
+import java.util.Arrays;
+
 public class RC {
 
     public enum CAUSE {
         ENCAPSULATE, // encapsulate cause state
         ADAPT, // if possible adapt cause state
-        APPEND, // if possible adapt cause state and append message entries
+        APPEND, // if possible adapt cause state and append message entries, will ADAPT the Error Code (!)
         IGNORE, // do print as parameters
         HIDE // print as parameters but do not link as cause
     }
@@ -198,22 +200,31 @@ public class RC {
                         sb.setLength(sb.length()-1);
                         continue;
                     }
-                    if (parameter instanceof Object[]) {
-                        sb.append("[");
-                        boolean first2 = true;
-                        for (Object item : (Object[])parameter) {
-                            if (first2) first2 = false; else sb.append(",");
-                            if (item == null)
-                                sb.append("null");
-                            else {
-                                addEncoded(sb,item);
-                            }
-                        }
-                        sb.append("]");
-                        continue;
-                    } else {
+                    if (parameter instanceof Object[])
+                        addEncoded(sb,Arrays.deepToString((Object[])parameter));
+                    else
+                    if (parameter instanceof int[])
+                        addEncoded(sb,Arrays.toString((int[])parameter));
+                    else
+                    if (parameter instanceof double[])
+                        addEncoded(sb,Arrays.toString((double[])parameter));
+                    else
+                    if (parameter instanceof long[])
+                        addEncoded(sb,Arrays.toString((long[])parameter));
+                    else
+                    if (parameter instanceof byte[])
+                        addEncoded(sb,Arrays.toString((byte[])parameter));
+                    else
+                    if (parameter instanceof float[])
+                        addEncoded(sb,Arrays.toString((float[])parameter));
+                    else
+                    if (parameter instanceof short[])
+                        addEncoded(sb,Arrays.toString((short[])parameter));
+                    else
+                    if (parameter instanceof char[])
+                        addEncoded(sb,Arrays.toString((char[])parameter));
+                    else
                         addEncoded(sb,parameter);
-                    }
                 } else
                     sb.append("null");
             }

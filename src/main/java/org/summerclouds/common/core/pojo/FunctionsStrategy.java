@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import org.summerclouds.common.core.log.MLog;
+import org.summerclouds.common.core.tool.MCollection;
 import org.summerclouds.common.core.tool.MSystem;
 
 public class FunctionsStrategy extends MLog implements PojoStrategy {
@@ -169,7 +170,7 @@ public class FunctionsStrategy extends MLog implements PojoStrategy {
     }
 
     private boolean isMarker(Method getter, Method setter) {
-        if (annotationMarker == null || annotationMarker.length == 0) return true;
+        if (MCollection.isEmpty(annotationMarker)) return true;
         if (getter != null) {
             for (Class<? extends Annotation> a : annotationMarker)
                 if (getter.isAnnotationPresent(a)) return true;

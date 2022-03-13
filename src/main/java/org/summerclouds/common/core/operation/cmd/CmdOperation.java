@@ -34,6 +34,7 @@ import org.summerclouds.common.core.pojo.PojoModel;
 import org.summerclouds.common.core.pojo.PojoParser;
 import org.summerclouds.common.core.tool.MAscii;
 import org.summerclouds.common.core.tool.MSecurity;
+import org.summerclouds.common.core.tool.MString;
 import org.summerclouds.common.core.tool.MSystem;
 
 public abstract class CmdOperation extends AbstractOperation {
@@ -101,38 +102,38 @@ public abstract class CmdOperation extends AbstractOperation {
     	
     	final SuccessfulMap ret = new SuccessfulMap(this, "ok");
 
-		try (ICloseable ioEnv = MSystem.useIO(os, os, is)) {
-			try {
-				String res = null;
+		try {
+			String res = null;
+			try (ICloseable ioEnv = MSystem.useIO(os, os, is)) {
 				try (ICloseable logEnv = ThreadConsoleLogAppender.sendTo(os)) {
 					res = CmdOperation.this.executeCmd();
 				}
-				ret.put(RESULT_OBJECT, res);
-				System.out.write(MAscii.NUL);
-				if (res == null)
-					System.out.write('0');
-				else {
-					System.out.write(MAscii.NL);
-					System.out.print(res);
-					System.out.write(MAscii.NUL);
-				}
-				System.out.flush();
-			} catch (Throwable t) {
-				t.printStackTrace();
-				ret.put(RESULT_EXCEPTION, t);
-				System.out.write(MAscii.NUL);
-				System.out.write(MAscii.TAB);
-				if (t instanceof IResult) {
-					System.out.print(((IResult)t).getReturnCode());
-					System.out.print(" ");
-					System.out.print(((IResult)t).getMessage());
-				} else {
-					System.out.print("400 ");
-					System.out.print(toString().toString());
-				}
-				System.out.write(MAscii.NUL);
-				throw t;
 			}
+			ret.put(RESULT_OBJECT, res);
+			os.write(MAscii.NUL);
+			if (res == null)
+				os.write('n');
+			else {
+				os.write(MAscii.NL);
+				os.write(MString.toBytesOrEmpty(res));
+				os.write(MAscii.NUL);
+			}
+			os.flush();
+		} catch (Throwable t) {
+			t.printStackTrace();
+			ret.put(RESULT_EXCEPTION, t);
+			os.write(MAscii.NUL);
+			os.write('e');
+			if (t instanceof IResult) {
+				os.write(String.valueOf(((IResult)t).getReturnCode()).getBytes());
+				os.write(' ');
+				os.write(MString.toBytesOrEmpty(((IResult)t).getMessage()));
+			} else {
+				os.write("400 ".getBytes());
+				os.write(MString.toBytesOrEmpty(t.toString()));
+			}
+			os.write(MAscii.NUL);
+			throw t;
 		}
 
     	return ret;

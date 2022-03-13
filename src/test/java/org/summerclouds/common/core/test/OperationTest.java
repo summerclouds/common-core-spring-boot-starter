@@ -144,7 +144,7 @@ public class OperationTest extends TestCase {
 		assertNotNull(desc);
 
 		assertNotNull(desc.getParameterDefinitions().get("0"));
-		assertNotNull(desc.getParameterDefinitions().get("optString"));
+		assertNotNull(desc.getParameterDefinitions().get("optstring"));
 
 		
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -160,8 +160,8 @@ public class OperationTest extends TestCase {
 		// for async only MThread.waitForWithException(() -> osp.isClosed() , MPeriod.MINUTE_IN_MILLISECONDS * 5);
 		String out = new String(os.toByteArray());
 		System.out.println("Output:\n" + out);
-		assertTrue(out.contains("Finish"));
-		assertEquals("Hello", res.getResultAsNode().get(CmdOperation.RESULT_OBJECT));
+		assertTrue(out.contains("\0\nFinish\0"));
+		assertEquals("Finish", res.getResultAsNode().get(CmdOperation.RESULT_OBJECT));
 
 	}
 }

@@ -44,7 +44,7 @@ public class Cmd2 extends CmdOperation {
 		System.out.println("optInt: " + optInt);
 		System.out.println("optDouble: " + optDouble);
 
-		return null;
+		return "Finish";
 	}
 
 }

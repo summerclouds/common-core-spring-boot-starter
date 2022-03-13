@@ -22,6 +22,7 @@ import java.lang.reflect.Modifier;
 
 import org.summerclouds.common.core.log.MLog;
 import org.summerclouds.common.core.tool.MCast;
+import org.summerclouds.common.core.tool.MCollection;
 import org.summerclouds.common.core.tool.MSystem;
 
 public class AttributesStrategy extends MLog implements PojoStrategy {
@@ -118,7 +119,7 @@ public class AttributesStrategy extends MLog implements PojoStrategy {
     }
 
     protected boolean isMarker(Field field) {
-        if (annotationMarker == null) return true;
+        if (MCollection.isEmpty(annotationMarker)) return true;
         for (Class<? extends Annotation> a : annotationMarker)
             if (field.isAnnotationPresent(a)) return true;
         return false;
