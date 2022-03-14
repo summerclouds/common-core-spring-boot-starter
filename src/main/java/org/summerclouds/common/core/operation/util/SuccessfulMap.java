@@ -18,7 +18,6 @@ package org.summerclouds.common.core.operation.util;
 import java.util.Map;
 import java.util.Set;
 
-import org.summerclouds.common.core.node.MProperties;
 import org.summerclouds.common.core.operation.Operation;
 import org.summerclouds.common.core.operation.Successful;
 
@@ -26,12 +25,10 @@ public class SuccessfulMap extends Successful {
 
     public SuccessfulMap(Operation operation) {
         super(operation, OK);
-        setResultNode(new MProperties());
     }
     
     public SuccessfulMap(Operation operation, String msg) {
         super(operation, msg);
-        setResultNode(new MProperties());
     }
 
     public SuccessfulMap(String path, int rc, String msg, String... keyValues) {
@@ -42,8 +39,9 @@ public class SuccessfulMap extends Successful {
         super(operation.getDescription().getPath(), msg, rc, keyValues);
     }
 
-    public Map<String, Object> getMap() {
-        return getResultAsMap();
+    @SuppressWarnings({ "unchecked", "deprecation" })
+	public Map<String, Object> getMap() {
+        return (Map<String, Object>)getResult();
     }
 
     public void put(String key, Object value) {

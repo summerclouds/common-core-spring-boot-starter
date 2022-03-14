@@ -15,4 +15,6 @@ public interface ITracing {
 
 	String getTraceId();
 
+	String getSpanId();
+
 }

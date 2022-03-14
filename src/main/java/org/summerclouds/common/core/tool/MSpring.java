@@ -21,6 +21,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.summerclouds.common.core.activator.Activator;
+import org.summerclouds.common.core.activator.MutableActivator;
 import org.summerclouds.common.core.cfg.CfgString;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.internal.ContextListener;
@@ -175,7 +176,7 @@ public class MSpring {
 	}
 
 	public static Activator getDefaultActivator() {
-		if (activator == null) activator = new Activator();
+		if (activator == null) activator = new MutableActivator();
 		return activator;
 	}
 	

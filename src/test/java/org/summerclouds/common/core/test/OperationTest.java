@@ -19,6 +19,7 @@ import org.summerclouds.common.core.operation.OperationDescription;
 import org.summerclouds.common.core.operation.OperationManager;
 import org.summerclouds.common.core.operation.OperationResult;
 import org.summerclouds.common.core.operation.cmd.CmdOperation;
+import org.summerclouds.common.core.operation.util.SuccessfulMap;
 import org.summerclouds.common.junit.TestCase;
 
 @SpringBootTest(classes = {SpringSummerCloudsCoreAutoConfiguration.class},
@@ -164,4 +165,20 @@ public class OperationTest extends TestCase {
 		assertEquals("Finish", res.getResultAsNode().get(CmdOperation.RESULT_OBJECT));
 
 	}
+	
+	@Test
+	public void testSuccessfulMap() {
+		SuccessfulMap map = new SuccessfulMap("test", 200, "ok", "a", "b");
+		map.put("c", "d");
+		map.put("e", new MNode("node"));
+		
+		String str = map.toString();
+		System.out.println(str);
+		
+		assertTrue(str.contains("[SuccessfulMap:[test],[200],[ok],[null],"));
+		assertTrue(str.contains("a=b"));
+		assertTrue(str.contains("c=d"));
+		assertTrue(str.contains("e=node:{}"));
+	}
+	
 }

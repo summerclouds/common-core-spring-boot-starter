@@ -22,9 +22,26 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+import org.summerclouds.common.core.activator.MutableActivator;
 import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
+import org.summerclouds.common.core.security.DummySecurity;
+import org.summerclouds.common.core.security.DummySubject;
+import org.summerclouds.common.core.security.DummySubjectEnvironment;
+import org.summerclouds.common.core.security.ISecurity;
+import org.summerclouds.common.core.security.ISubject;
+import org.summerclouds.common.core.security.ISubjectEnvironment;
+import org.summerclouds.common.core.tool.MSecurity;
+import org.summerclouds.common.core.tool.MSpring;
 import org.summerclouds.common.core.tool.MThread;
 import org.summerclouds.common.core.tool.MThreadDaemon;
+import org.summerclouds.common.core.tool.MTracing;
+import org.summerclouds.common.core.tracing.DummyScope;
+import org.summerclouds.common.core.tracing.DummySpan;
+import org.summerclouds.common.core.tracing.DummyTracing;
+import org.summerclouds.common.core.tracing.IScope;
+import org.summerclouds.common.core.tracing.ISpan;
+import org.summerclouds.common.core.tracing.ITracing;
+import org.summerclouds.common.core.util.Value;
 import org.summerclouds.common.junit.TestCase;
 
 @SpringBootTest
@@ -117,6 +134,95 @@ public class MThreadTest extends TestCase {
         assertNotNull(t.getThread());
         MThread.waitForWithException(() -> done, 5000);
     }
+    
+    @Test
+    public void testThreadControl() {
+
+    	try {
+	    	Value<Boolean> run = new Value<Boolean>(true);
+	    	
+	    	((MutableActivator)MSpring.getDefaultActivator()).register(ISecurity.class, new DummySecurity() {
+	    		
+	    		ThreadLocal<ISubject> users = new ThreadLocal<>();
+	    		
+	    		public ISubjectEnvironment asSubject(ISubject user) {
+	    			users.set(user);
+	    			return new DummySubjectEnvironment(user);
+	    		}
+	    		public ISubjectEnvironment asSubject(String username) {
+	    			DummySubject user = new DummySubject(username);
+	    			users.set(user);
+	    			return new DummySubjectEnvironment(user);
+	    		}
+	    		
+	    		@Override
+	    		public ISubject getCurrent() {
+	    			ISubject user = users.get();
+	    			return user;
+	    		}
+	
+	
+	    	});
+	    	
+	    	((MutableActivator)MSpring.getDefaultActivator()).register(ITracing.class, new DummyTracing() {
+
+	    		ThreadLocal<ISpan> spans = new ThreadLocal<>();
+	    		
+	    		@Override
+	    		public ISpan current() {
+	    			return spans.get();
+	    		}
+
+	    		@Override
+	    		public IScope enter(ISpan span, String name, Object... keyValue) {
+	    			DummySpan s = new DummySpan(span + " " + name);
+	    			spans.set(s);
+	    			return new DummyScope(s);
+	    		}
+
+	    	});
+
+	    	
+	    	
+	    	
+	    	final Value<String> innerUser = new Value<>();
+	    	final Value<String> innerSpan = new Value<>();
+	    	
+	    	try (IScope scope = MTracing.enter(null, "testSpan")) {
+		    	try (ISubjectEnvironment secEnv = MSecurity.asSubject("testSubject")) {
+		    	
+			    	MThread.asynchron(new Runnable() {
+						
+						@Override
+						public void run() {
+							try {
+								innerUser.setValue( MSecurity.getCurrent().toString() );
+								innerSpan.setValue( MTracing.current().toString() );
+							} catch (Throwable t ) {
+								t.printStackTrace();
+							}
+							run.setValue(false);
+						}
+					});
+		    	}
+	    	}
+	    	
+	    	// wait for end
+	    	while (run.getValue()) {
+	    		MThread.sleepForSure(100);
+	    	}
+	    	
+	    	System.out.println(innerUser);
+	    	System.out.println(innerSpan);
+	    	assertEquals("testSubject", innerUser.getValue());
+	    	assertEquals("null testSpan thread", innerSpan.getValue());
+    	
+    	} finally {
+    		((MutableActivator)MSpring.getDefaultActivator()).register(ISecurity.class, null);
+    		((MutableActivator)MSpring.getDefaultActivator()).register(ITracing.class, null);
+		}
+    }
+    
 
     @BeforeAll
     public static void setUp() throws Exception {

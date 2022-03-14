@@ -2,9 +2,19 @@ package org.summerclouds.common.core.security;
 
 public class DummySubjectEnvironment implements ISubjectEnvironment {
 
-	@Override
+	private ISubject subject;
+
+	public DummySubjectEnvironment() {
+		this(DummySecurity.SUBJECT);
+	}
+	
+	public DummySubjectEnvironment(ISubject subject) {
+		this.subject = subject;
+	}
+	
+ 	@Override
 	public ISubject getSubject() {
-		return DummySecurity.SUBJECT;
+		return subject;
 	}
 
 	@Override

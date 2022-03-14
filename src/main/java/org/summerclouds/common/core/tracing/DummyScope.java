@@ -2,6 +2,16 @@ package org.summerclouds.common.core.tracing;
 
 public class DummyScope implements IScope {
 
+	private ISpan span;
+
+	public DummyScope() {
+		this(DummyTracing.DUMMY_SPAN);
+	}
+	
+	public DummyScope(ISpan span) {
+		this.span = span;
+	}
+
 	@Override
 	public void close() {
 
@@ -9,7 +19,7 @@ public class DummyScope implements IScope {
 
 	@Override
 	public ISpan getSpan() {
-		return DummyTracing.DUMMY_SPAN;
+		return span;
 	}
 
 }

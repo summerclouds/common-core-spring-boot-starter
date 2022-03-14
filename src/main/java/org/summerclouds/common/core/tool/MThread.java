@@ -116,7 +116,6 @@ public class MThread extends MLog implements Runnable {
     	private final HashMap<String, Object> context = new HashMap<>();
 
         public Container() {
-        	final HashMap<String, Object> context = new HashMap<>();
         	prepareNewThread(context);
         }
 

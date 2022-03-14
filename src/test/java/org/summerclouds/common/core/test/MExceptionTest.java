@@ -11,7 +11,7 @@ import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.error.RC.CAUSE;
 import org.summerclouds.common.junit.TestCase;
 
-public class ExceptionTest extends TestCase {
+public class MExceptionTest extends TestCase {
 
 	@Test
 	public void testErrorException() {
@@ -32,6 +32,15 @@ public class ExceptionTest extends TestCase {
 			ErrorException e = (ErrorException)t;
 			assertEquals(400, e.getReturnCode());
 			assertEquals("[400,\"test\",\"nr1\"]", e.getMessage());
+		}
+		try {
+			throw new ErrorException("test","special \"\\");
+		} catch (Throwable t) {
+			System.out.println(t);
+			assertTrue(t instanceof ErrorException);
+			ErrorException e = (ErrorException)t;
+			assertEquals(400, e.getReturnCode());
+			assertEquals("[400,\"test\",\"special \\\"\\\\\"]", e.getMessage());
 		}
 		try {
 			throw new ErrorException("test", "nr1", "nr2", "nr3");
@@ -117,6 +126,15 @@ public class ExceptionTest extends TestCase {
 			ErrorRuntimeException e = (ErrorRuntimeException)t;
 			assertEquals(400, e.getReturnCode());
 			assertEquals("[400,\"test\",\"nr1\"]", e.getMessage());
+		}
+		try {
+			throw new ErrorRuntimeException("test","special \"\\");
+		} catch (Throwable t) {
+			System.out.println(t);
+			assertTrue(t instanceof ErrorRuntimeException);
+			ErrorRuntimeException e = (ErrorRuntimeException)t;
+			assertEquals(400, e.getReturnCode());
+			assertEquals("[400,\"test\",\"special \\\"\\\\\"]", e.getMessage());
 		}
 		try {
 			throw new ErrorRuntimeException("test", "nr1", "nr2", "nr3");

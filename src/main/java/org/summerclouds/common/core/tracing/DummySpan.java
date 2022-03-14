@@ -2,8 +2,18 @@ package org.summerclouds.common.core.tracing;
 
 public class DummySpan implements ISpan {
 
+	private String name;
+
+	public DummySpan() {
+		name = "";
+	}
+	
+	public DummySpan(String name) {
+		this.name = name;
+	}
+	
 	@Override
-	public void record(Throwable exception) {
+	public void exception(Throwable exception) {
 		
 	}
 
@@ -12,4 +22,13 @@ public class DummySpan implements ISpan {
 		
 	}
 
+	@Override
+	public void tag(String key, String value) {
+		
+	}
+
+	public String toString() {
+		return name;
+	}
+	
 }

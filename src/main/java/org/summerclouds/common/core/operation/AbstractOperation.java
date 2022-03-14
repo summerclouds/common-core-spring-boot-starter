@@ -26,6 +26,8 @@ import org.summerclouds.common.core.node.IProperties;
 import org.summerclouds.common.core.node.MProperties;
 import org.summerclouds.common.core.tool.MSecurity;
 import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.tool.MTracing;
+import org.summerclouds.common.core.tracing.IScope;
 import org.summerclouds.common.core.util.Version;
 
 public abstract class AbstractOperation extends MLog implements Operation {
@@ -42,18 +44,25 @@ public abstract class AbstractOperation extends MLog implements Operation {
 
     @Override
     public final OperationResult doExecute(TaskContext context) throws Exception {
-        log().d("execute", context.getParameters());
-        try {
-	        OperationResult ret = execute(context);
-	        log().d("result", ret);
-	        return ret;
-        } catch (Throwable e) {
+    	OperationDescription desc = getDescription();
+    	String name = desc == null ? getClass().getCanonicalName() : desc.getPathVersion();
+        try (IScope scope = MTracing.enter("operation " + name)) {
         	try {
-        		onError(e);
-            } catch (Throwable e2) {}
-        	if (e instanceof IResult)
-        		return new NotSuccessful(this, (IResult)e );
-        	throw e;
+	        	log().d("execute operation {1} with {2}", name, context.getParameters());
+		        OperationResult ret = execute(context);
+		        if (ret != null && !ret.isSuccessful())
+		        	scope.getSpan().setError(ret.getMessage());
+		        log().d("result", ret);
+		        return ret;
+	        } catch (Throwable e) {
+	        	scope.getSpan().setError(e);
+	        	try {
+	        		onError(e);
+	            } catch (Throwable e2) {}
+	        	if (e instanceof IResult)
+	        		return new NotSuccessful(this, (IResult)e );
+	        	throw e;
+	        }
         }
     }
 

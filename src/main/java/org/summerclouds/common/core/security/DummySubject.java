@@ -2,9 +2,19 @@ package org.summerclouds.common.core.security;
 
 public class DummySubject implements ISubject {
 
+	private String name;
+
+	public DummySubject() {
+		this("");
+	}
+
+	public DummySubject(String name) {
+		this.name = name;
+	}
+	
 	@Override
 	public String getName() {
-		return "?";
+		return name;
 	}
 
 	@Override
@@ -14,7 +24,7 @@ public class DummySubject implements ISubject {
 
 	@Override
 	public Object getPrincipal() {
-		return null;
+		return name;
 	}
 
 	@Override

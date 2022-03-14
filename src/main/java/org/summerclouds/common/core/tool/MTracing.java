@@ -40,8 +40,14 @@ public class MTracing {
 
 	public static String getTraceId() {
 		ITracing inst = get();
-		if (inst == null) return String.valueOf(Thread.currentThread().getId());
+		if (inst == null) return "";
 		return inst.getTraceId();
 	}
 
+	public static String getSpanId() {
+		ITracing inst = get();
+		if (inst == null) return "";
+		return inst.getSpanId();
+	}
+	
 }

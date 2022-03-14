@@ -27,7 +27,12 @@ public class DummyTracing implements ITracing {
 
 	@Override
 	public String getTraceId() {
-		return String.valueOf(Thread.currentThread().getId());
+		return "";
+	}
+
+	@Override
+	public String getSpanId() {
+		return "";
 	}
 
 }
