@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2018 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.console;
+package org.summerclouds.common.core.cmd;
 
-import org.summerclouds.common.core.activator.DefaultImplementation;
+import org.summerclouds.common.core.operation.OperationComponent;
+import org.summerclouds.common.core.operation.cmd.CmdOperation;
 
-@DefaultImplementation(DefaultConsoleFactory.class)
-public interface ConsoleFactory {
+@OperationComponent(path="core.gc", description = "Trigger the Garbage Collector of the JVM")
+public class CmdGC extends CmdOperation {
 
-    public Console create(String term);
+    @Override
+    public String executeCmd() throws Exception {
+        System.gc();
+        return null;
+    }
 }

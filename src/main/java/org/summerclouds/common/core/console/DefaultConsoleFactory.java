@@ -21,12 +21,13 @@ import org.summerclouds.common.core.tool.MSystem;
 public class DefaultConsoleFactory implements ConsoleFactory {
 
     @Override
-    public Console create() {
+    public Console create(String term) {
+    	if (term == null)
+    		term = System.getenv("TERM");
         try {
             if (MSystem.isWindows()) {
                 return new CmdConsole();
             }
-            String term = System.getenv("TERM");
             if (term != null) {
                 term = term.toLowerCase();
                 if (term.indexOf("xterm") >= 0) {

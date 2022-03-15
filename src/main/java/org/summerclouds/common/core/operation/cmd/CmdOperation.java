@@ -9,6 +9,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.jline.reader.EndOfFileException;
+import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.console.Console;
+import org.summerclouds.common.core.console.ConsoleFactory;
+import org.summerclouds.common.core.console.ConsoleTable;
 import org.summerclouds.common.core.error.IResult;
 import org.summerclouds.common.core.error.UsageException;
 import org.summerclouds.common.core.form.DefAttribute;
@@ -24,6 +28,7 @@ import org.summerclouds.common.core.form.definition.IDefDefinition;
 import org.summerclouds.common.core.io.OutputStreamProxy;
 import org.summerclouds.common.core.lang.ICloseable;
 import org.summerclouds.common.core.log.ThreadConsoleLogAppender;
+import org.summerclouds.common.core.node.IProperties;
 import org.summerclouds.common.core.operation.AbstractOperation;
 import org.summerclouds.common.core.operation.OperationComponent;
 import org.summerclouds.common.core.operation.OperationResult;
@@ -33,6 +38,7 @@ import org.summerclouds.common.core.pojo.PojoAttribute;
 import org.summerclouds.common.core.pojo.PojoModel;
 import org.summerclouds.common.core.pojo.PojoParser;
 import org.summerclouds.common.core.tool.MAscii;
+import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MSecurity;
 import org.summerclouds.common.core.tool.MString;
 import org.summerclouds.common.core.tool.MSystem;
@@ -47,7 +53,9 @@ public abstract class CmdOperation extends AbstractOperation {
 	public static final String RESULT_EXCEPTION = "_exception";
 	
 	protected TaskContext context;
-	protected String tblOpt;
+	private String tblOpt;
+	private String consoleType;
+	private Console console;
 
 	@Override
     public boolean hasAccess(TaskContext context) {
@@ -59,6 +67,19 @@ public abstract class CmdOperation extends AbstractOperation {
     	
     	this.context = context;
     	
+    	tblOpt = context.getParameters().getString("_tblOpt");
+    	consoleType = context.getParameters().getString("_term");
+    	String consoleSize = context.getParameters().getString("_termSize");
+    	String[] parts = consoleSize.split("x");
+    	ConsoleFactory factory = M.l(ConsoleFactory.class);
+        console = factory.create(consoleType);
+        if (parts.length > 0)
+        	console.setWidth(MCast.toint(parts[0], 80));
+        if (parts.length > 1)
+        	console.setHeight(MCast.toint(parts[1], 24));
+    	
+        IProperties.updateFunctional(context.getParameters());
+        
 		PojoModel model = new PojoParser().parse(getClass(), "_", CmdOption.class, CmdArgument.class).filter(true, true, false, true, false).getModel();
     	
     	for (PojoAttribute attr : model) {
@@ -214,4 +235,16 @@ public abstract class CmdOperation extends AbstractOperation {
     	return new DefRoot(cmdName, definitions.toArray(new IDefDefinition[definitions.size()]));
     }
 
+	public Console getConsole() {
+		return console;
+	}
+	
+	public String getConsoleType() {
+		return consoleType;
+	}
+	
+	public ConsoleTable createTable() {
+		return new ConsoleTable(console, tblOpt);
+	}
+	
 }

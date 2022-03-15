@@ -78,7 +78,7 @@ public abstract class Console extends PrintStream implements Adaptable {
         Console console = consoles.get();
         if (console == null) {
             ConsoleFactory factory = M.l(ConsoleFactory.class);
-            console = factory.create();
+            console = factory.create(null);
             consoles.set(console);
         }
         return console;

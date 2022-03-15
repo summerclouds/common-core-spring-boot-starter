@@ -216,5 +216,13 @@ public class MSpring {
         return provider;
     }
 
+	public static ApplicationContext getContext() {
+		return context;
+	}
+
+	public static Environment getEnvironment() {
+		return environment;
+	}
+
 	
 }

@@ -31,7 +31,7 @@ public class PlainLog {
 
 	private static LEVEL level = LEVEL.DEBUG;
 
-	private static Console out = new DefaultConsoleFactory().create();
+	private static Console out = new DefaultConsoleFactory().create(null);
 	private static LogFacade facade = new ConsoleLog();
 
 	private static int maxMsgSize = 3000;

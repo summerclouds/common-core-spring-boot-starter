@@ -57,10 +57,19 @@ public class ConsoleTable {
     private int tableWidth;
 
     private int definedTableWidth = 0;
+    
+    private Console console;
 
-    public ConsoleTable() {}
+    public ConsoleTable() {
+    	this(null, null);
+    }
 
-    public ConsoleTable(String options) {
+    public ConsoleTable(Console console) {
+    	this(console, null);
+    }
+    
+    public ConsoleTable(Console console, String options) {
+        this.console = console == null ? Console.get() : console;
         if (options != null) {
             options = options.trim();
             MProperties o = IProperties.explodeToMProperties(options);
@@ -158,16 +167,12 @@ public class ConsoleTable {
         for (String v : values) row.add(new Column(v));
     }
 
-    public void print(Console console) {
+    public void print() {
         setMaxColSize(console.getWidth());
         print((PrintStream) console);
     }
 
-    public void print() {
-        print(System.out);
-    }
-
-    public void print(PrintStream out) {
+    protected void print(PrintStream out) {
         updateHeaderSizes();
 
         String headerLine = getHeaderRow();
@@ -412,9 +417,9 @@ public class ConsoleTable {
         return sw.toString();
     }
 
-    public static ConsoleTable fromJdbcResult(ResultSet res, String tblOpt) throws SQLException {
+    public static ConsoleTable fromJdbcResult(ResultSet res, Console console, String tblOpt) throws SQLException {
         ResultSetMetaData resMeta = res.getMetaData();
-        ConsoleTable out = new ConsoleTable(tblOpt);
+        ConsoleTable out = new ConsoleTable(console, tblOpt);
         String[] h = new String[resMeta.getColumnCount()];
         for (int i = 0; i < resMeta.getColumnCount(); i++) h[i] = resMeta.getColumnName(i + 1);
 
@@ -551,7 +556,6 @@ public class ConsoleTable {
     }
 
     public void fitToConsole() {
-        Console console = Console.get();
         if (!console.isSupportSize()) {
             setMaxColSize(0);
             return;
