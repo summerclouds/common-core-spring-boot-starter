@@ -15,15 +15,16 @@
  */
 package org.summerclouds.common.core.matcher;
 
-import java.util.Map;
 import java.util.regex.Pattern;
+
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public class ModelRegex extends ModelPattern {
 
     private Pattern pattern;
 
     @Override
-    public boolean matches(ModelPart model, Map<String, ?> map, String str) {
+    public boolean matches(ModelPart model, IValuesProvider map, String str) {
         setCondition(CONDITION.NONE);
         return pattern.matcher(str).matches();
     }

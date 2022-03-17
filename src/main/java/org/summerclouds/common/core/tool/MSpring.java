@@ -23,8 +23,8 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.activator.MutableActivator;
 import org.summerclouds.common.core.cfg.CfgString;
-import org.summerclouds.common.core.conditions.SummerCondition;
-import org.summerclouds.common.core.conditions.SummerConditional;
+import org.summerclouds.common.core.condition.SummerCondition;
+import org.summerclouds.common.core.condition.SummerConditional;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.internal.ContextListener;
 import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
@@ -246,7 +246,7 @@ public class MSpring {
 				Class<?> c = (Class<?>)obj[0];
 				try {
 					SummerCondition condition = (SummerCondition)MSystem.createObject(c);
-					if (!condition.matches((Annotation)obj[1]))
+					if (!condition.matches((Annotation)obj[1], clazz))
 						return false;
 				} catch (Throwable t) {
 					PlainLog.e("checkConditions failed for {1} in {2}",clazz, c, t);

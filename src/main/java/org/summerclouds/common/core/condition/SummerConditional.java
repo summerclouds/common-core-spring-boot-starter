@@ -1,4 +1,4 @@
-package org.summerclouds.common.core.conditions;
+package org.summerclouds.common.core.condition;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

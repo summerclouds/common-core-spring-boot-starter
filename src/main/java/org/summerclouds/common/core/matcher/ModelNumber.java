@@ -16,10 +16,10 @@
 package org.summerclouds.common.core.matcher;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 import org.summerclouds.common.core.error.MRuntimeException;
 import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public class ModelNumber extends ModelPattern {
 
@@ -34,7 +34,7 @@ public class ModelNumber extends ModelPattern {
     }
 
     @Override
-    protected boolean matches(ModelPart model, Map<String, ?> map, String str) {
+    protected boolean matches(ModelPart model, IValuesProvider map, String str) {
 
         if (name != null) {
             if (map == null)

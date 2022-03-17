@@ -13,14 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.summerclouds.common.core.parser;
+package org.summerclouds.common.core.util;
 
-import org.summerclouds.common.core.error.MException;
-import org.summerclouds.common.core.util.IValuesProvider;
+public class FallbackValueProvider implements IValuesProvider {
 
-public interface StringPart {
+    private IValuesProvider map;
+    private IValuesProvider fall;
 
-    public void execute(StringBuilder out, IValuesProvider attributes) throws MException;
+    public FallbackValueProvider(IValuesProvider map, IValuesProvider fallback) {
+        this.map = map;
+        fall = fallback;
+    }
 
-    public void dump(int level, StringBuilder out);
+	@Override
+	public Object get(String key) {
+		Object value = map.get(key);
+		return value == null ? fall.get(key) : value;
+	}
+
+
 }

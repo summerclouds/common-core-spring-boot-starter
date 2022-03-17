@@ -101,6 +101,7 @@ public class OperationTest extends TestCase {
 			MNode config = new MNode();
 			config.put(CmdOperation.PARAMETER_OUTPUT_STREAM, osp);
 			OperationResult res = manager.execute(uri, config);
+			System.out.println(res);
 			assertNotNull(res);
 			assertTrue(res.isSuccessful());
 			

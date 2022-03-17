@@ -22,12 +22,13 @@ public class DefaultConsoleFactory implements ConsoleFactory {
 
     @Override
     public Console create(String term) {
-    	if (term == null)
-    		term = System.getenv("TERM");
-        try {
-            if (MSystem.isWindows()) {
-                return new CmdConsole();
-            }
+    	try {
+	    	if (term == null) {
+	            if (MSystem.isWindows()) {
+	                return new CmdConsole();
+	            }
+	    		term = System.getenv("TERM");
+	    	}
             if (term != null) {
                 term = term.toLowerCase();
                 if (term.indexOf("xterm") >= 0) {

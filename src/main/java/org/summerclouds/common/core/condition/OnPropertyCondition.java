@@ -1,18 +1,16 @@
-package org.summerclouds.common.core.internal;
+package org.summerclouds.common.core.condition;
 
 import java.lang.annotation.Annotation;
 
 import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
-import org.summerclouds.common.core.conditions.SConditionalOnProperty;
-import org.summerclouds.common.core.conditions.SummerCondition;
 import org.summerclouds.common.core.tool.MSpring;
 import org.summerclouds.common.core.tool.MSystem;
 
 public class OnPropertyCondition implements SummerCondition {
 
 	@Override
-	public boolean matches(Annotation in) {
+	public boolean matches(Annotation in, Object object) {
 		SConditionalOnProperty anno = (SConditionalOnProperty) in;
 
 		String prefix = anno.prefix();

@@ -67,17 +67,11 @@ public abstract class CmdOperation extends AbstractOperation {
     	
     	this.context = context;
     	
-    	tblOpt = context.getParameters().getString("_tblOpt");
-    	consoleType = context.getParameters().getString("_term");
-    	String consoleSize = context.getParameters().getString("_termSize");
-    	String[] parts = consoleSize.split("x");
-    	ConsoleFactory factory = M.l(ConsoleFactory.class);
-        console = factory.create(consoleType);
-        if (parts.length > 0)
-        	console.setWidth(MCast.toint(parts[0], 80));
-        if (parts.length > 1)
-        	console.setHeight(MCast.toint(parts[1], 24));
-    	
+    	tblOpt = context.getParameters().getString("_tblOpt", null);
+    	consoleType = context.getParameters().getString("_term", "");
+    	String consoleSize = context.getParameters().getString("_termSize", null);
+    	OutputStream os = (OutputStream)context.getParameters().get(PARAMETER_OUTPUT_STREAM);
+    	InputStream is = (InputStream) context.getParameters().get(PARAMETER_INPUT_STREAM);
         IProperties.updateFunctional(context.getParameters());
         
 		PojoModel model = new PojoParser().parse(getClass(), "_", CmdOption.class, CmdArgument.class).filter(true, true, false, true, false).getModel();
@@ -101,14 +95,11 @@ public abstract class CmdOperation extends AbstractOperation {
     		}
     	}
     	
-    	OutputStream os = (OutputStream)context.getParameters().get(PARAMETER_OUTPUT_STREAM);
     	if (os == null) {
     		os = new OutputStreamProxy(System.out);
     		((OutputStreamProxy)os).setIgnoreClose(true);
-    	} else
-    		context.getParameters().remove(PARAMETER_OUTPUT_STREAM);
+    	}
     	
-    	InputStream is = (InputStream) context.getParameters().get(PARAMETER_INPUT_STREAM);
     	if (is == null) {
     		is = new InputStream() {
 	
@@ -127,6 +118,17 @@ public abstract class CmdOperation extends AbstractOperation {
 			String res = null;
 			try (ICloseable ioEnv = MSystem.useIO(os, os, is)) {
 				try (ICloseable logEnv = ThreadConsoleLogAppender.sendTo(os)) {
+					
+			    	ConsoleFactory factory = M.l(ConsoleFactory.class);
+			    	console = factory.create(consoleType);
+			    	if (consoleSize != null) {
+				    	String[] parts = consoleSize.split("x");
+				        if (parts.length > 0)
+				        	console.setWidth(MCast.toint(parts[0], 80));
+				        if (parts.length > 1)
+				        	console.setHeight(MCast.toint(parts[1], 24));
+			    	}
+
 					res = CmdOperation.this.executeCmd();
 				}
 			}

@@ -15,7 +15,7 @@
  */
 package org.summerclouds.common.core.matcher;
 
-import java.util.Map;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public class NullPattern extends ModelPattern {
 
@@ -38,12 +38,12 @@ public class NullPattern extends ModelPattern {
     }
 
     @Override
-    protected boolean matches(ModelPart model, Map<String, ?> map, String str) {
+    protected boolean matches(ModelPart model, IValuesProvider map, String str) {
         return str == null;
     }
 
     @Override
-    protected boolean matches(Map<String, Object> map) {
+    protected boolean matches(IValuesProvider map) {
         Object val = map.get(getParamName());
         return val == null;
     }

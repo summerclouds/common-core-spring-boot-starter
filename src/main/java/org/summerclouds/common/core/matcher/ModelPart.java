@@ -15,13 +15,12 @@
  */
 package org.summerclouds.common.core.matcher;
 
-import java.util.Map;
-
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.MRuntimeException;
 import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.parser.StringCompiler;
 import org.summerclouds.common.core.parser.StringPart;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public abstract class ModelPart {
 
@@ -37,12 +36,12 @@ public abstract class ModelPart {
         this.not = not;
     }
 
-    public boolean m(Map<String, ?> map, String str) {
+    public boolean m(IValuesProvider map, String str) {
         if (not) return !matches(this, null, str);
         else return matches(this, null, str);
     }
 
-    public boolean m(Map<String, Object> map) {
+    public boolean m(IValuesProvider map) {
         if (not) return !matches(map);
         else return matches(map);
     }
@@ -57,7 +56,7 @@ public abstract class ModelPart {
         return param;
     }
 
-    protected boolean matches(Map<String, Object> map) {
+    protected boolean matches(IValuesProvider map) {
         Object val = null;
         if (extra != null) {
             try {
@@ -72,5 +71,5 @@ public abstract class ModelPart {
         return false;
     }
 
-    protected abstract boolean matches(ModelPart part, Map<String, ?> map, String str);
+    protected abstract boolean matches(ModelPart part, IValuesProvider map, String str);
 }

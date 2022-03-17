@@ -17,3 +17,4 @@ wie die Spring Conditionals.
 Condtitonal:
 
 * SConditionalOnProperty
+* SConditionalOnMatcher - spring matcher implementation

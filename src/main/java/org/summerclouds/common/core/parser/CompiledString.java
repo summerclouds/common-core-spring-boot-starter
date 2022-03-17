@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import org.summerclouds.common.core.error.MException;
+import org.summerclouds.common.core.util.IValuesProvider;
+import org.summerclouds.common.core.util.MapValuesProvider;
 
 /**
  * Parsed and tree representated compiled variant of the original string. This is used to output the
@@ -38,6 +40,10 @@ public class CompiledString {
         this.compiled = compiled.toArray(new StringPart[compiled.size()]);
     }
 
+    public String execute(Map<String, Object> attributes) throws MException {
+    	return execute(new MapValuesProvider(attributes));
+    }
+    
     /**
      * Return the new, compiled string.
      *
@@ -45,13 +51,13 @@ public class CompiledString {
      * @return the resulting string
      * @throws MException
      */
-    public String execute(Map<String, Object> attributes) throws MException {
+    public String execute(IValuesProvider attributes) throws MException {
         StringBuilder out = new StringBuilder();
         execute(out, attributes);
         return out.toString();
     }
 
-    public void execute(StringBuilder sb, Map<String, Object> attributes) throws MException {
+    public void execute(StringBuilder sb, IValuesProvider attributes) throws MException {
         for (StringPart part : compiled) {
             part.execute(sb, attributes);
         }

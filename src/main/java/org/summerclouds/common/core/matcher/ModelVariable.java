@@ -15,10 +15,9 @@
  */
 package org.summerclouds.common.core.matcher;
 
-import java.util.Map;
-
 import org.summerclouds.common.core.error.MRuntimeException;
 import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public class ModelVariable extends ModelPattern {
 
@@ -32,7 +31,7 @@ public class ModelVariable extends ModelPattern {
     }
 
     @Override
-    protected boolean matches(ModelPart model, Map<String, ?> map, String str) {
+    protected boolean matches(ModelPart model, IValuesProvider map, String str) {
         if (map == null)
             throw new MRuntimeException(RC.NOT_FOUND, "variables not available, use condition not matcher");
         Object val = map.get(name);

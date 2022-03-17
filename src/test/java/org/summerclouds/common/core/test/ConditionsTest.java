@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.summerclouds.common.core.conditions.SConditionalOnProperty;
+import org.summerclouds.common.core.condition.SConditionalOnProperty;
 import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
 import org.summerclouds.common.core.tool.MSpring;
 import org.summerclouds.common.junit.TestCase;

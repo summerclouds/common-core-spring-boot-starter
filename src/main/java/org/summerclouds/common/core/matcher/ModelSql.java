@@ -15,9 +15,8 @@
  */
 package org.summerclouds.common.core.matcher;
 
-import java.util.Map;
-
 import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public class ModelSql extends ModelPattern {
 
@@ -30,7 +29,7 @@ public class ModelSql extends ModelPattern {
     }
 
     @Override
-    protected boolean matches(ModelPart model, Map<String, ?> map, String str) {
+    protected boolean matches(ModelPart model, IValuesProvider map, String str) {
         return MString.compareSQLLikePattern(str, pattern);
     }
 

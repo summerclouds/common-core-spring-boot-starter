@@ -16,9 +16,9 @@
 package org.summerclouds.common.core.matcher;
 
 import java.util.LinkedList;
-import java.util.Map;
 
 import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public abstract class ModelComposit extends ModelPart {
 
@@ -33,7 +33,7 @@ public abstract class ModelComposit extends ModelPart {
     }
 
     @Override
-    protected abstract boolean matches(Map<String, Object> map);
+    protected abstract boolean matches(IValuesProvider map);
 
     @Override
     public String toString() {

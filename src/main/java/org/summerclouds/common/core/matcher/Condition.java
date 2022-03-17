@@ -23,6 +23,8 @@ import org.summerclouds.common.core.matcher.ModelPattern.CONDITION;
 import org.summerclouds.common.core.parser.StringTokenizerParser;
 import org.summerclouds.common.core.parser.TechnicalStringParser;
 import org.summerclouds.common.core.tool.MValidator;
+import org.summerclouds.common.core.util.IValuesProvider;
+import org.summerclouds.common.core.util.MapValuesProvider;
 
 /**
  * e.g. $param1 regex .*test.* $param1 mr or $param1 mrs
@@ -44,7 +46,12 @@ public class Condition {
 
     public boolean matches(Map<String, Object> map) {
         if (map == null) return false;
-        return root.m(map);
+        return matches(new MapValuesProvider(map));
+    }
+    
+    public boolean matches(IValuesProvider provider) {
+        if (provider == null) return false;
+        return root.m(provider);
     }
 
     protected void parse(StringTokenizerParser condition) throws MException {

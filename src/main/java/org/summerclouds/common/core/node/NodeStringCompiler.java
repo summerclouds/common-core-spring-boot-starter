@@ -23,6 +23,7 @@ import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.parser.StringCompiler;
 import org.summerclouds.common.core.parser.StringPart;
 import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public class NodeStringCompiler extends StringCompiler {
 
@@ -56,7 +57,7 @@ public class NodeStringCompiler extends StringCompiler {
         }
 
         @Override
-        public void execute(StringBuilder out, Map<String, Object> attributes) throws MException {
+        public void execute(StringBuilder out, IValuesProvider attributes) throws MException {
             out.append(node.getString(name, def));
         }
 
@@ -97,7 +98,7 @@ public class NodeStringCompiler extends StringCompiler {
         }
 
         @Override
-        public void execute(StringBuilder out, Map<String, Object> attributes) throws MException {
+        public void execute(StringBuilder out, IValuesProvider attributes) throws MException {
             int level = 0;
             if (attributes != null && attributes instanceof NodeMap) {
                 level = ((NodeMap) attributes).getLevel();

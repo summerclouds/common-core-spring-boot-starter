@@ -17,11 +17,11 @@ package org.summerclouds.common.core.parser;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.tool.MString;
 import org.summerclouds.common.core.tool.MSystem;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public class StringCompiler implements Parser {
 
@@ -129,7 +129,7 @@ public class StringCompiler implements Parser {
         }
 
         @Override
-        public void execute(StringBuilder out, Map<String, Object> attributes) {
+        public void execute(StringBuilder out, IValuesProvider attributes) {
             out.append(content);
         }
 
@@ -155,7 +155,7 @@ public class StringCompiler implements Parser {
         }
 
         @Override
-        public void execute(StringBuilder out, Map<String, Object> attributes) {
+        public void execute(StringBuilder out, IValuesProvider attributes) {
             String v = System.getenv(name);
             if (v == null) v = def;
             out.append(v);
@@ -182,7 +182,7 @@ public class StringCompiler implements Parser {
         }
 
         @Override
-        public void execute(StringBuilder out, Map<String, Object> attributes) throws MException {
+        public void execute(StringBuilder out, IValuesProvider attributes) throws MException {
             out.append(value);
         }
 
@@ -208,7 +208,7 @@ public class StringCompiler implements Parser {
         }
 
         @Override
-        public void execute(StringBuilder out, Map<String, Object> attributes) {
+        public void execute(StringBuilder out, IValuesProvider attributes) {
             out.append(System.getProperty(name, def));
         }
 
@@ -239,7 +239,7 @@ public class StringCompiler implements Parser {
         }
 
         @Override
-        public void execute(StringBuilder out, Map<String, Object> attributes) {
+        public void execute(StringBuilder out, IValuesProvider attributes) {
             if (attributes != null) out.append(attributes.getOrDefault(name, def));
         }
 

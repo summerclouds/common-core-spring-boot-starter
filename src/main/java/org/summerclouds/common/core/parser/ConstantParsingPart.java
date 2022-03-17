@@ -15,10 +15,9 @@
  */
 package org.summerclouds.common.core.parser;
 
-import java.util.Map;
-
 import org.summerclouds.common.core.tool.MString;
 import org.summerclouds.common.core.tool.MSystem;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 /**
  * A default implementation to parse and hold a constant string value.
@@ -31,7 +30,7 @@ public abstract class ConstantParsingPart extends StringParsingPart {
     protected String content;
 
     @Override
-    public void execute(StringBuilder out, Map<String, Object> attributes) {
+    public void execute(StringBuilder out, IValuesProvider attributes) {
         out.append(content);
     }
 

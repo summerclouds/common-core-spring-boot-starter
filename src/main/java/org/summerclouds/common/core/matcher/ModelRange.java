@@ -15,8 +15,7 @@
  */
 package org.summerclouds.common.core.matcher;
 
-import java.util.Map;
-
+import org.summerclouds.common.core.util.IValuesProvider;
 import org.summerclouds.common.core.util.Version;
 import org.summerclouds.common.core.util.VersionRange;
 
@@ -25,7 +24,7 @@ public class ModelRange extends ModelPattern {
     private VersionRange pattern;
 
     @Override
-    public boolean matches(ModelPart model, Map<String, ?> map, String str) {
+    public boolean matches(ModelPart model, IValuesProvider map, String str) {
         setCondition(CONDITION.NONE);
         Version v = new Version(str);
         return pattern.includes(v);

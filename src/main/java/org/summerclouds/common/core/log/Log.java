@@ -42,7 +42,7 @@ public class Log {
 	private static CfgBoolean logTraceId = new CfgBoolean(Log.class, "logTraceId", false);
 	private static boolean stacktraceTrace;
 
-	private static SoftHashMap<String, Log> registry = new SoftHashMap<>();
+	private static SoftHashMap<String, Log> registry;
 
 	protected LogFacade facade;
 	protected String name;
@@ -250,6 +250,8 @@ public class Log {
 	public static synchronized Log getLog(Object owner) {
 
 		try {
+			if (registry == null)
+				registry = new SoftHashMap<>();
 			String name = MSystem.getOwnerName(owner);
 			Log log = registry.get(name);
 			if (log == null) {

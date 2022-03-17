@@ -15,12 +15,12 @@
  */
 package org.summerclouds.common.core.matcher;
 
-import java.util.Map;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public class ModelOr extends ModelComposit {
 
     @Override
-    public boolean matches(ModelPart model, Map<String, ?> map, String str) {
+    public boolean matches(ModelPart model, IValuesProvider map, String str) {
         for (ModelPart part : components) {
             if (part.m(map, str)) return true;
         }
@@ -33,7 +33,7 @@ public class ModelOr extends ModelComposit {
     }
 
     @Override
-    protected boolean matches(Map<String, Object> map) {
+    protected boolean matches(IValuesProvider map) {
         for (ModelPart part : components) {
             if (part.m(map)) return true;
         }

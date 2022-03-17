@@ -15,9 +15,8 @@
  */
 package org.summerclouds.common.core.parser;
 
-import java.util.Map;
-
 import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public class ConstantPart implements ParsingPart {
 
@@ -28,7 +27,7 @@ public class ConstantPart implements ParsingPart {
     }
 
     @Override
-    public void execute(StringBuilder out, Map<String, Object> attributes) {
+    public void execute(StringBuilder out, IValuesProvider attributes) {
         out.append(content);
     }
 
