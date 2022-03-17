@@ -20,7 +20,6 @@ import org.summerclouds.common.junit.TestCase;
 						"aaa=bbb"
 				}
 		)
-
 public class SpringApplicationTest extends TestCase {
 
 	@Test

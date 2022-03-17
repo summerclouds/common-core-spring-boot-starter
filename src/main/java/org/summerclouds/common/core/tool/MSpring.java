@@ -23,6 +23,8 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.activator.MutableActivator;
 import org.summerclouds.common.core.cfg.CfgString;
+import org.summerclouds.common.core.conditions.SummerCondition;
+import org.summerclouds.common.core.conditions.SummerConditional;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.internal.ContextListener;
 import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
@@ -180,11 +182,11 @@ public class MSpring {
 		return activator;
 	}
 	
-	public static <T> List<Class<? extends T>> findAnnotatedClasses(Class<? extends Annotation> annotationType) {
-		return findAnnotatedClasses(null, annotationType);
+	public static <T> List<Class<? extends T>> findAnnotatedClasses(Class<? extends Annotation> annotationType, boolean checkConditions) {
+		return findAnnotatedClasses(null, annotationType, checkConditions);
 	}
 	
-	public static <T> List<Class<? extends T>> findAnnotatedClasses(String scanPackageList, Class<? extends Annotation> annotationType) {
+	public static <T> List<Class<? extends T>> findAnnotatedClasses(String scanPackageList, Class<? extends Annotation> annotationType, boolean checkConditions) {
 		
 		if (MString.isEmpty(scanPackageList)) {
 			scanPackageList = new CfgString("org.summerclouds.scan.packages", null).value();
@@ -200,7 +202,8 @@ public class MSpring {
 	        	try {
 	        		@SuppressWarnings("unchecked")
 					Class<? extends T> cl = (Class<? extends T>) MSystem.getClass(beanDef.getBeanClassName());
-		        	entities.add(cl);
+	        		if (!checkConditions || checkConditions(cl))
+	        			entities.add(cl);
 	        	} catch (Throwable t) {
 	        		PlainLog.e("can't load xdb entity {1}",beanDef.getBeanClassName());
 	        	}
@@ -223,6 +226,37 @@ public class MSpring {
 	public static Environment getEnvironment() {
 		return environment;
 	}
-
 	
+	public static boolean checkConditions(Class<?> clazz) {
+
+		try {
+			ArrayList<Object[]> conditions = new ArrayList<>();
+			// find
+			for (Annotation anno : clazz.getAnnotations()) {
+				SummerConditional cc = anno.annotationType().getAnnotation(SummerConditional.class);
+				if (cc != null) {
+					Class<? extends SummerCondition>[] cclazzes = cc.value();
+					for (Class<? extends SummerCondition> cclazz : cclazzes) {
+						conditions.add(new Object[] { cclazz, anno });
+					}
+				}
+			}
+			// test
+			for (Object[] obj : conditions) {
+				Class<?> c = (Class<?>)obj[0];
+				try {
+					SummerCondition condition = (SummerCondition)MSystem.createObject(c);
+					if (!condition.matches((Annotation)obj[1]))
+						return false;
+				} catch (Throwable t) {
+					PlainLog.e("checkConditions failed for {1} in {2}",clazz, c, t);
+					return false;
+				}
+			}
+			return true;
+		} catch (Throwable t) {
+			PlainLog.e("checkConditions failed for {1}",clazz,t);
+		}
+		return false;
+	}
 }

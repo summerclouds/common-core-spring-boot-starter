@@ -25,7 +25,7 @@ public class OperationManager extends MLog {
     @PostConstruct
 	protected void setup() {
     	classes = new HashMap<>();
-    	for (Class<? extends Object> clazz : MSpring.findAnnotatedClasses(OperationComponent.class)) {
+    	for (Class<? extends Object> clazz : MSpring.findAnnotatedClasses(OperationComponent.class, true)) {
     		String uri = getOperationUri(clazz);
     		log().i("register operation",uri,clazz);
     		classes.put(uri, clazz);

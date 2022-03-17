@@ -17,6 +17,7 @@ package org.summerclouds.common.core.operation.util;
 
 import java.util.Map;
 
+import org.summerclouds.common.core.node.IProperties;
 import org.summerclouds.common.core.operation.Operation;
 
 public class SuccessfulForceMap extends SuccessfulMap {
@@ -46,8 +47,8 @@ public class SuccessfulForceMap extends SuccessfulMap {
     }
 
     @Override
-    @SuppressWarnings({"unchecked", "deprecation"})
-    public Map<String, Object> getMap() {
-        return (Map<String, Object>) ((MapValue) getResult()).getValue();
+    @SuppressWarnings({"deprecation"})
+    public IProperties getMap() {
+        return (IProperties) ((MapValue) getResult()).getValue();
     }
 }

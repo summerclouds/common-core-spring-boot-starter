@@ -1,0 +1,19 @@
+
+=== Conditions
+
+Da die Spring `Conditions` extern nicht 
+geprüft werden können (rechte auf Klassen
+wurden nicht gegeben), müssen für Prüfungen
+neue Conditional-Klassen benutzt werden.
+
+Die Prüfungen werden bei der Suche nach
+Klassen mit Annotations in MSpring geprüft. Damit
+können annotierte Klassen über Konfigurationen
+ausgeblendet werden.
+
+Diese Klassen haben den Prefix 'S' und funktionieren
+wie die Spring Conditionals.
+
+Condtitonal:
+
+* SConditionalOnProperty

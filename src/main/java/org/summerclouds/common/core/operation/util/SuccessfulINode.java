@@ -31,32 +31,32 @@ import org.summerclouds.common.core.operation.Successful;
 public class SuccessfulINode extends Successful {
 
     public SuccessfulINode(Operation operation, String msg) {
-        super(operation, msg, 0, (String) null);
+        super(operation, RC.OK, msg, (String) null);
         setResultNode(new MNode());
     }
 
     public SuccessfulINode(Operation operation, String msg, INode config) {
-        super(operation, msg, 0, (String) null);
+        super(operation, RC.OK, msg, (String) null);
         setResultNode(config);
     }
 
-    public SuccessfulINode(Operation operation, String msg, int rc, INode config) {
-        super(operation, msg, rc, (String) null);
+    public SuccessfulINode(Operation operation, int rc, String msg, INode config) {
+        super(operation, rc, msg, (String) null);
         setResultNode(config);
     }
 
     public SuccessfulINode(String path, String msg, INode config) {
-        super(path, msg, 0, (String) null);
+        super(path, RC.OK, msg, (String) null);
         setResultNode(config);
     }
 
-    public SuccessfulINode(String path, String msg, int rc, INode config) {
-        super(path, msg, rc, (String) null);
+    public SuccessfulINode(String path, int rc, String msg, INode config) {
+        super(path, rc, msg, (String) null);
         setResultNode(config);
     }
 
     public SuccessfulINode(Operation operation, String msg, NodeSerializable object) {
-        super(operation, msg, 0, (String) null);
+        super(operation, RC.OK, msg, (String) null);
         MNode cfg = new MNode();
         if (object != null)
             try {
@@ -67,8 +67,8 @@ public class SuccessfulINode extends Successful {
         setResultNode(cfg);
     }
 
-    public SuccessfulINode(Operation operation, String msg, int rc, NodeSerializable object) {
-        super(operation, msg, rc, (String) null);
+    public SuccessfulINode(Operation operation, int rc, String msg, NodeSerializable object) {
+        super(operation, rc, msg, (String) null);
         MNode cfg = new MNode();
         if (object != null)
             try {
@@ -80,7 +80,7 @@ public class SuccessfulINode extends Successful {
     }
 
     public SuccessfulINode(String path, String msg, NodeSerializable object) {
-        super(path, msg, 0, (String) null);
+        super(path, RC.OK, msg, (String) null);
         MNode cfg = new MNode();
         if (object != null)
             try {
@@ -91,8 +91,8 @@ public class SuccessfulINode extends Successful {
         setResultNode(cfg);
     }
 
-    public SuccessfulINode(String path, String msg, int rc, NodeSerializable object) {
-        super(path, msg, rc, (String) null);
+    public SuccessfulINode(String path, int rc, String msg, NodeSerializable object) {
+        super(path, rc, msg, (String) null);
         MNode cfg = new MNode();
         if (object != null)
             try {
@@ -104,11 +104,11 @@ public class SuccessfulINode extends Successful {
     }
 
     public SuccessfulINode(Operation operation, String msg, String... keyValues) {
-        this(operation.getDescription().getPath(), msg, 0, keyValues);
+        this(operation.getDescription().getPath(), RC.OK, msg, keyValues);
     }
 
-    public SuccessfulINode(String path, String msg, int rc, String... keyValues) {
-        super(path, msg, rc, (String) null);
+    public SuccessfulINode(String path, int rc, String msg, String... keyValues) {
+        super(path, rc, msg, (String) null);
         setOperationPath(path);
         setMsg(msg);
         setReturnCode(rc);
@@ -120,8 +120,8 @@ public class SuccessfulINode extends Successful {
         }
     }
 
-    public SuccessfulINode(Operation operation, String msg, int rc, String... keyValues) {
-        this(operation.getDescription().getPath(), msg, rc, keyValues);
+    public SuccessfulINode(Operation operation, int rc, String msg, String... keyValues) {
+        this(operation.getDescription().getPath(), rc, msg, keyValues);
     }
 
     public INode getConfig() {

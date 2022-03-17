@@ -15,33 +15,58 @@
  */
 package org.summerclouds.common.core.operation.util;
 
-import java.util.Map;
 import java.util.Set;
 
+import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.node.IProperties;
+import org.summerclouds.common.core.node.MProperties;
 import org.summerclouds.common.core.operation.Operation;
 import org.summerclouds.common.core.operation.Successful;
 
 public class SuccessfulMap extends Successful {
 
+
+    public SuccessfulMap(String path, String msg, String... keyValues) {
+        this(path, RC.OK, msg, keyValues);
+    }
+
+    @SuppressWarnings("deprecation")
+    public SuccessfulMap(String path, int rc, String msg, String... keyValues) {
+        super(path, rc, msg);
+        MProperties r = new MProperties();
+        if (keyValues != null) {
+            for (int i = 0; i < keyValues.length - 1; i += 2)
+                if (keyValues.length > i + 1) r.put(keyValues[i], keyValues[i + 1]);
+        }
+        setResult(r);
+    }
+
+    public SuccessfulMap(Operation operation, String msg, String... keyValues) {
+        this(operation, RC.OK, msg, keyValues);
+    }
+
+    @SuppressWarnings("deprecation")
+    public SuccessfulMap(Operation operation, int rc, String msg, String... keyValues) {
+        super(operation, rc, msg);
+        MProperties r = new MProperties();
+        if (keyValues != null) {
+            for (int i = 0; i < keyValues.length - 1; i += 2)
+                if (keyValues.length > i + 1) r.put(keyValues[i], keyValues[i + 1]);
+        }
+        setResult(r);
+    }
+    
     public SuccessfulMap(Operation operation) {
-        super(operation, OK);
+        this(operation, OK);
     }
     
     public SuccessfulMap(Operation operation, String msg) {
-        super(operation, msg);
+        this(operation, RC.OK, msg);
     }
 
-    public SuccessfulMap(String path, int rc, String msg, String... keyValues) {
-        super(path, msg, rc, keyValues);
-    }
-
-    public SuccessfulMap(Operation operation, int rc, String msg, String... keyValues) {
-        super(operation.getDescription().getPath(), msg, rc, keyValues);
-    }
-
-    @SuppressWarnings({ "unchecked", "deprecation" })
-	public Map<String, Object> getMap() {
-        return (Map<String, Object>)getResult();
+    @SuppressWarnings({ "deprecation" })
+    public IProperties getMap() {
+        return (IProperties)getResult();
     }
 
     public void put(String key, Object value) {

@@ -33,6 +33,7 @@ import java.lang.management.RuntimeMXBean;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -1318,9 +1319,12 @@ public class MSystem {
 		return (T) clazz.getConstructor().newInstance();
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public static <T> T createObject(Class<?> clazz) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		return (T) clazz.getConstructor().newInstance();
+		Constructor<?> c = clazz.getConstructor();
+		if (!c.isAccessible())
+			c.setAccessible(true);
+		return (T) c.newInstance();
 	}
 	
 }

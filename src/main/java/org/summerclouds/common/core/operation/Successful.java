@@ -15,22 +15,22 @@
  */
 package org.summerclouds.common.core.operation;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.log.Log;
 
 public class Successful extends MutableOperationResult {
 
 
     public static final String OK = "ok";
 
-    public Successful() {
-        super();
+    public Successful(Operation operation, String msg) {
+        super(operation, RC.OK, msg);
     }
 
     public Successful(Operation operation) {
-        super(operation, RC.OK, "ok");
+        super(operation, RC.OK, OK);
     }
 
     public Successful(Operation operation, int rc, String msg, Object... parameters) {
@@ -46,11 +46,11 @@ public class Successful extends MutableOperationResult {
     }
 
     public Successful(Operation operation, String msg, Map<?, ?> result) {
-        this(operation, msg == null ? OK : msg, 0, result);
+        this(operation, RC.OK, msg == null ? OK : msg, result);
     }
 
     @SuppressWarnings("deprecation")
-    public Successful(Operation operation, String msg, int rc, Map<?, ?> result) {
+    public Successful(Operation operation, int rc, String msg, Map<?, ?> result) {
         setOperationPath(operation.getDescription().getPath());
         setMsg(msg == null ? OK : msg);
         setResult(result);
@@ -58,7 +58,7 @@ public class Successful extends MutableOperationResult {
     }
 
     @SuppressWarnings("deprecation")
-    public Successful(String path, String msg, int rc, Map<?, ?> result) {
+    public Successful(String path, int rc, String msg, Map<?, ?> result) {
         setOperationPath(path);
         setMsg(msg == null ? OK : msg);
         setResult(result);
@@ -66,11 +66,11 @@ public class Successful extends MutableOperationResult {
     }
 
     public Successful(Operation operation, String msg, String result) {
-        this(operation, msg, 0, result);
+        this(operation, RC.OK, msg, result);
     }
 
     @SuppressWarnings("deprecation")
-    public Successful(Operation operation, String msg, int rc, String result) {
+    public Successful(Operation operation, int rc, String msg, String result) {
         setOperationPath(operation.getDescription().getPath());
         setMsg(msg == null ? OK : msg);
         setResult(result);
@@ -78,42 +78,30 @@ public class Successful extends MutableOperationResult {
     }
 
     @SuppressWarnings("deprecation")
-    public Successful(String path, String msg, int rc, String result) {
+    public Successful(String path, int rc, String msg, String result) {
         setOperationPath(path);
         setMsg(msg == null ? OK : msg);
         setResult(result);
         setReturnCode(rc);
     }
 
-    public Successful(Operation operation, String msg, String... keyValues) {
-        this(operation.getDescription().getPath(), msg, 0, keyValues);
-    }
 
     public Successful(String path) {
-        this(path, OK, RC.OK);
+        this(path, RC.OK, OK, (String)null);
     }
 
-    @SuppressWarnings("deprecation")
-    public Successful(String path, String msg, int rc, String... keyValues) {
-        setOperationPath(path);
-        setMsg(msg == null ? OK : msg);
-        setReturnCode(rc);
-        HashMap<Object, Object> r = new HashMap<>();
-        if (keyValues != null) {
-            for (int i = 0; i < keyValues.length - 1; i += 2)
-                if (keyValues.length > i + 1) r.put(keyValues[i], keyValues[i + 1]);
-            setResult(r);
-        }
+    public Successful(String path, int rc, String msg) {
+        this(path, rc, msg, (String)null);
     }
 
     @Override
     public void setReturnCode(int returnCode) {
         if (returnCode < 0) {
-            log().d("de.mhus.lib.core.operation.Successful: negative return code",returnCode);
+            Log.getLog(getClass()).d("de.mhus.lib.core.operation.Successful: negative return code",returnCode);
             this.returnCode = RC.OK;
         } else
         if (returnCode > RC.RANGE_MAX_SUCCESSFUL) {
-            log().d("de.mhus.lib.core.operation.Successful: wrong return code",returnCode);
+        	Log.getLog(getClass()).d("de.mhus.lib.core.operation.Successful: wrong return code",returnCode);
             this.returnCode = RC.OK;
         } else
             this.returnCode = returnCode;
