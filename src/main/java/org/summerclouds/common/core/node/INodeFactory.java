@@ -18,9 +18,10 @@ package org.summerclouds.common.core.node;
 import java.io.File;
 import java.net.URL;
 
+import org.summerclouds.common.core.activator.DefaultImplementation;
 import org.summerclouds.common.core.error.MException;
 
-//@DefaultImplementation(DefaultNodeFactory.class)
+@DefaultImplementation(DefaultNodeFactory.class)
 public interface INodeFactory {
 
     INode read(Class<?> owner, String fileName) throws MException;
