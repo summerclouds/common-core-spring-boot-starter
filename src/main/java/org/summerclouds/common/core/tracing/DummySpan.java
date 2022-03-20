@@ -23,12 +23,17 @@ public class DummySpan implements ISpan {
 	}
 
 	@Override
-	public void tag(String key, String value) {
+	public void setTag(String key, String value) {
 		
 	}
 
 	public String toString() {
 		return name;
+	}
+
+	@Override
+	public void log(String message) {
+		
 	}
 	
 }

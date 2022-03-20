@@ -17,4 +17,8 @@ public interface ITracing {
 
 	String getSpanId();
 
+	void inject(Setter<String> getter);
+	
+	IScope extract(Getter<String> getter);
+	
 }

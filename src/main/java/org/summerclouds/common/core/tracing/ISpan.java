@@ -6,10 +6,12 @@ public interface ISpan {
 	
 	void setError(String error);
 	
-	void tag(String key, String value);
+	void setTag(String key, String value);
 	
 	default void setError(Throwable exception) {
 		setError(exception.toString());
 		exception(exception);
 	}
+
+	void log(String message);
 }

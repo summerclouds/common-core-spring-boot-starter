@@ -35,4 +35,13 @@ public class DummyTracing implements ITracing {
 		return "";
 	}
 
+	@Override
+	public void inject(Setter<String> getter) {
+	}
+
+	@Override
+	public IScope extract(Getter<String> getter) {
+		return DUMMY_SCOPE;
+	}
+
 }

@@ -6,6 +6,7 @@ import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.context.event.ContextStoppedEvent;
+import org.summerclouds.common.core.log.PlainLog;
 import org.summerclouds.common.core.tool.MSpring;
 
 public class ContextListener implements ApplicationListener<ApplicationContextEvent> {
@@ -13,6 +14,15 @@ public class ContextListener implements ApplicationListener<ApplicationContextEv
 	@Override
 	public void onApplicationEvent(ApplicationContextEvent event) {
 		if (event instanceof ContextStartedEvent) {
+			
+			// debug output - all beans
+			StringBuilder sb = new StringBuilder().append("\n");
+			for (String name : MSpring.getContext().getBeanDefinitionNames()) {
+				Object bean = MSpring.getContext().getBean(name);
+				sb.append(name).append(": ").append(bean.getClass().getCanonicalName()).append("\n");
+			}
+			PlainLog.i("beans",sb);
+			
 			MSpring.setStatus(MSpring.STATUS.STARTED);
 		} else if (event instanceof ContextRefreshedEvent) {
 			MSpring.setStatus(MSpring.STATUS.STARTED);

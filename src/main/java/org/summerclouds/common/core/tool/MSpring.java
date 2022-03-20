@@ -13,6 +13,7 @@ import java.util.stream.StreamSupport;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.env.AbstractEnvironment;
@@ -20,6 +21,7 @@ import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
+import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.activator.MutableActivator;
 import org.summerclouds.common.core.cfg.CfgString;
@@ -54,6 +56,10 @@ public class MSpring {
 	private static Activator activator;
 
 	private static Set<String> noLookup = Collections.synchronizedSet(new HashSet<>());
+
+	private static String mainPackage;
+
+	private static Object springBootApplication;
 
 	@SuppressWarnings("unchecked")
 	public static <T> T lookup(Class<T> class1) {
@@ -258,5 +264,21 @@ public class MSpring {
 			PlainLog.e("checkConditions failed for {1}",clazz,t);
 		}
 		return false;
+	}
+	
+	public static String getMainPackage() {
+		if (mainPackage == null) {
+			Map<String, Object> candidates = context.getBeansWithAnnotation(SpringBootApplication.class);
+			mainPackage = candidates.isEmpty() ? M.class.getPackageName() : candidates.values().toArray()[0].getClass().getPackageName();
+		}
+		return mainPackage;
+	}
+	
+	public static Object getSpringBootApplication() {
+		if (springBootApplication == null) {
+			Map<String, Object> candidates = context.getBeansWithAnnotation(SpringBootApplication.class);
+			springBootApplication = candidates.isEmpty() ? null : candidates.values().toArray()[0];
+		}
+		return springBootApplication;
 	}
 }

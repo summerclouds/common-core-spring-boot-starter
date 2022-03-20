@@ -28,6 +28,14 @@ public class SpringApplicationTest extends TestCase {
 	}
 	
 	@Test
+	public void testSpringMainPackage() throws MException {
+		String main = MSpring.getMainPackage();
+		System.out.println(main);
+		// test not possible - there is no SpringBootApplication in test environment
+//		assertEquals(getClass().getPackage().getName(), main);
+	}
+	
+	@Test
 	public void testCfg() throws MException {
 		{
 			CfgString value = new CfgString( "aaa", "fallback");
