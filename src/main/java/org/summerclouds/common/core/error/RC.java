@@ -470,12 +470,13 @@ public class RC {
     
     public static class Translated {
 
-		public int returnCode;
-		public String message;
-		public Locale locale;
-		public String original;
-		public String translated;
-		public ArrayNode array;
+		private int returnCode;
+		private String message;
+		private Locale locale;
+		private String original;
+		private String translated;
+		private ArrayNode array;
+		private Translated nested;
 		
 		public void translate() {
 	    	MessageSource ms = messageSource.bean();
@@ -496,7 +497,7 @@ public class RC {
 				JsonNode item = array.get(i);
 				if (item.isArray()) {
 					try {
-						Translated nested = new Translated();
+						nested = new Translated();
 						nested.returnCode = item.get(0).asInt();
 						nested.message = item.get(1).asText();
 						nested.array = (ArrayNode) item;
@@ -514,6 +515,34 @@ public class RC {
 		@Override
 		public String toString() {
 			return translated == null ? original : translated;
+		}
+
+		public int getReturnCode() {
+			return returnCode;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
+		public Locale getLocale() {
+			return locale;
+		}
+
+		public String getOriginal() {
+			return original;
+		}
+
+		public String getTranslated() {
+			return translated;
+		}
+
+		public ArrayNode getArray() {
+			return array;
+		}
+
+		public Translated getNested() {
+			return nested;
 		}
 		
     }

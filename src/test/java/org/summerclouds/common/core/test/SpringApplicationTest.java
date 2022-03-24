@@ -72,19 +72,19 @@ public class SpringApplicationTest extends TestCase {
 			ErrorException msg = new ErrorException("test {1}","arg1");
 			Translated tr = RC.translate(null, msg.getMessage());
 			System.out.println(tr);
-			assertEquals("test \"arg1\"", tr.translated);
+			assertEquals("test \"arg1\"", tr.getTranslated());
 		}
 		{
 			ErrorException msg = new ErrorException("test {1}");
 			Translated tr = RC.translate(null, msg.getMessage());
 			System.out.println(tr);
-			assertEquals("test {1}", tr.translated);
+			assertEquals("test {1}", tr.getTranslated());
 		}
 		{
 			ErrorException msg = new ErrorException(CAUSE.APPEND, "test {1}, {2}", "arg1", new InternalException("cause {1}", "nested1"));
 			Translated tr = RC.translate(null, msg.getMessage());
 			System.out.println(tr);
-			assertEquals("test \"arg1\", cause \"nested1\"", tr.translated);
+			assertEquals("test \"arg1\", cause \"nested1\"", tr.getTranslated());
 		}
 		
 	}
