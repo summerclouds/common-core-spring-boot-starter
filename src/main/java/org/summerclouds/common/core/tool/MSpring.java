@@ -198,7 +198,7 @@ public class MSpring {
 			scanPackageList = new CfgString("org.summerclouds.scan.packages", null).value();
 		}
 		if (MString.isEmpty(scanPackageList)) {
-			scanPackageList = "org.summerclouds"; // TODO find application main and add package
+			scanPackageList = getMainPackage();
 		}
 		
 		ArrayList<Class<? extends T>> entities = new ArrayList<>();

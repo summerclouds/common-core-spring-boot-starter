@@ -18,8 +18,9 @@ package org.summerclouds.common.core.operation.util;
 import java.util.Set;
 
 import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.node.IProperties;
-import org.summerclouds.common.core.node.MProperties;
+import org.summerclouds.common.core.node.MNode;
 import org.summerclouds.common.core.operation.Operation;
 import org.summerclouds.common.core.operation.Successful;
 
@@ -33,7 +34,7 @@ public class SuccessfulMap extends Successful {
     @SuppressWarnings("deprecation")
     public SuccessfulMap(String path, int rc, String msg, String... keyValues) {
         super(path, rc, msg);
-        MProperties r = new MProperties();
+        MNode r = new MNode();
         if (keyValues != null) {
             for (int i = 0; i < keyValues.length - 1; i += 2)
                 if (keyValues.length > i + 1) r.put(keyValues[i], keyValues[i + 1]);
@@ -48,7 +49,7 @@ public class SuccessfulMap extends Successful {
     @SuppressWarnings("deprecation")
     public SuccessfulMap(Operation operation, int rc, String msg, String... keyValues) {
         super(operation, rc, msg);
-        MProperties r = new MProperties();
+        MNode r = new MNode();
         if (keyValues != null) {
             for (int i = 0; i < keyValues.length - 1; i += 2)
                 if (keyValues.length > i + 1) r.put(keyValues[i], keyValues[i + 1]);
@@ -69,6 +70,11 @@ public class SuccessfulMap extends Successful {
         return (IProperties)getResult();
     }
 
+    @SuppressWarnings({ "deprecation" })
+    public INode getNode() {
+        return (INode)getResult();
+    }
+    
     public void put(String key, Object value) {
         getMap().put(key, value);
     }

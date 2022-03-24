@@ -7,7 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.summerclouds.common.core.cfg.CfgString;
+import org.summerclouds.common.core.error.ErrorException;
+import org.summerclouds.common.core.error.InternalException;
 import org.summerclouds.common.core.error.MException;
+import org.summerclouds.common.core.error.RC;
+import org.summerclouds.common.core.error.RC.CAUSE;
+import org.summerclouds.common.core.error.RC.Translated;
 import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
 import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.tool.MSpring;
@@ -61,4 +66,26 @@ public class SpringApplicationTest extends TestCase {
 
 	}
 	
+	@Test
+	public void testErrorMessagTranslator() {
+		{
+			ErrorException msg = new ErrorException("test {1}","arg1");
+			Translated tr = RC.translate(null, msg.getMessage());
+			System.out.println(tr);
+			assertEquals("test \"arg1\"", tr.translated);
+		}
+		{
+			ErrorException msg = new ErrorException("test {1}");
+			Translated tr = RC.translate(null, msg.getMessage());
+			System.out.println(tr);
+			assertEquals("test {1}", tr.translated);
+		}
+		{
+			ErrorException msg = new ErrorException(CAUSE.APPEND, "test {1}, {2}", "arg1", new InternalException("cause {1}", "nested1"));
+			Translated tr = RC.translate(null, msg.getMessage());
+			System.out.println(tr);
+			assertEquals("test \"arg1\", cause \"nested1\"", tr.translated);
+		}
+		
+	}
 }
