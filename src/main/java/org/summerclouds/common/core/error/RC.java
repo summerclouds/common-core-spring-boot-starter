@@ -191,7 +191,7 @@ public class RC {
         sb.append("[");
         if (rc >= 0) sb.append(rc).append(",");
         addEncoded(sb, msg, maxSize);
-        boolean isTruncated = false;
+        boolean isCause = false;
         if (parameters != null && parameters.length > 0) {
             boolean firstException = true;
             IResult appendCause = null;
@@ -256,8 +256,8 @@ public class RC {
                         // remove full cause
                         sb.setLength(beforeLen);
                         sb.append("["+appendCause.getReturnCode()+",\"...cause...\"]");
-                        isTruncated = true;
                     }
+                    isCause = true;
                 }
             }
             if (cause != null) {
@@ -271,12 +271,12 @@ public class RC {
                         // remove full cause
                         sb.setLength(beforeLen);
                         sb.append("["+cause.getReturnCode()+",\"...cause...\"]");
-                        isTruncated = true;
                     }
+                    isCause = true;
                 }
             }
         }
-        if (!isTruncated && !truncateMessage(sb,maxSize))
+        if (isCause || !truncateMessage(sb,maxSize))
         	sb.append("]");
         return sb.toString();
     }
