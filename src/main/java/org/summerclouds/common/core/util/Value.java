@@ -20,6 +20,7 @@ import java.io.NotSerializableException;
 import java.io.Serializable;
 
 import org.summerclouds.common.core.lang.Valueable;
+import org.summerclouds.common.core.pojo.Public;
 import org.summerclouds.common.core.tool.MSystem;
 
 public class Value<T> implements Valueable<T>, Serializable {
@@ -32,6 +33,7 @@ public class Value<T> implements Valueable<T>, Serializable {
         value = initial;
     }
 
+	@Public(writable = false)
     private volatile T value;
 
     @Override

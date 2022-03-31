@@ -92,30 +92,79 @@ class LogTests extends TestCase  {
     
     @Test
     public void testRCMessageTruncate() throws Exception {
-        { // exact at end of second entry
+//        { // exact at end of second entry
+//            MException cause = new MException(1, "cause", "c1");
+//            String msg = RC.toMessage(1, cause, "test", new Object[] {"nr1", "nr2"}, 10);
+//            System.out.println(msg);
+//            assertEquals("[1,\"test\",\"...\"]", msg);
+//        }
+//        { // end in mittle of attribute
+//            MException cause = new MException(1, "cause", "c1");
+//            String msg = RC.toMessage(1, cause, "test", new Object[] {"nr1", "nr2"}, 13);
+//            System.out.println(msg);
+//            assertEquals("[1,\"test\",\"nr...\"]", msg);
+//        }
+//        { // end in middle of attribute
+//            MException cause = new MException(1, "cause", "c1");
+//            String msg = RC.toMessage(1, cause, "test", new Object[] {"nr1", "nr2"}, 23);
+//            System.out.println(msg);
+//            assertEquals("[1,\"test\",\"nr1\",\"nr2\",[1,\"...cause...\"]]", msg);
+//        }
+//        { // end of array
+//            MException cause = new MException(1, "cause", "c1");
+//            String msg = RC.toMessage(1, cause, "test", new Object[] {"nr1", "nr2"}, 37);
+//            System.out.println(msg);
+//            assertEquals("[1,\"test\",\"nr1\",\"nr2\",[1,\"...cause...\"]]", msg);
+//        }
+//        { // end of array
+//            MException cause = new MException(1, "cause", "c1");
+//            String msg = RC.toMessage(1, cause, "test", new Object[] {"nr1", "nr2"}, 38);
+//            System.out.println(msg);
+//            assertEquals("[1,\"test\",\"nr1\",\"nr2\",[1,\"cause\",\"c1\"]]", msg);
+//        }
+        
+    	{ // cut at the end
+    		String msg = RC.toMessage(1, (IResult)null, "test", new Object[] {"nr1", "nr2"}, 20);
+    		System.out.println(msg);
+    		assertEquals("[1,\"test\",\"nr1\",\"nr2...\"]", msg);
+    	}
+    	{ // cut at the end
+    		String msg = RC.toMessage(1, (IResult)null, "test", new Object[] {"nr1", "nr2"}, 21);
+    		System.out.println(msg);
+    		assertEquals("[1,\"test\",\"nr1\",\"nr2\",\"...\"]", msg);
+    	}
+    	{ // cut at the end
+    		String msg = RC.toMessage(1, (IResult)null, "test", new Object[] {"nr1", "nr2\\"}, 21);
+    		System.out.println(msg);
+    		assertEquals("[1,\"test\",\"nr1\",\"nr2\\\\...\"]", msg);
+    	}
+    	{ // cut at the end
+    		String msg = RC.toMessage(1, (IResult)null, "test", new Object[] {"nr1", "nr2\\"}, 22);
+    		System.out.println(msg);
+    		assertEquals("[1,\"test\",\"nr1\",\"nr2\\\\...\"]", msg);
+    	}
+    	{ // cut at the end
+    		String msg = RC.toMessage(1, (IResult)null, "test", new Object[] {"nr1", "nr2\""}, 21);
+    		System.out.println(msg);
+    		assertEquals("[1,\"test\",\"nr1\",\"nr2\\\\...\"]", msg);
+    	}
+    	{ // cut at the end
+    		String msg = RC.toMessage(1, (IResult)null, "test", new Object[] {"nr1", "nr2\""}, 22);
+    		System.out.println(msg);
+    		assertEquals("[1,\"test\",\"nr1\",\"nr2\\\"...\"]", msg);
+    	}
+    	{ // cut at the end
+    		String msg = RC.toMessage(1, (IResult)null, "test", new Object[] {"nr1", "nr2\""}, 23);
+    		System.out.println(msg);
+    		assertEquals("[1,\"test\",\"nr1\",\"nr2\\\"\",\"...\"]", msg);
+    	}
+        { // cut at the end - not cause truncation
             MException cause = new MException(1, "cause", "c1");
-            String msg = RC.toMessage(1, cause, "test", new Object[] {"nr1", "nr2"}, 10);
+            String msg = RC.toMessage(1, cause, "test", new Object[] {"nr1", "nr2"}, 20);
             System.out.println(msg);
-            assertEquals("[1,\"test\",\"...\"]", msg);
+            assertEquals("[1,\"test\",\"nr1\",\"nr2\",[1,\"...cause...\"]", msg);
         }
-        { // end in mittle of attribute
-            MException cause = new MException(1, "cause", "c1");
-            String msg = RC.toMessage(1, cause, "test", new Object[] {"nr1", "nr2"}, 13);
-            System.out.println(msg);
-            assertEquals("[1,\"test\",\"nr...\"]", msg);
-        }
-        { // end in middle of attribute
-            MException cause = new MException(1, "cause", "c1");
-            String msg = RC.toMessage(1, cause, "test", new Object[] {"nr1", "nr2"}, 23);
-            System.out.println(msg);
-            assertEquals("[1,\"test\",\"nr1\",\"nr2\",[0,\"...\"]]", msg);
-        }
-        { // end of array
-            MException cause = new MException(1, "cause", "c1");
-            String msg = RC.toMessage(1, cause, "test", new Object[] {"nr1", "nr2"}, 38);
-            System.out.println(msg);
-            assertEquals("[1,\"test\",\"nr1\",\"nr2\",[1,\"cause\",\"c1\"],\"...\"]", msg);
-        }
+        
     }
 
     

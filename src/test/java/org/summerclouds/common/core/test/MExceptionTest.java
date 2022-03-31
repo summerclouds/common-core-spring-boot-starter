@@ -1,6 +1,8 @@
 package org.summerclouds.common.core.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -87,6 +89,11 @@ public class MExceptionTest extends TestCase {
 			assertEquals(400, e.getReturnCode());
 			assertEquals("[400,\"error1\"]", e.getMessage());
 		}
+	}
+	
+	@Test
+	public void testErrorExceptionCauseAdaption() {
+
 		try {
 			throw new ErrorException(CAUSE.ADAPT, "error1",new NotFoundException("test", "nr1"));
 		} catch (Throwable t) {
@@ -95,6 +102,8 @@ public class MExceptionTest extends TestCase {
 			ErrorException e = (ErrorException)t;
 			assertEquals(404, e.getReturnCode());
 			assertEquals("[404,\"test\",\"nr1\"]", e.getMessage());
+			assertNotNull(t.getCause());
+			assertEquals("[404,\"test\",\"nr1\"]", t.getCause().getMessage());
 		}
 		try {
 			throw new ErrorException(CAUSE.APPEND, "error1", new NotFoundException("test", "nr1"));
@@ -104,6 +113,40 @@ public class MExceptionTest extends TestCase {
 			ErrorException e = (ErrorException)t;
 			assertEquals(404, e.getReturnCode()); // APPEND will ADAPT the Error Code (!)
 			assertEquals("[400,\"error1\",[404,\"test\",\"nr1\"]]", e.getMessage());
+			assertNotNull(t.getCause());
+			assertEquals("[404,\"test\",\"nr1\"]", t.getCause().getMessage());
+		}
+		try {
+			throw new ErrorException(CAUSE.ENCAPSULATE, "error1",new NotFoundException("test", "nr1"));
+		} catch (Throwable t) {
+			System.out.println(t);
+			assertTrue(t instanceof ErrorException);
+			ErrorException e = (ErrorException)t;
+			assertEquals(400, e.getReturnCode());
+			assertEquals("[400,\"error1\"]", e.getMessage());
+			assertNotNull(t.getCause());
+			assertEquals("[404,\"test\",\"nr1\"]", t.getCause().getMessage());
+		}
+		try {
+			throw new ErrorException(CAUSE.HIDE, "error1",new NotFoundException("test", "nr1"));
+		} catch (Throwable t) {
+			System.out.println(t);
+			assertTrue(t instanceof ErrorException);
+			ErrorException e = (ErrorException)t;
+			assertEquals(400, e.getReturnCode());
+			assertEquals("[400,\"error1\"]", e.getMessage());
+			assertNull(t.getCause());
+		}
+		try {
+			throw new ErrorException(CAUSE.IGNORE, "error1",new NotFoundException("test", "nr1"));
+		} catch (Throwable t) {
+			System.out.println(t);
+			assertTrue(t instanceof ErrorException);
+			ErrorException e = (ErrorException)t;
+			assertEquals(400, e.getReturnCode());
+			assertEquals("[400,\"error1\",\"404 org.summerclouds.common.core.error.NotFoundException: [404,\\\"test\\\",\\\"nr1\\\"]\"]", e.getMessage());
+			assertNotNull(t.getCause());
+			assertEquals("[404,\"test\",\"nr1\"]", t.getCause().getMessage());
 		}
 	}
 	

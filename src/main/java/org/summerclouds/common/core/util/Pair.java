@@ -15,9 +15,13 @@
  */
 package org.summerclouds.common.core.util;
 
+import org.summerclouds.common.core.pojo.Public;
+
 public class Pair<K, V> {
 
+	@Public(writable = false)
     private K key;
+	@Public(writable = false)
     private V value;
 
     public Pair(K key, V value) {

@@ -191,6 +191,7 @@ public class RC {
         sb.append("[");
         if (rc >= 0) sb.append(rc).append(",");
         addEncoded(sb, msg, maxSize);
+        boolean isTruncated = false;
         if (parameters != null && parameters.length > 0) {
             boolean firstException = true;
             IResult appendCause = null;
@@ -202,8 +203,13 @@ public class RC {
 
                 if (parameter != null) {
 
-                    if (parameter instanceof IResult && causeHandling == CAUSE.ADAPT)
-                        return ((IResult) parameter).getMessage();
+                    if (parameter instanceof IResult && causeHandling == CAUSE.ADAPT) {
+                        String m = ((IResult) parameter).getMessage();
+                        if (m != null && maxSize > 0 && m.length() > maxSize ) {
+                            m = m.substring(0, maxSize) + "...\"]"; // TODO not well truncated
+                        }
+                        return m;
+                    }
                     if (parameter instanceof IResult && causeHandling == CAUSE.APPEND) {
                         appendCause = (IResult) parameter;
                         firstException =
@@ -238,50 +244,75 @@ public class RC {
                     else addEncoded(sb, parameter, maxSize);
                 } else sb.append("null");
             }
+            
             if (appendCause != null) {
                 String msg2 = appendCause.getMessage();
                 if (msg2 != null) {
                     if (sb.length() > 0) sb.append(",");
+                    int beforeLen = sb.length();
                     if (msg2.startsWith("[") && msg2.endsWith("]")) sb.append(msg2);
                     else addEncoded(sb, msg2, maxSize);
-                    if (truncateMessage(sb,maxSize))
-                        return sb.toString();
+                    if (maxSize > 0 && sb.length() > maxSize) {
+                        // remove full cause
+                        sb.setLength(beforeLen);
+                        sb.append("["+appendCause.getReturnCode()+",\"...cause...\"]");
+                        isTruncated = true;
+                    }
                 }
             }
             if (cause != null) {
                 String msg2 = cause.getMessage();
                 if (msg2 != null) {
                     if (sb.length() > 0) sb.append(",");
+                    int beforeLen = sb.length();
                     if (msg2.startsWith("[") && msg2.endsWith("]")) sb.append(msg2);
                     else addEncoded(sb, msg2, maxSize);
-                    if (truncateMessage(sb,maxSize))
-                        return sb.toString();
+                    if (maxSize > 0 && sb.length() > maxSize) {
+                        // remove full cause
+                        sb.setLength(beforeLen);
+                        sb.append("["+cause.getReturnCode()+",\"...cause...\"]");
+                        isTruncated = true;
+                    }
                 }
             }
         }
-        sb.append("]");
+        if (!isTruncated && !truncateMessage(sb,maxSize))
+        	sb.append("]");
         return sb.toString();
     }
 
     private static boolean truncateMessage(StringBuilder sb, int maxSize) {
         if (maxSize > 0) {
             if (sb.length() == maxSize) {
-                char c = sb.charAt(maxSize-1);
-                if (c == ']')
-                    sb.append(",\"...\"]");
+                if (maxSize < 3) { // fallback - should not be
+	                sb.append("\"...\"]");
+	                return true;
+                }
+                char c1 = sb.charAt(maxSize-1);
+                char c2 = sb.charAt(maxSize-2);
+                if (c1 == '\"' && c2 != ',' && c2 != '\\')
+                	sb.append(",\"...\"]");
                 else
-                    sb.append("\"...\"]");
+                if (c1 == '\\' && c2 != '\\')
+                    sb.append("\\...\"]");
+                else                
+                	sb.append("\"...\"]");
                 return true;
+                
             } else
             if (sb.length() > maxSize) {
                 sb.setLength(maxSize);
-                char c = sb.charAt(maxSize-1);
-                // try to fix a truncated json array
-                if (c == '\\')
-                    sb.append("\\...\"]");
+                if (maxSize < 3) { // fallback - should not be
+                    sb.append("...\"]");
+                    return true;
+                }
+                char c1 = sb.charAt(maxSize-1);
+                char c2 = sb.charAt(maxSize-2);
+                if (c1 == '\"' && c2 != ',' && c2 != '\\')
+                	sb.append(",\"...\"]");
                 else
-                if (c == '[')
-                    sb.append("0,\"...\"]]");
+                if (c1 == '\\' && c2 != '\\')
+                    sb.append("\\...\"]");
                 else
                     sb.append("...\"]");
                 return true;
