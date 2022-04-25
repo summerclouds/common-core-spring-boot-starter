@@ -27,6 +27,7 @@ import org.summerclouds.common.core.activator.MutableActivator;
 import org.summerclouds.common.core.cfg.CfgString;
 import org.summerclouds.common.core.condition.SummerCondition;
 import org.summerclouds.common.core.condition.SummerConditional;
+import org.summerclouds.common.core.error.ErrorRuntimeException;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.internal.ContextListener;
 import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
@@ -200,6 +201,9 @@ public class MSpring {
 		if (MString.isEmpty(scanPackageList)) {
 			scanPackageList = getMainPackage();
 		}
+		if (MString.isEmpty(scanPackageList)) {
+			throw new ErrorRuntimeException("main package not found");
+		}
 		
 		ArrayList<Class<? extends T>> entities = new ArrayList<>();
         ClassPathScanningCandidateComponentProvider provider = createComponentScanner(annotationType);
@@ -268,6 +272,7 @@ public class MSpring {
 	
 	public static String getMainPackage() {
 		if (mainPackage == null) {
+			if (context == null) return null;
 			Map<String, Object> candidates = context.getBeansWithAnnotation(SpringBootApplication.class);
 			mainPackage = candidates.isEmpty() ? M.class.getPackageName() : candidates.values().toArray()[0].getClass().getPackageName();
 		}
