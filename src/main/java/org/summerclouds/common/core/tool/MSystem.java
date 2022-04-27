@@ -26,7 +26,6 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
-import java.lang.instrument.Instrumentation;
 import java.lang.management.LockInfo;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -62,9 +61,9 @@ import org.summerclouds.common.core.lang.ICloseable;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.node.IProperties;
 
-import net.bytebuddy.agent.ByteBuddyAgent;
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.dynamic.ClassFileLocator;
+//import net.bytebuddy.agent.ByteBuddyAgent;
+//import net.bytebuddy.description.type.TypeDescription;
+//import net.bytebuddy.dynamic.ClassFileLocator;
 
 public class MSystem {
 
@@ -1001,20 +1000,20 @@ public class MSystem {
         return System.getProperty("java.version");
     }
 
-    private static final Instrumentation instrumentation = ByteBuddyAgent.install();
-    /*
-     * Use byte buddy to get the class byte code
-     */
-    public static byte[] getBytes(Class<?> c) throws IOException {
-        //		String name = '/' + c.getName().replace('.', '/')+ ".class";
-        //		InputStream is = c.getClassLoader().getResourceAsStream(name);
-        //		byte[] bytes = MFile.readBinary(is);
-        //		return bytes;
-        ClassFileLocator locator = ClassFileLocator.ForInstrumentation.of(instrumentation, c);
-        TypeDescription.ForLoadedType desc = new TypeDescription.ForLoadedType(c);
-        ClassFileLocator.Resolution resolution = locator.locate(desc.getName());
-        return resolution.resolve();
-    }
+//    private static final Instrumentation instrumentation = ByteBuddyAgent.install();
+//    /*
+//     * Use byte buddy to get the class byte code
+//     */
+//    public static byte[] getBytes(Class<?> c) throws IOException {
+//        //		String name = '/' + c.getName().replace('.', '/')+ ".class";
+//        //		InputStream is = c.getClassLoader().getResourceAsStream(name);
+//        //		byte[] bytes = MFile.readBinary(is);
+//        //		return bytes;
+//        ClassFileLocator locator = ClassFileLocator.ForInstrumentation.of(instrumentation, c);
+//        TypeDescription.ForLoadedType desc = new TypeDescription.ForLoadedType(c);
+//        ClassFileLocator.Resolution resolution = locator.locate(desc.getName());
+//        return resolution.resolve();
+//    }
 
     public static long getJvmUptime() {
         RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();

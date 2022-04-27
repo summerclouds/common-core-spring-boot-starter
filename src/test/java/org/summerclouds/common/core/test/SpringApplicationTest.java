@@ -34,7 +34,7 @@ public class SpringApplicationTest extends TestCase {
 	
 	@Test
 	public void testSpringMainPackage() throws MException {
-		String main = MSpring.getMainPackage();
+		String main = MSpring.getMainPackages();
 		System.out.println(main);
 		// test not possible - there is no SpringBootApplication in test environment
 //		assertEquals(getClass().getPackage().getName(), main);

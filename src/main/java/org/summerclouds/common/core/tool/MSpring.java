@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.BeansException;
@@ -16,12 +17,12 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.activator.MutableActivator;
 import org.summerclouds.common.core.cfg.CfgString;
@@ -199,7 +200,7 @@ public class MSpring {
 			scanPackageList = new CfgString("org.summerclouds.scan.packages", null).value();
 		}
 		if (MString.isEmpty(scanPackageList)) {
-			scanPackageList = getMainPackage();
+			scanPackageList = getMainPackages();
 		}
 		if (MString.isEmpty(scanPackageList)) {
 			throw new ErrorRuntimeException("main package not found");
@@ -270,11 +271,29 @@ public class MSpring {
 		return false;
 	}
 	
-	public static String getMainPackage() {
+	public static String getMainPackages() {
 		if (mainPackage == null) {
 			if (context == null) return null;
 			Map<String, Object> candidates = context.getBeansWithAnnotation(SpringBootApplication.class);
-			mainPackage = candidates.isEmpty() ? M.class.getPackageName() : candidates.values().toArray()[0].getClass().getPackageName();
+			Class<?> clazz = candidates.isEmpty() ? null : candidates.values().iterator().next().getClass();
+			if (clazz != null) {
+				Set<String> list = new TreeSet<>();
+				ComponentScan componentScan = clazz.getAnnotation(ComponentScan.class);
+				if (componentScan != null) {
+					for (String item : componentScan.value()) list.add(item);
+					for (String item : componentScan.basePackages()) list.add(item);
+					for (Class<?> item : componentScan.basePackageClasses()) list.add(item.getPackageName());
+				}
+				SpringBootApplication springBootApplication = clazz.getAnnotation(SpringBootApplication.class);
+				if (springBootApplication != null) {
+					for (String item : springBootApplication.scanBasePackages()) list.add(item);
+					for (Class<?> item : springBootApplication.scanBasePackageClasses()) list.add(item.getPackageName());
+				}
+				if (list.size() > 0)
+					mainPackage = MString.join(list, ",");
+				else
+					mainPackage = clazz.getPackageName();
+			}
 		}
 		return mainPackage;
 	}
