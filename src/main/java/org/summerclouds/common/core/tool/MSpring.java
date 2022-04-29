@@ -30,7 +30,6 @@ import org.summerclouds.common.core.condition.SummerCondition;
 import org.summerclouds.common.core.condition.SummerConditional;
 import org.summerclouds.common.core.error.ErrorRuntimeException;
 import org.summerclouds.common.core.error.MException;
-import org.summerclouds.common.core.internal.ContextListener;
 import org.summerclouds.common.core.internal.SpringSummerCloudsCoreAutoConfiguration;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.log.PlainLog;
@@ -170,8 +169,7 @@ public class MSpring {
 	}
 
 	public static void setStatus(STATUS status) {
-		MSystem.acceptCaller(ContextListener.class);
-		PlainLog.i("Status changed", status);
+		MSystem.acceptCaller(SpringSummerCloudsCoreAutoConfiguration.class);
 		MSpring.status = status;
 		if (status == STATUS.CLOSED)
 			noLookup.clear();

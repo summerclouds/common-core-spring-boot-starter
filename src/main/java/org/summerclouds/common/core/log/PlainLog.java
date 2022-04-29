@@ -1,8 +1,8 @@
 package org.summerclouds.common.core.log;
 
 import org.summerclouds.common.core.console.Console;
-import org.summerclouds.common.core.console.DefaultConsoleFactory;
 import org.summerclouds.common.core.console.Console.COLOR;
+import org.summerclouds.common.core.console.DefaultConsoleFactory;
 import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.error.RC.CAUSE;
 import org.summerclouds.common.core.log.Log.LEVEL;
@@ -11,7 +11,7 @@ import org.summerclouds.common.core.tool.MString;
 
 public class PlainLog {
 
-    private static int FIX_NAME_LENGTH = 30;
+    private static int FIX_NAME_LENGTH = 50;
 
     private static COLOR COLOR_TIME = COLOR.BRIGHT_BLACK;
 
@@ -67,7 +67,7 @@ public class PlainLog {
 			return;
 		}
 
-		msg = "[" + Thread.currentThread().getId() + "]" + (msg != null ? msg : "");
+		msg = (msg != null ? msg : "");
 		msg = RC.toMessage(-1, CAUSE.ENCAPSULATE, msg, param, maxMsgSize );
 		Throwable error = RC.findCause(CAUSE.ENCAPSULATE, param);
 
@@ -196,6 +196,8 @@ public class PlainLog {
             out.setColor(COLOR_DEBUG, null);
             out.print("DEBUG ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);
@@ -213,6 +215,8 @@ public class PlainLog {
             out.setColor(COLOR_DEBUG, null);
             out.print("DEBUG ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);
@@ -229,6 +233,8 @@ public class PlainLog {
             out.setColor(COLOR_ERROR, null);
             out.print("ERROR ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);
@@ -246,6 +252,8 @@ public class PlainLog {
             out.setColor(COLOR_ERROR, null);
             out.print("ERROR ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);
@@ -262,6 +270,8 @@ public class PlainLog {
             out.setColor(COLOR_FATAL, null);
             out.print("FATAL ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);
@@ -279,6 +289,8 @@ public class PlainLog {
             out.setColor(COLOR_FATAL, null);
             out.print("FATAL ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);
@@ -295,6 +307,8 @@ public class PlainLog {
             out.setColor(COLOR_INFO, null);
             out.print("INFO  ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);
@@ -312,6 +326,8 @@ public class PlainLog {
             out.setColor(COLOR_INFO, null);
             out.print("INFO  ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);
@@ -358,6 +374,8 @@ public class PlainLog {
             out.setColor(COLOR_TRACE, null);
             out.print("TRACE ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);
@@ -375,6 +393,8 @@ public class PlainLog {
             out.setColor(COLOR_TRACE, null);
             out.print("TRACE ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);
@@ -391,6 +411,8 @@ public class PlainLog {
             out.setColor(COLOR_WARN, null);
             out.print("WARN  ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);
@@ -408,6 +430,8 @@ public class PlainLog {
             out.setColor(COLOR_WARN, null);
             out.print("WARN  ");
             out.setColor(COLOR_NAME, null);
+            out.print(Thread.currentThread().getId());
+            out.print(" ");
             out.print(getFixName());
             out.print(" ");
             out.setColor(COLOR_MESSAGE, null);

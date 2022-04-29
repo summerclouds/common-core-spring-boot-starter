@@ -340,13 +340,13 @@ public class MSystem {
         System.out.flush();
     } // end beep
 
-    public static String findCalling(int returns) {
+    public static String findCaller(int returns) {
         StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         if (stack.length > returns) return stack[returns].getClassName();
         return "?";
     }
 
-    public static String findCalling() {
+    public static String findCaller() {
         StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         for (StackTraceElement step : stack) {
             String n = step.getClassName();
@@ -355,13 +355,13 @@ public class MSystem {
         return "?";
     }
 
-    public static String findCallingMethod(int returns) {
+    public static String findCallerMethod(int returns) {
         StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         if (stack.length > returns) return stack[returns].getMethodName();
         return "?";
     }
 
-    public static String findCallingMethod() {
+    public static String findCallerMethod() {
         StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         for (StackTraceElement step : stack) {
             String n = step.getClassName();

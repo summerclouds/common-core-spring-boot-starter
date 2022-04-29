@@ -12,7 +12,7 @@ import org.summerclouds.common.core.error.RC.CAUSE;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.junit.TestCase;
 
-@SpringBootTest
+@SpringBootTest(classes = TestsApplication.class)
 class LogTests extends TestCase  {
 
 	@Test

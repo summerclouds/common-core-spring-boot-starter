@@ -370,7 +370,7 @@ public class MNodeTest extends TestCase {
 
     @Test
     private void derTeschd(INode c, boolean testsub) throws MException {
-        System.out.println(MSystem.findCallingMethod(3) + ": " + c);
+        System.out.println(MSystem.findCallerMethod(3) + ": " + c);
         assertEquals("wow", c.getString("test1", "no"));
         assertEquals("alf", c.getString("test2", "no"));
         assertEquals("no", c.getString("test3", "no"));
