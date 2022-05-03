@@ -76,7 +76,7 @@ public class MXmlTest extends TestCase {
         String created = MXml.toString(doc, false);
 
         System.out.println(created);
-        assertEquals(plain.trim(), created.trim());
+        assertEquals(plain.trim(), created.replace("\r\n", "\n").trim());
     }
 
     @Test
