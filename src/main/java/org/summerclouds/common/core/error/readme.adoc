@@ -1,0 +1,122 @@
+//@manual
+
+== Exception extensions
+
+Summerclouds enhances and simplifies the creation and processing of 
+of errors. Exceptions always get a return code or error code.
+The code is not to be understood as a unique identification of the error, 
+but describes the group of errors to which the exception belongs.
+
+The information is mainly used by the caller to decide how to handle the error message. 
+Some errors are understood as technical errors, e.g. syntax errors, these will also 
+return an error if the call will be retried. Other technical errors indicate a wrong state,
+e.g. if a data base connection does not available, whereby by renewed attempts
+try after a waiting period the error possibly does not occur any more.
+
+In distributed systems errors often occur which then have to be passed on in a chain until the original
+until the original start of the action. This can be e.g. a user. Sometimes
+the direct passing on of the error message does not make sense, therefore this must be repackaged 
+but should not be lost (Root Cause). For this the extension offers the 
+possibility to decide via the enum CAUSE how the root cause should be passed on.
+
+RuntimeExceptions and Exceptions are extended. With the generation must be beside 
+the return code also a message (msg) must be given. The message describes 
+the error in detail and should be kept in technical language. Following can
+variable contents can be given (parameter).
+
+The exception message is then generated from the message and parameter. In order to be able to keep the individual
+information, all data is packed as a JSON array. This allows 
+a simple processing also in other programming languages possible.
+
+The parameters should be referenced in the message by '{nr}', whereby the first
+parameter is referenced with '{1}'.
+
+With this notation it is possible to analyze the error message in a frontend and also to
+to translate it.
+
+NOTE: If no message is to be passed during instantiation, or if the speaking name of the 
+name of the error code, the enum (RC.STATUS) can be used. In this
+In this case no message is expected, but all following transfers are considered as parameters.
+
+The error codes are largely based on HTTP status codes. This allows to return the codes 
+to be returned directly in case of rest requests.
+
+The error codes 4xx are considered as functional errors and the codes 5xx as 
+technical errors.
+
+Some errors can be created directly as classes, e.g. NotFoundException sets 
+automatically the return code 404.
+
+=== Example
+
+Error:: ["file {1} not found","/home/user/textfile"]
+
+Error Code:: 404 - Not Found
+
+Source Code:: throw new NotFoundException("file {1} not found", file);
+
+Now it is possible to translate the error "file {1} not found" using a language mapping:
+
+en_en.properties:: file {1} not found=File {1} not found
+
+and insert, result in the UI:
+
+File "/home/user/textfile" not found.
+
+If the error has been called in a service, the calling
+calling service can simply take over the error message or
+with a new error text and code:
+
+Error:: ["user {1} not valid because of {2}", "user",["file {1} not found","/home/user/textfile"]]
+
+Error Code:: 403 - Forbidden
+
+en_en.properties:: user {1} not valid because of {2}=user {1} is incorrect
+
+Result in UI:
+
+User "user" is incorrect
+
+but in the technical error message
+the root cause can be read out.
+
+Alternatively de_en.properties:: user {1} not valid because of {2}=User {1} is incorrect because of {2}
+
+Result in UI:
+
+User "user" is not found because of "File "/home/user/textfile"." erroneous
+
+=== Root Cause Processing
+
+* ENCAPSULATE: encapsulate cause state
+* ADAPT: if possible adapt cause state
+* APPEND: if possible adapt cause state and append message entries, will ADAPT the Error Code (!)
+* IGNORE: do print as parameters
+* HIDE: print as parameters but do not link as cause
+
+=== Error Codes
+
+* WARNING_TEMPORARILY(199)
+* OK(200)
+* CREATED(201)
+* ACCEPTED(202)
+* WARNING(299)
+* ERROR(400)
+* ACCESS_DENIED(401)
+* FORBIDDEN(403)
+* NOT_FOUND(404)
+* CONFLICT(409)
+* GONE(410)
+* TOO_LARGE(413)
+* SYNTAX_ERROR(415)
+* TEAPOT(418)
+* USAGE(422)
+* LIMIT(427)
+* INTERNAL_ERROR(500)
+* NOT_SUPPORTED(501)
+* BUSY(503)
+* TIMEOUT(504)
+* TOO_DEEP(508)
+
+
+Translated with www.DeepL.com/Translator (free version)

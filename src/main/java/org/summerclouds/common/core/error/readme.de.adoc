@@ -2,17 +2,23 @@
 
 == Exception Erweiterungen
 
-Summerclouds erweitert und vereinfacht das schmeisen und verarbeiten 
+Summerclouds erweitert und vereinfacht das Schmeisen und Verarbeiten 
 von Fehlern. Exceptions bekommen immer einen Return Code bzw. Error Code.
 Der Code ist nicht als eindeutige Identifizierung des Fehlers zu verstehen, 
 sondern beschreibt die Gruppe von Fehlern, der die Exception angehört.
 
-Die Information dient vor allem der Aufrufenden zu entscheiden wie mit der 
-Fehlermeldung umgegangen werden soll. Manche fehler werden als fachliche Fehler
+Die Information dient vor allem dem Aufrufenden zu entscheiden wie mit der 
+Fehlermeldung umgegangen werden soll. Manche Fehler werden als fachliche Fehler
 verstanden, z.B. Syntax-Fehler, diese werden auch bei einer Wiederholung in
 einer Fehlerbehandlung enden. Andere technische Fehler weisen auf einen falschen Zustand hin,
-wenn z.B. eine Datenbankverbindung aktuell nicht funktioniert, wobei durch erneutes
-versuchen nach einer Periode der Fehler evtl. nicht mehr auftritt.
+z.B. wenn eine Datenbankverbindung aktuell nicht funktioniert, wobei durch erneutes
+Versuchen nach einer Wartezeit der Fehler evtl. nicht mehr auftritt.
+
+In verteilten Systemen treten oft Fehler auf die dann in einer Kette weitergegeben werden
+müssen bist zum ursprünglichen beginn der Aktion. Dies kann z.B. ein Benutzer sein. Manchmal
+macht die direte Weitergabe der Fehlermeldung keinen Sinn, deshalb muss diese neu verpackt 
+werden soll aber nicht verloren gehen (Root Cause). Hierzu bietet die Erweiterung die 
+Möglichkeit über das Enum CAUSE zu entscheiden wie der Root-Cause weitergegeben werden soll.
 
 Es werden RuntimeExceptions und Exceptions erweitert. Bei der Erzeugung muss neben 
 dem Return Code auch eine Nachricht (msg) mitgegeben werden. Die Nachricht beschreibt 
@@ -20,11 +26,8 @@ den Fehler im Detail und soll in technischer Sprache gehalten werden. Folgend k�
 noch variable Inhalte mitgegeben werden (Parameter).
 
 Aus Nachricht und Parameter wird dann die Exception-Message erzeugt. Um später die einzelnen
-Informationen auseinanderhalten zu können werden diese mit einen Pipe (|) getrennt. Alle Pipes
-in den Informationen werden durch einen Doppelpunkt ersetzt.
-
-NOTE: Arrays werden auf der ersten Ebene erkannt und ausgelesen. Der Anfang wird durch '|[|'
-und das Ende durch '|]|' gekennzeichnet.
+Informationen auseinanderhalten zu können werden alle Daten als JSON-Array verpackt. Damit ist 
+eine einfache Verarbeitung auch in anderen Programmiersprachen möglich.
 
 Auf die Parameter soll in der Nachricht durch '{nr}' referenziert werden, wobei der erste
 Parameter mit '{1}' referenziert wird.
@@ -32,7 +35,7 @@ Parameter mit '{1}' referenziert wird.
 Mit dieser Notation ist es möglich die Fehlermeldung in einem Frontend zu analysieren und
 auch zu übersetzen.
 
-WARNING: Soll beid er Instanzierung keine Nachricht übergeben werden, bzw. der sprechende 
+NOTE: Soll bei der Instanzierung keine Nachricht übergeben werden, bzw. der sprechende 
 Name des Fehelrcodes genutzt werden so kann der Enum (RC.STATUS) genutzt werden. In diesen
 Fall wird keine Nachricht erwartet, sondern alle folgenden Übergaben als Parameter betrachtet.
 
@@ -47,22 +50,72 @@ automatisch den Return Code 404.
 
 === Beispiel
 
-Fehler:: 'file {1} not found|/home/user/textfile'
+Fehler:: ["file {1} not found","/home/user/textfile"]
 
 Error Code:: 404 - Not Found
 
 Source Code:: throw new NotFoundException("file {1} not found", file);
 
+Nun ist es möglich den Fehler "file {1} not found" über ein Sprach-Mapping zu übersetzen:
 
+de_de.properties:: file {1} not found=Datei {1} nicht gefunden
 
+und einzusetzen, Ergebnis im UI:
 
+Datei "/home/user/textfile" nicht gefunden.
 
+Wurde der Fehler in einem Service aufgerufen kann der
+aufrufende ggf. die Fehlermeldung einfach übernehmen oder
+mit einem neuen Fehlertext und Code versenen:
 
+Fehler:: ["user {1} not valid because of {2}","user",["file {1} not found","/home/user/textfile"]]
 
+Error Code:: 403 - Forbidden
 
+de_de.properties:: user {1} not valid because of {2}=Benutzer {1} ist fehlerhaft
 
+Ergebnis im UI:
 
- 
+Benutzer "user" ist fehlerhaft
 
+allerdings kann in der technischen Fehlermeldung
+der Root-Cause ausgelesen werden.
 
+Alternativ de_de.properties:: user {1} not valid because of {2}=Benutzer {1} ist aufgrund von {2} fehlerhaft
+
+Ergebnis im UI:
+
+Benutzer "user" ist aufgrund von "Datei "/home/user/textfile" nicht gefunden." fehlerhaft
+
+=== Root-Cause Verarbeitung
+
+* ENCAPSULATE: encapsulate cause state
+* ADAPT: if possible adapt cause state
+* APPEND: if possible adapt cause state and append message entries, will ADAPT the Error Code (!)
+* IGNORE: do print as parameters
+* HIDE: print as parameters but do not link as cause
+
+=== Error Codes
+
+* WARNING_TEMPORARILY(199)
+* OK(200)
+* CREATED(201)
+* ACCEPTED(202)
+* WARNING(299)
+* ERROR(400)
+* ACCESS_DENIED(401)
+* FORBIDDEN(403)
+* NOT_FOUND(404)
+* CONFLICT(409)
+* GONE(410)
+* TOO_LARGE(413)
+* SYNTAX_ERROR(415)
+* TEAPOT(418)
+* USAGE(422)
+* LIMIT(427)
+* INTERNAL_ERROR(500)
+* NOT_SUPPORTED(501)
+* BUSY(503)
+* TIMEOUT(504)
+* TOO_DEEP(508)
 

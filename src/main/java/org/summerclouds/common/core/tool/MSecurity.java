@@ -18,6 +18,7 @@ public class MSecurity {
     public static final String DELETE = "delete";
     public static final String VIEW = "view";
     public static final String ADMIN = "admin";
+    public static final String GUEST = "guest";
     public static final String EXECUTE = "execute";
 
     public static final String WILDCARD_TOKEN = "*";

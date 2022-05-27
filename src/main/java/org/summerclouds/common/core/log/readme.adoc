@@ -1,0 +1,102 @@
+//@manual
+
+== Log extension
+
+The log extension is a facade and simplifies logging with the standard logger.
+The log engine can be changed but should always use the Spring logger or SlfJ
+should be used. An alternative is the direct output to the console.
+
+The simplification is mainly in the call and the output of the data. The call can be done by
+shortcut functions 
+
+* f() for fatal(), 
+* e() for error(), 
+* w() for warn(), 
+* i() for info(), 
+* d() for debug() and 
+* t() for trace() 
+
+can be shortened. All functions can accept a message (msg) and
+additional parameters. The parameters can be referenced in the message by '{nr}'.
+in the message.
+
+NOTE: For output see also Exceptions.
+
+If the log level is not reached, the parameters will not be aggregated to a log message 
+and therefore no computing time is consumed. Therefore it is recommended to pass whole
+and not to convert them explicitly into strings beforehand.
+
+If objects are to be converted by a special source code into a string, ParameterMapper can be deposited
+ParameterMapper can be used instead of toString() to create a representative text from a parameter.
+parameter into a representative text.
+
+If in a class derived from MLog the tool function log() can be used to
+to log. The logger is created only on the first call. By this emfolhene
+procedure also computing time can be saved and/or distributed.
+
+=== Plain Log
+
+In some situations it is not possible to use a fully rolled out
+log service. In this case the `plain log` can be used.
+can be used. All entries are output directly to the console.
+
+=== Log Factory
+
+A log factory is an implementation of a real log factory.
+factory. The factory creates for each required LogFacade 
+a facade for the actual logger.
+
+=== Configuration
+
+Prefix :: org.summercloud.core.log.Log
+
+* `maxMsgSize` : int - Set maximum message size or set to 0 to disable, 
+default is 10000
+* `logTraceId` : bool : Set true to add trace id in front of the log message,
+default is true
+
+=== ParameterEntryMapper Beans
+
+To customize the object display ParameterEntryMapper can be used as a
+Beans can be deposited. The bean name must correspond to the name of the
+class or interface, which will be converted into a string by the
+into a string.
+
+Example:
+
+[java]
+----
+@Bean("java.lang.Date")
+public ParameterEntryMapper dateMapper() {
+  return new ParameterEntryMapper() {
+    Object map(Object in) {
+      if (in instanceof Date)
+        return MDate.toIsoDate((Date)in);
+      return in;
+    }
+  }
+}
+----
+
+=== More log appenders
+
+`Core` searches for all beans with the type `Appender` and
+appends them as log appenders to the log system.
+
+Example:
+
+[java]
+----
+
+@Bean
+public Appender extends UnsynchronizedAppenderBase<ILoggingEvent> {
+
+  @Override
+  protected void append(ILoggingEvent event) {
+    ...
+  }
+}
+
+----
+
+

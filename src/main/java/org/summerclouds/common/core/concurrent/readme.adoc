@@ -1,0 +1,16 @@
+//@manual
+
+== Lock implementation
+
+A custom implementation of a lock to implement missing functionality.
+functionality. The implementation also allows to cancel,
+expand locks after the lock has been released or to output the
+the lock owner. 
+
+For distributed locks these functions are important. Corresponding
+implementations exist over database locks in common-persistence.
+
+The LockManager provides central access to all existing
+lock objects.
+
+NOTE: A derivation of java.util.concurrent.locks.Lock should still be implemented.

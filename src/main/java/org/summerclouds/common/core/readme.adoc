@@ -1,0 +1,33 @@
+//@manual
+
+== Shortcut class 'M
+
+The class 'M' has a special function. It serves exclusively
+the readability of the created source code. Through the single
+letter the declaration of tools becomes very short. The
+function names were chosen to be as short as possible but still 
+nevertheless meaningful remain.
+
+The class does not implement a function of its own, but delegates
+all functions further. In addition, many constants have been included in the class
+class. Again, in order to keep the declaration as short as possible
+as possible.
+
+[source,java]
+----
+
+doIt(Integer.parseInt(parameter1), Integer.parseInt(parameter2)) <1>
+
+doIt(MCast.toint(parameter1, 0), MCast.toint(parameter2, 0)); <2>
+
+doIt(M.to(parameter1, 0), M.to(parameter2, 0)); <3>
+
+----
+
+<1> Shows the implementation in Java, here without fallback.
+<2> Shows the how to use MCast to convert the parameter integers.
+<3> Shows the shortcut variant with 'M'.  
+
+Especially when several calls are made one after the other, the source code looks
+appears tidier with the shortcut class.
+

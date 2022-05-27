@@ -1,0 +1,20 @@
+
+=== Conditions
+
+Since the Spring `Conditions` cannot be checked externally 
+externally (rights to classes
+have not been given), new conditional classes must be
+new conditional classes must be used.
+
+The checks are checked during the search for
+classes with annotations in MSpring. With it
+annotated classes can be hidden via configurations
+can be hidden.
+
+These classes have the prefix 'S' and work like the
+like the Spring conditionals.
+
+Condtitonal:
+
+* SConditionalOnProperty
+* SConditionalOnMatcher - spring matcher implementation

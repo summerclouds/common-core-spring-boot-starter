@@ -1,0 +1,63 @@
+
+== Cmd Framework
+
+Why a Cmd Framework?
+
+The framework gives the possibility to
+with commands that can be easily executed from outside.
+extend. The framework is helpful for the
+support and operation of the application.
+
+Commands are executed in a separate process
+and the output on stdio is returned in an InputStream
+or in case of operation a StreamResult is returned. 
+
+The caller must be able to handle this InputStream.
+with this InputStream.
+
+To define a command you can use variables with
+the annotations `@CmdArgument` or `@CmdOption`.
+can be marked. The data will be filled with the
+with the supplied values.
+
+InputStream and OutputStream can alternatively be passed as
+as parameters. Please use the
+both constants. In this case
+the stream in the return is `null`.
+
+Example:
+
+----
+
+MNode config = new MNode();
+config.put(CmdOperation.PARAMETER_OUTPUT_STREAM, new FileOutputStream("output.log"));
+
+OperationResult res = manager.execute(path, config);
+
+----
+
+=== Configuration
+
+To redirect all log output to CMD output:
+
+org.summerclouds.ThreadConsoleLogAppender.enabled=true
+
+=== Log
+
+On execution the output of the command 
+is sent directly to the executing client (stream).
+The character '0' marks in the protocol a token
+which is used to transport special records
+used. The following character defines which
+data will be sent.
+
+\0' (0) - It is a single '\0' character.
+\n' (13) - The result will be sent in sequence, 
+terminated with another '\0' character
+* 'n' (110) - The result is 'zero' (replaces the output '\n')
+* 'e' (101) - The result is an exception, followed by the 
+exception, terminated with a `\0` character (replaces the output '\n')
+* 'f' (102) - A hex record/file content follows, 
+first the filename, terminated with a '\0' character,
+then the data stream in HEX terminated with '\0'.
+

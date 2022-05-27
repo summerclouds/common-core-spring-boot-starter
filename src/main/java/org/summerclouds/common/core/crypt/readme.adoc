@@ -1,0 +1,69 @@
+
+== Password Implementation
+
+A central task is to keep passwords secret. Be it
+in log files or on the screen. Thereby it is not 
+hard encryption, but also that passwords are not simply
+passwords cannot simply be picked up when 'walking by'.
+pass by. Thus a concealment of data.
+
+This is where the `MPassword` tool helps. It uses internally an 
+implementation of `IPassword`. The standard `DefaultPassword`
+is sufficient for most applications, but can also be provided or extended as a bean. 
+or can be extended.
+
+The implementation provides standards like ROT13 or ROT13AND5
+(extends Rot13 by the rotation of digits). 
+
+IMPORTANT: The Rot13 obfuscation is not a safe encryption
+but only serves the disguise on the screen. Anyone can
+technically reconstruct the password without effort.
+
+Hashing algorithms are also supported. Standard is
+a separate implementation of MD5. In `core` there is explicitly
+dependency to `javax.security` to keep applications slimmer.
+to keep applications slimmer.
+
+Additional password encryption algorithms can be provided by using
+by registering beans with the `IPasswordEncoder` interface.
+interface. The name of the bean serves as the name of the algorithm.
+
+If no algorithm is specified when encrypting the 
+configuration from `org_summerclouds_core_tools_MPassword.default` is used.
+is used. Without configuration `Rot13And5`.
+
+Encrypted passwords are marked in the first character with a 
+followed by the algorithm followed by a dollar as a separator to the
+dollar as separator to the encrypted password.
+
+In this library passwords are made unrecognizable in many places 
+and decrypted again.
+
+Example:
+
+----
+
+String obfuscated = MPassword.encode(plainPassword);
+String plain = MPassword.decode(obfuscated);
+
+String md5 = MPassword.encode(MPassword.MD5, plainPassword);
+boolean valid = MPassword.validate(plain, md5);
+
+----
+
+== Keychain implementation
+
+The keychain is a central repository for secret data. The data
+are stored encrypted or remote. For this purpose
+several data sources can be added to the keychain, which encrypt data 
+encrypt data depending on the implementation.
+
+In `core` only a dummy keychain is stored, which only holds data in memory. 
+in memory. If a real keychain is needed, it is contained in the `crypt
+is included in the `crypt` package, but must be activated here.
+
+In the keychain e.g. passwords or public / private keys can be stored
+which are relevant for the processing. Or.
+Read-only sources in cloud environments
+
+

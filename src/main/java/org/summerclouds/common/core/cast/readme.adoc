@@ -1,0 +1,15 @@
+//@manual
+
+== casting
+
+These classes are used to transform content. Further
+specialized casting mechanisms can be implemented and registered in MCast.
+be registered. A default value is always passed and never an exception is thrown.
+exception is thrown.
+
+The base types are converted by a more performant way. All 
+other types can be extended by implementing `Caster` and the
+registration in `MCast`.
+
+The class `MCast` provides tools to access these implementations.
+access.

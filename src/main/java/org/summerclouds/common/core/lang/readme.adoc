@@ -1,0 +1,19 @@
+#!manual
+
+== Lambda Functions
+
+The lambda functions extend the existing functions by variants
+with additional parameters. The classes 'FunctionX' have a return value, 
+the classes 'ConsumerX' none. Use these classes to create simple 
+lambda functions with multiple parameters.
+
+
+== Thread Control
+
+When a thread is created with MThread a context is created via 
+ThreadControl a context is created over the settings
+from the parent thread to the new thread.
+
+Some settings are fixed. Further 
+settings can be added by registering 
+`IThreadControl` can be added.

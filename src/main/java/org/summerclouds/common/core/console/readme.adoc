@@ -1,0 +1,7 @@
+//@manual
+
+== Console implementation
+
+The implementation uses jline to output to the console. It shall use
+`Console.get()` to load the current console.
+

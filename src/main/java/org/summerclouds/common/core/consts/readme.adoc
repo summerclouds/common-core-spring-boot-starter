@@ -1,0 +1,12 @@
+//@manual
+
+== Const Generator
+
+These classes are used for the Maven plugin Const Generator and
+are used to create classes with references to functions and
+variables. This way they can be referenced directly
+and changes to the structure lead already in
+compiletime and not in runtime.
+
+NOTE: Deprecated, should be replaced by summer-fresco or lombok. 
+should be replaced.

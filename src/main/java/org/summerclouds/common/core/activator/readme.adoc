@@ -1,0 +1,18 @@
+
+== Activation Framework
+
+*Activation* is similar, but simpler, like Spring beans a framework 
+for creating object instances. In this library it serves
+mainly for the possibility to run `core` without Spring.
+without Spring.
+
+The `activator` creates requested objects and holds exactly one instance of the object and returns it.
+instance of the object and returns it on demand.
+If an object does not yet exist, it is created accordingly. On
+dependency injection is not used here. When creating
+of the object the annotations `DefautImplementation`, 
+DefautImplementationNull` and `DefaultFactory`.
+
+The tool `MSpring` provides a default activator which is also 
+which is also used by the tool itself.
+ 

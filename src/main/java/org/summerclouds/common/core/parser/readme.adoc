@@ -1,0 +1,24 @@
+
+== String parser
+
+The parser implementation parses strings with placeholders and 
+creates a model of the string. The model can then be used to
+the placeholders can be filled.
+
+Placeholders are `${variable name:default value}` or 
+`$variable name:default value$`. Two `$$` are interpreted as a single
+`$` will be interpreted.
+
+Example:
+
+[java]
+----
+String pattern = "Welcome ${name},";
+
+MProperties attr = new MProperties();
+attr.setString("name", "Mickey");
+
+String str = StringCompiler.compile(pattern).execute(attr);
+
+assertEquals("Welcome Mickey,", str);
+---- 

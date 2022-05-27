@@ -1,0 +1,9 @@
+//@manual
+
+== AAA Security
+
+This package implements a facade to spring-security. If the facade is used the application can be
+can be run with or without spring-security. If spring-security is not implemented the facade is inactive.
+inactive.
+
+

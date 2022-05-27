@@ -1,0 +1,35 @@
+//@manual
+
+
+== Operation Interface
+
+The interface `Operation` can be used to provide central 
+operations. It must still be provided by an 
+implementation for other parts.
+
+Operations are similar to RPC Calls, but extend these
+but with unified call and return structures. Also
+validations for readiness and permissions are
+are already provided.
+
+The return of operations follows the IResult scheme (see
+MException) and allows the return of return codes according to the
+the HTTP scheme (see RC.java).
+
+== Operation Strategies
+
+The strategies implement properties for operations, 
+e.g. synchronized execution.
+
+* `SynchronizedExecuteStrategy` - waits with processing 
+until previous operations are completed.
+* `WaitExecuteStrategy` - waits with the processing and
+ends with a timeout if the wait is too long.
+* SkipExecuteStrategy - skip processing if the operation is already being processed.
+is already being processed.
+
+== Parameter Definitions
+
+The definition classes allow to describe parameters and parameter sets in a model.
+in a model. The use is possible beyond operations
+are possible.

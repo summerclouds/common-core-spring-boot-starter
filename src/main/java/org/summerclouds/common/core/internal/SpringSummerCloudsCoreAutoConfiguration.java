@@ -41,7 +41,7 @@ public class SpringSummerCloudsCoreAutoConfiguration /* implements ApplicationCo
 	private static SpringSummerCloudsCoreAutoConfiguration instance;
 	
 	public SpringSummerCloudsCoreAutoConfiguration() {
-		PlainLog.i("Start");
+		PlainLog.d("Start");
 		instance = this;
 	}
 	
@@ -52,7 +52,7 @@ public class SpringSummerCloudsCoreAutoConfiguration /* implements ApplicationCo
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 //	@PostConstruct
 	public void setup() {
-		PlainLog.i("SETUP");
+		PlainLog.d("SETUP");
 		// Search and add log appender to the log system
 		try {
 		    Map<String, Appender> map = context.getBeansOfType(Appender.class);
@@ -81,7 +81,7 @@ public class SpringSummerCloudsCoreAutoConfiguration /* implements ApplicationCo
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void destroy() {
-		PlainLog.i("DESTROY");
+		PlainLog.d("DESTROY");
 		try {
 		    Map<String, SummerApplicationLifecycle> map = context.getBeansOfType(SummerApplicationLifecycle.class);
 		    for (Entry<String, SummerApplicationLifecycle> entry : map.entrySet() ) {
@@ -100,7 +100,7 @@ public class SpringSummerCloudsCoreAutoConfiguration /* implements ApplicationCo
 		    LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
 		    Logger rootLogger = loggerContext.getLogger(Logger.ROOT_LOGGER_NAME);
 		    for (Appender appender : map.values()) {
-		    	PlainLog.i("add log appender", appender.getClass());
+		    	PlainLog.d("add log appender", appender.getClass());
 		    	rootLogger.detachAppender(appender);
 		    }
 		} catch (Throwable t) {
@@ -110,7 +110,7 @@ public class SpringSummerCloudsCoreAutoConfiguration /* implements ApplicationCo
 	
 //	@Override
     public void setApplicationContext(ApplicationContext appContext) {
-    	PlainLog.i("SET APP CONTEXT", appContext);
+    	PlainLog.d("SET APP CONTEXT", appContext);
 		this.context = appContext;
         MSpring.setContext(appContext);
     }
@@ -158,12 +158,11 @@ public class SpringSummerCloudsCoreAutoConfiguration /* implements ApplicationCo
 			if (needSetup) {
 				setup();
 				// debug output - all beans
-				StringBuilder sb = new StringBuilder().append("\n");
 				for (String name : MSpring.getContext().getBeanDefinitionNames()) {
-					Object bean = MSpring.getContext().getBean(name);
-					sb.append(name).append(": ").append(bean.getClass().getCanonicalName()).append("\n");
+// bugfix: problems with vaadin gwt if it loads all beans on startup - No VaadinSession bound to current thread
+//					Object bean = MSpring.getContext().getBean(name);
+					PlainLog.d("bean",name);
 				}
-				PlainLog.i("beans",sb);
 			}
 			MSpring.setStatus(MSpring.STATUS.STARTED);
 		} else if (event instanceof ContextClosedEvent) {
