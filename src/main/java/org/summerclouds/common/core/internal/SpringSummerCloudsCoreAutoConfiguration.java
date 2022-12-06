@@ -34,7 +34,6 @@ import ch.qos.logback.core.Appender;
 
 // ApplicationContextAware is not working with graalvm
 @Configuration
-@ConfigurationProperties(prefix = "org.summerclouds.common.core")
 public class SpringSummerCloudsCoreAutoConfiguration /* implements ApplicationContextAware */ {
 
 	private ApplicationContext context;
