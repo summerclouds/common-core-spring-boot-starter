@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.log.Log;
 
 public class Successful extends MutableOperationResult {
-
 
     public static final String OK = "ok";
 
@@ -85,26 +84,24 @@ public class Successful extends MutableOperationResult {
         setReturnCode(rc);
     }
 
-
     public Successful(String path) {
-        this(path, RC.OK, OK, (String)null);
+        this(path, RC.OK, OK, (String) null);
     }
 
     public Successful(String path, int rc, String msg) {
-        this(path, rc, msg, (String)null);
+        this(path, rc, msg, (String) null);
     }
 
     @Override
     public void setReturnCode(int returnCode) {
         if (returnCode < 0) {
-            Log.getLog(getClass()).d("de.mhus.lib.core.operation.Successful: negative return code",returnCode);
+            Log.getLog(getClass())
+                    .d("de.mhus.lib.core.operation.Successful: negative return code", returnCode);
             this.returnCode = RC.OK;
-        } else
-        if (returnCode > RC.RANGE_MAX_SUCCESSFUL) {
-        	Log.getLog(getClass()).d("de.mhus.lib.core.operation.Successful: wrong return code",returnCode);
+        } else if (returnCode > RC.RANGE_MAX_SUCCESSFUL) {
+            Log.getLog(getClass())
+                    .d("de.mhus.lib.core.operation.Successful: wrong return code", returnCode);
             this.returnCode = RC.OK;
-        } else
-            this.returnCode = returnCode;
+        } else this.returnCode = returnCode;
     }
-
 }

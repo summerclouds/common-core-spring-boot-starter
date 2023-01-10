@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,21 +20,21 @@ import org.summerclouds.common.core.util.IRandom;
 
 public class MRandom {
 
-	private MRandom() {};
-	
-	private static BeanRef<IRandom> instance = new BeanRef<>(IRandom.class);
-	
-	public static IRandom get() {
-		return instance.bean();
-	}
-	
+    private MRandom() {};
+
+    private static BeanRef<IRandom> instance = new BeanRef<>(IRandom.class);
+
+    public static IRandom get() {
+        return instance.bean();
+    }
+
     /**
      * Return a random byte from -127 to 128
      *
      * @return a random byte
      */
     public static byte getByte() {
-    	return get().getByte();
+        return get().getByte();
     }
 
     /**
@@ -43,7 +43,7 @@ public class MRandom {
      * @return a random integer
      */
     public static int getInt() {
-    	return get().getInt();
+        return get().getInt();
     }
 
     /**
@@ -52,7 +52,7 @@ public class MRandom {
      * @return random double
      */
     public static double getDouble() {
-    	return get().getDouble();
+        return get().getDouble();
     }
 
     /**
@@ -61,7 +61,7 @@ public class MRandom {
      * @return random long
      */
     public static long getLong() {
-    	return get().getLong();
+        return get().getLong();
     }
 
     /**
@@ -70,7 +70,6 @@ public class MRandom {
      * @return random character
      */
     public static char getChar() {
-    	return get().getChar();
+        return get().getChar();
     }
-
 }

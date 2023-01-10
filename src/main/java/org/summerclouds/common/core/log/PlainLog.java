@@ -1,3 +1,18 @@
+/**
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.summerclouds.common.core.log;
 
 import org.summerclouds.common.core.console.Console;
@@ -26,161 +41,153 @@ public class PlainLog {
     private static COLOR COLOR_MESSAGE = COLOR.BRIGHT_WHITE;
 
     private static boolean traces = true;
-    
-	private static boolean printTime = true;
 
-	private static LEVEL level = LEVEL.DEBUG;
+    private static boolean printTime = true;
 
-	private static Console out = new DefaultConsoleFactory().create(null);
-	private static LogFacade facade = new ConsoleLog();
+    private static LEVEL level = LEVEL.DEBUG;
 
-	private static int maxMsgSize = 3000;
-	
-	public static void log(LEVEL level, String msg, Object... param) {
-		
-		switch (level) {
-		case DEBUG:
-			if (!facade.isDebugEnabled())
-				return;
-			break;
-		case ERROR:
-			if (!facade.isErrorEnabled())
-				return;
-			break;
-		case FATAL:
-			if (!facade.isFatalEnabled())
-				return;
-			break;
-		case INFO:
-			if (!facade.isInfoEnabled())
-				return;
-			break;
-		case TRACE:
-			if (!facade.isTraceEnabled())
-				return;
-			break;
-		case WARN:
-			if (!facade.isWarnEnabled())
-				return;
-			break;
-		default:
-			return;
-		}
+    private static Console out = new DefaultConsoleFactory().create(null);
+    private static LogFacade facade = new ConsoleLog();
 
-		msg = (msg != null ? msg : "");
-		msg = RC.toMessage(-1, CAUSE.ENCAPSULATE, msg, param, maxMsgSize );
-		Throwable error = RC.findCause(CAUSE.ENCAPSULATE, param);
+    private static int maxMsgSize = 3000;
 
-		switch (level) {
-		case DEBUG:
-			facade.debug(msg, error);
-			break;
-		case ERROR:
-			facade.error(msg, error);
-			break;
-		case FATAL:
-			facade.fatal(msg, error);
-			break;
-		case INFO:
-			facade.info(msg, error);
-			break;
-		case TRACE:
-			facade.trace(msg, error);
-			break;
-		case WARN:
-			facade.warn(msg, error);
-			break;
-		default:
-			break;
-		}
+    public static void log(LEVEL level, String msg, Object... param) {
 
+        switch (level) {
+            case DEBUG:
+                if (!facade.isDebugEnabled()) return;
+                break;
+            case ERROR:
+                if (!facade.isErrorEnabled()) return;
+                break;
+            case FATAL:
+                if (!facade.isFatalEnabled()) return;
+                break;
+            case INFO:
+                if (!facade.isInfoEnabled()) return;
+                break;
+            case TRACE:
+                if (!facade.isTraceEnabled()) return;
+                break;
+            case WARN:
+                if (!facade.isWarnEnabled()) return;
+                break;
+            default:
+                return;
+        }
 
-	}
+        msg = (msg != null ? msg : "");
+        msg = RC.toMessage(-1, CAUSE.ENCAPSULATE, msg, param, maxMsgSize);
+        Throwable error = RC.findCause(CAUSE.ENCAPSULATE, param);
 
-	/**
-	 * Log a message in trace, it will automatically append the objects if trace is
-	 * enabled. Can Also add a trace. This is the local trace method. The trace will
-	 * only written if the local trace is switched on.
-	 *
-	 * @param msg
-	 */
-	public static void t(String msg, Object... param) {
-		log(LEVEL.TRACE, msg, param);
-	}
+        switch (level) {
+            case DEBUG:
+                facade.debug(msg, error);
+                break;
+            case ERROR:
+                facade.error(msg, error);
+                break;
+            case FATAL:
+                facade.fatal(msg, error);
+                break;
+            case INFO:
+                facade.info(msg, error);
+                break;
+            case TRACE:
+                facade.trace(msg, error);
+                break;
+            case WARN:
+                facade.warn(msg, error);
+                break;
+            default:
+                break;
+        }
+    }
 
-	public static void t(Throwable t) {
-		log(LEVEL.TRACE, t.toString(), t);
-	}
+    /**
+     * Log a message in trace, it will automatically append the objects if trace is enabled. Can
+     * Also add a trace. This is the local trace method. The trace will only written if the local
+     * trace is switched on.
+     *
+     * @param msg
+     */
+    public static void t(String msg, Object... param) {
+        log(LEVEL.TRACE, msg, param);
+    }
 
-	/**
-	 * Log a message in debug, it will automatically append the objects if debug is
-	 * enabled. Can Also add a trace.
-	 *
-	 * @param msg
-	 */
-	public static void d(String msg, Object... param) {
-		log(LEVEL.DEBUG, msg, param);
-	}
+    public static void t(Throwable t) {
+        log(LEVEL.TRACE, t.toString(), t);
+    }
 
-	public static void d(Throwable t) {
-		log(LEVEL.DEBUG, t.toString(), t);
-	}
+    /**
+     * Log a message in debug, it will automatically append the objects if debug is enabled. Can
+     * Also add a trace.
+     *
+     * @param msg
+     */
+    public static void d(String msg, Object... param) {
+        log(LEVEL.DEBUG, msg, param);
+    }
 
-	/**
-	 * Log a message in info, it will automatically append the objects if debug is
-	 * enabled. Can Also add a trace.
-	 *
-	 * @param msg
-	 */
-	public static void i(String msg, Object... param) {
-		log(LEVEL.INFO, msg, param);
-	}
+    public static void d(Throwable t) {
+        log(LEVEL.DEBUG, t.toString(), t);
+    }
 
-	public static void i(Throwable t) {
-		log(LEVEL.INFO, t.toString(), t);
-	}
+    /**
+     * Log a message in info, it will automatically append the objects if debug is enabled. Can Also
+     * add a trace.
+     *
+     * @param msg
+     */
+    public static void i(String msg, Object... param) {
+        log(LEVEL.INFO, msg, param);
+    }
 
-	/**
-	 * Log a message in warn, it will automatically append the objects if debug is
-	 * enabled. Can Also add a trace.
-	 *
-	 * @param msg
-	 */
-	public static void w(String msg, Object... param) {
-		log(LEVEL.WARN, msg, param);
-	}
+    public static void i(Throwable t) {
+        log(LEVEL.INFO, t.toString(), t);
+    }
 
-	public static void w(Throwable t) {
-		log(LEVEL.WARN, t.toString(), t);
-	}
+    /**
+     * Log a message in warn, it will automatically append the objects if debug is enabled. Can Also
+     * add a trace.
+     *
+     * @param msg
+     */
+    public static void w(String msg, Object... param) {
+        log(LEVEL.WARN, msg, param);
+    }
 
-	/**
-	 * Log a message in error, it will automatically append the objects if debug is
-	 * enabled. Can Also add a trace.
-	 *
-	 * @param msg
-	 */
-	public static void e(String msg, Object... param) {
-		log(LEVEL.ERROR, msg, param);
-	}
+    public static void w(Throwable t) {
+        log(LEVEL.WARN, t.toString(), t);
+    }
 
-	public static void e(Throwable t) {
-		log(LEVEL.ERROR, t.toString(), t);
-	}
+    /**
+     * Log a message in error, it will automatically append the objects if debug is enabled. Can
+     * Also add a trace.
+     *
+     * @param msg
+     */
+    public static void e(String msg, Object... param) {
+        log(LEVEL.ERROR, msg, param);
+    }
 
-	/**
-	 * Log a message in info, it will automatically append the objects if debug is
-	 * enabled. Can Also add a trace.
-	 *
-	 * @param msg
-	 */
-	public static void f(String msg, Object... param) {
-		log(LEVEL.FATAL, msg, param);
-	}
+    public static void e(Throwable t) {
+        log(LEVEL.ERROR, t.toString(), t);
+    }
 
-	public static void f(Throwable t) {
-		log(LEVEL.FATAL, t.toString(), t);
-	}
+    /**
+     * Log a message in info, it will automatically append the objects if debug is enabled. Can Also
+     * add a trace.
+     *
+     * @param msg
+     */
+    public static void f(String msg, Object... param) {
+        log(LEVEL.FATAL, msg, param);
+    }
+
+    public static void f(Throwable t) {
+        log(LEVEL.FATAL, t.toString(), t);
+    }
 
     static class ConsoleLog extends LogFacade {
 
@@ -454,23 +461,22 @@ public class PlainLog {
 
         @Override
         public void close() {}
-        
-		@Override
-		public String getName() {
-			StackTraceElement[] stack = Thread.currentThread().getStackTrace();
-			return MString.afterLastIndex(stack[6].getClassName(), ".");
-		}
 
-	    public String printTime() {
-	        if (printTime) {
-	            return MDate.toIso8601(System.currentTimeMillis()) + " ";
-	        }
-	        return "";
-	    }
+        @Override
+        public String getName() {
+            StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+            return MString.afterLastIndex(stack[6].getClassName(), ".");
+        }
 
-	    public Log.LEVEL getLevel() {
-	        return level;
-	    }
+        public String printTime() {
+            if (printTime) {
+                return MDate.toIso8601(System.currentTimeMillis()) + " ";
+            }
+            return "";
+        }
 
+        public Log.LEVEL getLevel() {
+            return level;
+        }
     }
 }

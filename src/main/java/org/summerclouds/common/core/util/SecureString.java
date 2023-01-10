@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ public class SecureString implements Externalizable {
     public String toString() {
         return "[***]";
     }
-    
+
     public static byte[] unobfuscate(byte[] in) {
         if (in == null) return null;
         if (in.length < 2) return in;
@@ -97,5 +97,4 @@ public class SecureString implements Externalizable {
         for (int i = 0; i < in.length; i++) out[i + 1] = MMath.addRotate(in[i], salt);
         return out;
     }
-
 }

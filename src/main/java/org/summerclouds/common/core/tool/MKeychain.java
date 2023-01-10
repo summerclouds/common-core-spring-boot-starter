@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,9 @@ import org.summerclouds.common.core.crypt.KeychainSource;
 
 public class MKeychain {
 
-	private MKeychain() {}
-	
-	private static final BeanRef<IKeychain> instance = new BeanRef<>(IKeychain.class);
+    private MKeychain() {}
+
+    private static final BeanRef<IKeychain> instance = new BeanRef<>(IKeychain.class);
 
     public static final String TYPE_RSA_PRIVATE_KEY = "rsa.cipher.private.key";
     public static final String TYPE_RSA_PUBLIC_KEY = "rsa.cipher.public.key";
@@ -50,25 +50,25 @@ public class MKeychain {
     public static final String SUFFIX_SIGN_PUBLIC_KEY = ".sign.public.key";
 
     public static IKeychain get() {
-    	return instance.bean();
+        return instance.bean();
     }
-    
+
     /**
      * Register a new source for VaultEntries
      *
      * @param source
      */
     public static void registerSource(KeychainSource source) {
-    	get().registerSource(source);
+        get().registerSource(source);
     }
-    
+
     /**
      * Unregister a registered source
      *
      * @param sourceName
      */
     public static void unregisterSource(String sourceName) {
-    	get().unregisterSource(sourceName);
+        get().unregisterSource(sourceName);
     }
 
     /**
@@ -77,7 +77,7 @@ public class MKeychain {
      * @return a list of names.
      */
     public static String[] getSourceNames() {
-    	return get().getSourceNames();
+        return get().getSourceNames();
     }
 
     /**
@@ -87,7 +87,7 @@ public class MKeychain {
      * @return the source or null.
      */
     public static KeychainSource getSource(String name) {
-    	return get().getSource(name);
+        return get().getSource(name);
     }
 
     /**
@@ -97,7 +97,7 @@ public class MKeychain {
      * @return The entry or null.
      */
     public static KeyEntry getEntry(UUID id) {
-    	return get().getEntry(id);
+        return get().getEntry(id);
     }
 
     /**
@@ -107,7 +107,6 @@ public class MKeychain {
      * @return The entry or null.
      */
     public static KeyEntry getEntry(String name) {
-    	return get().getEntry(name);
+        return get().getEntry(name);
     }
-
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ import java.net.UnknownHostException;
 
 public class MNet {
 
-	private MNet() {};
-	
+    private MNet() {};
+
     public static boolean isIPv4NetMatch(String network, String ipAddr) {
 
         String[] parts = network.split("/");

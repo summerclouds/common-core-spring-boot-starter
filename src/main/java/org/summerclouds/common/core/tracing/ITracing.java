@@ -1,3 +1,18 @@
+/**
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.summerclouds.common.core.tracing;
 
 import org.summerclouds.common.core.activator.DefaultImplementation;
@@ -5,20 +20,19 @@ import org.summerclouds.common.core.activator.DefaultImplementation;
 @DefaultImplementation(DummyTracing.class)
 public interface ITracing {
 
-	ISpan current();
+    ISpan current();
 
-	IScope enter(ISpan parent, String name, Object ... keyValue);
+    IScope enter(ISpan parent, String name, Object... keyValue);
 
-	void cleanup();
+    void cleanup();
 
-	IScope enter(String name, Object ... keyValue);
+    IScope enter(String name, Object... keyValue);
 
-	String getTraceId();
+    String getTraceId();
 
-	String getSpanId();
+    String getSpanId();
 
-	void inject(Setter<String> setter);
-	
-	IScope extract(Getter<String> getter);
-	
+    void inject(Setter<String> setter);
+
+    IScope extract(Getter<String> getter);
 }

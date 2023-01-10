@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,7 @@ public class WaitExecuteStrategy extends ExecuteStrategy {
 
     @Override
     protected OperationResult execute(TaskContext context) throws Exception {
-        if (executable == null)
-            return new NotSuccessful(this, RC.GONE, "executable not found");
+        if (executable == null) return new NotSuccessful(this, RC.GONE, "executable not found");
         try {
             long cnt = timeout;
             ;
@@ -40,8 +39,7 @@ public class WaitExecuteStrategy extends ExecuteStrategy {
                     if (cnt <= 0) throw new TimeoutException("timeout");
                 }
             }
-            if (executable == null)
-                return new NotSuccessful(this, RC.GONE, "executable not found");
+            if (executable == null) return new NotSuccessful(this, RC.GONE, "executable not found");
             return executable.doExecute(context);
         } finally {
             if (executable != null) executable.releaseBusy(this);

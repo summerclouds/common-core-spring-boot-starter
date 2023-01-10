@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import java.util.Map;
 
 public class MHttp {
 
-	private MHttp() {};
-	
+    private MHttp() {};
+
     public static final Map<Integer, String> HTTP_STATUS_CODES =
             Collections.unmodifiableMap(
                     new HashMap<Integer, String>() {
@@ -87,7 +87,7 @@ public class MHttp {
     public static final String METHOD_PATCH = "PATCH";
     public static final String METHOD_CONNECT = "CONNECT";
 
-	public static final String HEADER_AUTHORIZATION = "Authorization";
+    public static final String HEADER_AUTHORIZATION = "Authorization";
 
     public enum METHOD {
         GET,
@@ -129,8 +129,7 @@ public class MHttp {
         return def;
     }
 
-	public static String toBasicAuthorization(String user, String passwd) {
-		return "Basic " + Base64.getEncoder().encodeToString((user + ":" + passwd).getBytes());
-	}
-
+    public static String toBasicAuthorization(String user, String passwd) {
+        return "Basic " + Base64.getEncoder().encodeToString((user + ":" + passwd).getBytes());
+    }
 }

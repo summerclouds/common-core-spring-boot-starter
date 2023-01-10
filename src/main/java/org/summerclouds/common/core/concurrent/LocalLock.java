@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,9 +30,8 @@ public class LocalLock extends MLog implements Lock {
     protected volatile long cnt = 0;
     protected volatile String stacktrace;
 
-    @Autowired
-    protected LockManager lockManager;
-    
+    @Autowired protected LockManager lockManager;
+
     public LocalLock() {}
 
     public LocalLock(String name) {
@@ -41,8 +40,8 @@ public class LocalLock extends MLog implements Lock {
     }
 
     protected void register() {
-    	if (lockManager == null) // fallback for non spring
-    		lockManager = M.l(LockManager.class);
+        if (lockManager == null) // fallback for non spring
+        lockManager = M.l(LockManager.class);
         lockManager.register(this);
     }
 
@@ -53,8 +52,7 @@ public class LocalLock extends MLog implements Lock {
         try {
             synchronized (this) {
                 while (isLocked()) {
-                    if (scope != null)
-                        scope = MTracing.enter("waitUntilUnlock", "name", getName());
+                    if (scope != null) scope = MTracing.enter("waitUntilUnlock", "name", getName());
                     try {
                         wait();
                     } catch (InterruptedException e) {
@@ -89,8 +87,7 @@ public class LocalLock extends MLog implements Lock {
             synchronized (this) {
                 long start = System.currentTimeMillis();
                 while (isLocked()) {
-                    if (scope != null)
-                        scope = MTracing.enter("waitUntilUnlock", "name", getName());
+                    if (scope != null) scope = MTracing.enter("waitUntilUnlock", "name", getName());
                     try {
                         wait(timeout);
                     } catch (InterruptedException e) {

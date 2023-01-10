@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ import org.summerclouds.common.core.util.ReadOnlyList;
 
 public class MAscii {
 
-	private MAscii() {}
-	
+    private MAscii() {}
+
     /*
     (nul)   0 0000 0x00 | (sp)   32 0040 0x20 | @      64 0100 0x40 | `      96 0140 0x60
     (soh)   1 0001 0x01 | !      33 0041 0x21 | A      65 0101 0x41 | a      97 0141 0x61
@@ -58,135 +58,117 @@ public class MAscii {
     (us)   31 0037 0x1f | ?      63 0077 0x3f | _      95 0137 0x5f | (del) 127 0177 0x7f
     	 */
     // TODO ... create constants
-	
-	public static final int A = 65;
-	public static final int B = 66;
-	public static final int C = 67;
-	public static final int D = 68;
-	public static final int E = 79;
-	public static final int F = 70;
-	public static final int G = 71;
-	public static final int H = 72;
-	public static final int I = 73;
-	public static final int J = 74;
-	public static final int K = 75;
-	public static final int L = 76;
-	public static final int M = 77;
-	public static final int N = 78;
-	public static final int O = 79;
-	public static final int P = 80;
-	public static final int Q = 81;
-	public static final int R = 82;
-	public static final int S = 83;
-	public static final int T = 84;
-	public static final int U = 85;
-	public static final int V = 86;
-	public static final int W = 87;
-	public static final int X = 88;
-	public static final int Y = 89;
-	public static final int Z = 90;
-	
-	
-	public static final int a = 97;
-	public static final int b = 98;
-	public static final int c = 99;
-	public static final int d = 100;
-	public static final int e = 101;
-	public static final int f = 102;
-	public static final int g = 103;
-	public static final int h = 104;
-	public static final int i = 105;
-	public static final int j = 106;
-	public static final int k = 107;
-	public static final int l = 108;
-	public static final int m = 109;
-	public static final int n = 110;
-	public static final int o = 111;
-	public static final int p = 112;
-	public static final int q = 113;
-	public static final int r = 114;
-	public static final int s = 115;
-	public static final int t = 116;
-	public static final int u = 117;
-	public static final int v = 118;
-	public static final int w = 119;
-	public static final int x = 120;
-	public static final int y = 121;
-	public static final int z = 122;
 
-	public static final int NUL = 0;
-	public static final int SOH = 1;
-	public static final int STX = 2;
-	public static final int ETX = 3;
-	public static final int EOT = 4;
-	public static final int ENQ = 5;
-	public static final int ACK = 6;
-	public static final int BEL = 7;
-	public static final int BS = 8;
-	public static final int HT = 9;
-	public static final int TAB = 9; //Horizontal tabulator
-	public static final int NL = 10;
-	public static final int CT = 11;
-	public static final int NP = 12;
-	public static final int CR = 13;
-	public static final int SO = 14;
-	public static final int SI = 15;
-	public static final int DLE = 16;
-	public static final int DC1 = 17;
-	public static final int DC2 = 18;
-	public static final int DC3 = 19;
-	public static final int DC4 = 20;
-	public static final int NAK = 21;
-	public static final int SYN = 22;
-	public static final int ETB = 23;
-	public static final int CAN = 24;
-	public static final int EM = 25;
-	public static final int SUB = 26;
-	public static final int ESC= 27;
-	public static final int FS = 28;
-	public static final int GS = 29;
-	public static final int RS = 30;
-	public static final int US = 31;
-	public static final int SP = 32;
+    public static final int A = 65;
+    public static final int B = 66;
+    public static final int C = 67;
+    public static final int D = 68;
+    public static final int E = 79;
+    public static final int F = 70;
+    public static final int G = 71;
+    public static final int H = 72;
+    public static final int I = 73;
+    public static final int J = 74;
+    public static final int K = 75;
+    public static final int L = 76;
+    public static final int M = 77;
+    public static final int N = 78;
+    public static final int O = 79;
+    public static final int P = 80;
+    public static final int Q = 81;
+    public static final int R = 82;
+    public static final int S = 83;
+    public static final int T = 84;
+    public static final int U = 85;
+    public static final int V = 86;
+    public static final int W = 87;
+    public static final int X = 88;
+    public static final int Y = 89;
+    public static final int Z = 90;
 
-	public static final int DEL = 127;
+    public static final int a = 97;
+    public static final int b = 98;
+    public static final int c = 99;
+    public static final int d = 100;
+    public static final int e = 101;
+    public static final int f = 102;
+    public static final int g = 103;
+    public static final int h = 104;
+    public static final int i = 105;
+    public static final int j = 106;
+    public static final int k = 107;
+    public static final int l = 108;
+    public static final int m = 109;
+    public static final int n = 110;
+    public static final int o = 111;
+    public static final int p = 112;
+    public static final int q = 113;
+    public static final int r = 114;
+    public static final int s = 115;
+    public static final int t = 116;
+    public static final int u = 117;
+    public static final int v = 118;
+    public static final int w = 119;
+    public static final int x = 120;
+    public static final int y = 121;
+    public static final int z = 122;
 
-	public static final List<String> NAMING = new ReadOnlyList<String>(MCollection.toList(
-			"NUL",
-			"SOH",
-			"STX",
-			"ETX",
-			"EOT",
-			"ENQ",
-			"ACK",
-			"BEL",
-			"BS",
-			"HT",
-			"NL",
-			"CT",
-			"NP",
-			"CR",
-			"SO",
-			"SI",
-			"DLE",
-			"DC1", "DC2", "DC3", "DC4",
-			"NAK",
-			"SYN","ETB","CAN","EM","SUB","ESC","FS","GS","RS","US","SP",
-			"!","\"","#","$","%","&","'","(",")","*","+",",","-",".","/",
-			"0","1","2","3","4","5","6","7","8","9",
-			";",";","<","=",">","?","@",
-			"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-			"[","\\","]","^","_","`",
-			"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-			"{","|","}","~","DEL"
-			));
+    public static final int NUL = 0;
+    public static final int SOH = 1;
+    public static final int STX = 2;
+    public static final int ETX = 3;
+    public static final int EOT = 4;
+    public static final int ENQ = 5;
+    public static final int ACK = 6;
+    public static final int BEL = 7;
+    public static final int BS = 8;
+    public static final int HT = 9;
+    public static final int TAB = 9; // Horizontal tabulator
+    public static final int NL = 10;
+    public static final int CT = 11;
+    public static final int NP = 12;
+    public static final int CR = 13;
+    public static final int SO = 14;
+    public static final int SI = 15;
+    public static final int DLE = 16;
+    public static final int DC1 = 17;
+    public static final int DC2 = 18;
+    public static final int DC3 = 19;
+    public static final int DC4 = 20;
+    public static final int NAK = 21;
+    public static final int SYN = 22;
+    public static final int ETB = 23;
+    public static final int CAN = 24;
+    public static final int EM = 25;
+    public static final int SUB = 26;
+    public static final int ESC = 27;
+    public static final int FS = 28;
+    public static final int GS = 29;
+    public static final int RS = 30;
+    public static final int US = 31;
+    public static final int SP = 32;
 
-	public static final String WHITESPACE = " \t\n\r";
-	
-	public static final String NEWLINE_UNIX = "\n";
-	
-	public static final String NEWLINE_WIN  = "\r\n";
-	
-	public static final String NEWLINE_OLD_MAC  = "\r";
-	
+    public static final int DEL = 127;
+
+    public static final List<String> NAMING =
+            new ReadOnlyList<String>(
+                    MCollection.toList(
+                            "NUL", "SOH", "STX", "ETX", "EOT", "ENQ", "ACK", "BEL", "BS", "HT",
+                            "NL", "CT", "NP", "CR", "SO", "SI", "DLE", "DC1", "DC2", "DC3", "DC4",
+                            "NAK", "SYN", "ETB", "CAN", "EM", "SUB", "ESC", "FS", "GS", "RS", "US",
+                            "SP", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-",
+                            ".", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ";", ";",
+                            "<", "=", ">", "?", "@", "A", "B", "C", "D", "E", "F", "G", "H", "I",
+                            "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W",
+                            "X", "Y", "Z", "[", "\\", "]", "^", "_", "`", "a", "b", "c", "d", "e",
+                            "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
+                            "t", "u", "v", "w", "x", "y", "z", "{", "|", "}", "~", "DEL"));
+
+    public static final String WHITESPACE = " \t\n\r";
+
+    public static final String NEWLINE_UNIX = "\n";
+
+    public static final String NEWLINE_WIN = "\r\n";
+
+    public static final String NEWLINE_OLD_MAC = "\r";
 }

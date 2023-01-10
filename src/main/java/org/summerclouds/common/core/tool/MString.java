@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,7 +112,8 @@ public class MString {
 
     /** A pair (index 0 and 1) with null values */
     public static final String[] NULL_PAIR = new String[] {null, null};
-	public static final byte[] EMPTY_BYTES = new byte[0];
+
+    public static final byte[] EMPTY_BYTES = new byte[0];
 
     /**
      * Return true if the the string is not empty also trimmed.
@@ -2001,7 +2002,7 @@ public class MString {
             return EMPTY_BYTES;
         }
     }
-    
+
     /**
      * Return a utf-8 decoded string from the data ignoring the VM default char set.
      *

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ public class DefaultParameterMapper extends AbstractParameterMapper
 
     @Override
     protected Object map(Object o) {
-    	init();
+        init();
         if (o == null || mapping.size() == 0) return null;
         Class<?> c = o.getClass();
         if (c.isPrimitive()) return null;
@@ -87,14 +87,13 @@ public class DefaultParameterMapper extends AbstractParameterMapper
     }
 
     protected synchronized void init() {
-		if (mapping != null) return;
-		mapping = new HashMap<>();
-		Map<String, ParameterEntryMapper> map = MSpring.getBeansOfType( ParameterEntryMapper.class );
-		if (map != null)
-			mapping.putAll(map);
-	}
+        if (mapping != null) return;
+        mapping = new HashMap<>();
+        Map<String, ParameterEntryMapper> map = MSpring.getBeansOfType(ParameterEntryMapper.class);
+        if (map != null) mapping.putAll(map);
+    }
 
-	private void findInterfaces(Class<?> c, List<Class<?>> list) {
+    private void findInterfaces(Class<?> c, List<Class<?>> list) {
         for (Class<?> i : c.getInterfaces()) {
             list.add(i);
             findInterfaces(i, list);
@@ -111,7 +110,7 @@ public class DefaultParameterMapper extends AbstractParameterMapper
 
     @Override
     public void put(String clazz, ParameterEntryMapper mapper) {
-    	init();
+        init();
         synchronized (this) {
             mapping.put(clazz, mapper);
             cache.remove(clazz);

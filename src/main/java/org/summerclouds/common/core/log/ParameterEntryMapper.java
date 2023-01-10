@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,9 @@ package org.summerclouds.common.core.log;
 public interface ParameterEntryMapper {
 
     /**
-     * Return a new object if you are able to map this object. If not return null.
-     * Return an object that will stringify the object if toString() is called and not
-     * before.
-     * 
+     * Return a new object if you are able to map this object. If not return null. Return an object
+     * that will stringify the object if toString() is called and not before.
+     *
      * @param in
      * @return the mapped value
      */

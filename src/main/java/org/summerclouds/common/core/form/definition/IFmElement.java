@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ public class IFmElement extends DefComponent {
     public static final String ALLOW_NULL = "allow_null";
     public static final String HEIGHT = "height";
     public static final String WIZARD = "wizard";
-    
+
     public static final String ELEMENT_NODE = "element";
 
     public IFmElement(String name, IDefAttribute... definitions) {

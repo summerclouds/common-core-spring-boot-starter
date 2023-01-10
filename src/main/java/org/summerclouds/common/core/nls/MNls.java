@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import org.summerclouds.common.core.tool.MSystem;
 public class MNls {
 
     protected String prefix = "";
-	private MessageSource source;
+    private MessageSource source;
 
     public MNls() {
         this(new ResourceBundleMessageSource(), "");
@@ -44,15 +44,15 @@ public class MNls {
         return find(in, attr);
     }
 
-    public static String find(MNlsProvider provider, String in, Object ... args) {
+    public static String find(MNlsProvider provider, String in, Object... args) {
         return find(provider == null ? null : provider.getNls(), in, args);
     }
 
-    public static String find(MNls nls, String in, Object ... args) {
+    public static String find(MNls nls, String in, Object... args) {
         return nls.find(in, args);
     }
-    
-    public String find(String name, Object ... args) {
+
+    public String find(String name, Object... args) {
         return source.getMessage(prefix + name, args, null);
     }
 
@@ -77,5 +77,4 @@ public class MNls {
         if (factory != null) return factory.load(owner.getClass(), locale);
         return null;
     }
-
 }

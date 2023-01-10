@@ -1,18 +1,31 @@
+/**
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.summerclouds.common.core.activator;
 
 public class MutableActivator extends Activator {
 
-	
-	public void register(String name, Object obj) {
-		registry.put(name, obj);
-	}
-	
-	public void register(Class<?> clazz, Object obj) {
-		registry.put(clazz.getCanonicalName(), obj);
-	}
-	
-	public boolean isRegistered(String name) {
-		return registry.containsKey(name);
-	}
-	
+    public void register(String name, Object obj) {
+        registry.put(name, obj);
+    }
+
+    public void register(Class<?> clazz, Object obj) {
+        registry.put(clazz.getCanonicalName(), obj);
+    }
+
+    public boolean isRegistered(String name) {
+        return registry.containsKey(name);
+    }
 }

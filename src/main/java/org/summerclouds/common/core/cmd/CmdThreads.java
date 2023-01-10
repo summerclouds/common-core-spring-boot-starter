@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import org.summerclouds.common.core.operation.cmd.CmdOperation;
 import org.summerclouds.common.core.operation.cmd.CmdOption;
 import org.summerclouds.common.core.tool.MCast;
 
-@OperationComponent(path="core.thread", description = "Print thread information")
+@OperationComponent(path = "core.thread", description = "Print thread information")
 public class CmdThreads extends CmdOperation {
 
     @CmdArgument(
@@ -67,32 +67,16 @@ public class CmdThreads extends CmdOperation {
             multiValued = false)
     boolean stackAlso;
 
-    @CmdOption(
-            name = "-i",
-            description = "order by id",
-            required = false,
-            multiValued = false)
+    @CmdOption(name = "-i", description = "order by id", required = false, multiValued = false)
     boolean orderId;
 
-    @CmdOption(
-            name = "-n",
-            description = "order by name",
-            required = false,
-            multiValued = false)
+    @CmdOption(name = "-n", description = "order by name", required = false, multiValued = false)
     boolean orderName;
 
-    @CmdOption(
-            name = "-g",
-            description = "order by group",
-            required = false,
-            multiValued = false)
+    @CmdOption(name = "-g", description = "order by group", required = false, multiValued = false)
     boolean orderGroup;
 
-    @CmdOption(
-            name = "-f",
-            description = "Filter Threads",
-            required = false,
-            multiValued = false)
+    @CmdOption(name = "-f", description = "Filter Threads", required = false, multiValued = false)
     String[] filter;
 
     ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,8 +64,8 @@ public class ParameterDefinitions extends TreeMap<String, ParameterDefinition> {
         }
         NodeList array = form.getArrayOrNull(IFmElement.ELEMENT_NODE);
         if (array != null)
-	        for (INode node : array) {
-	            collect(node, out);
-	        }
+            for (INode node : array) {
+                collect(node, out);
+            }
     }
 }

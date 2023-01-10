@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import org.summerclouds.common.core.tool.MPeriod;
 import org.summerclouds.common.core.tool.MSystem;
 import org.summerclouds.common.core.tool.MSystem.TopThreadInfo;
 
-@OperationComponent(path="core.top", description = "Print thread status information")
+@OperationComponent(path = "core.top", description = "Print thread status information")
 public class CmdTop extends CmdOperation {
 
     @CmdOption(
@@ -39,42 +39,26 @@ public class CmdTop extends CmdOperation {
             multiValued = false)
     boolean stackAlso;
 
-    @CmdOption(name = "--orderid", description = "order by id", required = false, multiValued = false)
+    @CmdOption(
+            name = "--orderid",
+            description = "order by id",
+            required = false,
+            multiValued = false)
     boolean orderId;
 
-    @CmdOption(
-            name = "-n",
-            description = "order by name",
-            required = false,
-            multiValued = false)
+    @CmdOption(name = "-n", description = "order by name", required = false, multiValued = false)
     boolean orderName;
 
-    @CmdOption(
-            name = "-c",
-            description = "order by cputime",
-            required = false,
-            multiValued = false)
+    @CmdOption(name = "-c", description = "order by cputime", required = false, multiValued = false)
     boolean orderCpuTime = true;
 
-    @CmdOption(
-            name = "-r",
-            description = "Running only",
-            required = false,
-            multiValued = false)
+    @CmdOption(name = "-r", description = "Running only", required = false, multiValued = false)
     boolean running;
 
-    @CmdOption(
-            name = "-i",
-            description = "Interval",
-            required = false,
-            multiValued = false)
+    @CmdOption(name = "-i", description = "Interval", required = false, multiValued = false)
     long sleep = 2000;
 
-    @CmdOption(
-            name = "-t",
-            description = "order by time",
-            required = false,
-            multiValued = false)
+    @CmdOption(name = "-t", description = "order by time", required = false, multiValued = false)
     boolean orderTime = false;
 
     @CmdOption(

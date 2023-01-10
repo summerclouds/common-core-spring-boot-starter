@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,21 +89,11 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
 
     public OperationDescription(
             Operation owner, String path, String title, DefRoot form, String... labels) {
-        this(
-                path,
-                null,
-                owner,
-                title,
-                IProperties.explodeToMProperties(labels),
-                form);
+        this(path, null, owner, title, IProperties.explodeToMProperties(labels), form);
     }
 
     public OperationDescription(
-            Class<?> clazz,
-            MNlsProvider nlsProvider,
-            Version version,
-            String title,
-            DefRoot form) {
+            Class<?> clazz, MNlsProvider nlsProvider, Version version, String title, DefRoot form) {
         this(clazz, nlsProvider, version, title, null, form);
     }
 
@@ -142,7 +132,7 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
     }
 
     public OperationDescription(
-    		String path, Version version, String title, DefRoot form, String... labels) {
+            String path, Version version, String title, DefRoot form, String... labels) {
         this(path, version, null, title, IProperties.explodeToMProperties(labels), form);
     }
 
@@ -152,11 +142,7 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
     }
 
     public OperationDescription(
-            String path,
-            Version version,
-            String title,
-            IProperties labels,
-            DefRoot form) {
+            String path, Version version, String title, IProperties labels, DefRoot form) {
         this(path, version, null, title, labels, form);
     }
 
@@ -250,7 +236,7 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
 
     @Override
     public String toString() {
-        return MSystem.toString(this, path, version, labels,parameterDef);
+        return MSystem.toString(this, path, version, labels, parameterDef);
     }
 
     @Override

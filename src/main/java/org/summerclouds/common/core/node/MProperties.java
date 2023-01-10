@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ public class MProperties extends AbstractProperties implements Externalizable {
 
     private static final long serialVersionUID = 1L;
     private static final Log log = Log.getLog(MProperties.class);
-    
+
     protected Properties properties = null;
     private static final char[] hexDigit = {
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'

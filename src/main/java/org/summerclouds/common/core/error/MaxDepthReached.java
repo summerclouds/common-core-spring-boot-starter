@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@ import org.summerclouds.common.core.error.RC.STATUS;
 public class MaxDepthReached extends MRuntimeException {
 
     private static final long serialVersionUID = 1L;
-    
+
     public static STATUS getDefaultStatus() {
         return RC.STATUS.TOO_DEEP;
     }
 
     public MaxDepthReached(Object... in) {
-        super(getDefaultStatus(),in);
+        super(getDefaultStatus(), in);
     }
 
     public MaxDepthReached(RC.CAUSE causeHandling, Object... in) {
@@ -48,5 +48,4 @@ public class MaxDepthReached extends MRuntimeException {
     public MaxDepthReached(RC.CAUSE causeHandling, String msg, Object... parameters) {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
-
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ import org.summerclouds.common.core.log.Log;
 
 public class MValidator {
 
-	private static final Log log = Log.getLog(MValidator.class);
-	
+    private static final Log log = Log.getLog(MValidator.class);
+
     private static List<String> passwordList;
 
     public static boolean isEmailAddress(String email) {

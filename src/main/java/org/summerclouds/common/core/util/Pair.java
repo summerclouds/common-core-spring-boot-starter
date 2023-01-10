@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,10 @@ import org.summerclouds.common.core.pojo.Public;
 
 public class Pair<K, V> {
 
-	@Public(writable = false)
+    @Public(writable = false)
     private K key;
-	@Public(writable = false)
+
+    @Public(writable = false)
     private V value;
 
     public Pair(K key, V value) {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@ package org.summerclouds.common.core.cmd;
 import org.summerclouds.common.core.operation.OperationComponent;
 import org.summerclouds.common.core.operation.cmd.CmdOperation;
 
-@OperationComponent(path="core.mem", description = "Print the current memory situation of the JVM")
+@OperationComponent(
+        path = "core.mem",
+        description = "Print the current memory situation of the JVM")
 public class CmdMem extends CmdOperation {
 
     @Override

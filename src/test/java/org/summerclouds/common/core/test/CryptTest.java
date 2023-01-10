@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,49 +31,46 @@ import org.summerclouds.common.junit.TestCase;
 
 public class CryptTest extends TestCase {
 
-	@Test
-	public void testRot13() {
-		String lorem = MLorem.createWithSize(1000);
-		String encoded = Rot13.encode13(lorem);
-		String decoded = Rot13.decode13(encoded);
-		assertEquals(lorem, decoded);
-	}
+    @Test
+    public void testRot13() {
+        String lorem = MLorem.createWithSize(1000);
+        String encoded = Rot13.encode13(lorem);
+        String decoded = Rot13.decode13(encoded);
+        assertEquals(lorem, decoded);
+    }
 
-	@Test
-	public void testRot13And10() {
-		String lorem = MLorem.createWithSize(1000) + Math.random() + Math.random();
-		String encoded = Rot13.encode13And5(lorem);
-		String decoded = Rot13.decode13And5(encoded);
-		assertEquals(lorem, decoded);
-	}
-	
-	@Test
-	public void testMD5() throws UnsupportedEncodingException, NoSuchAlgorithmException {
-		{
-			String lorem = MLorem.createWithSize(1000);
-			String hash = MD5.hash(lorem);
-	
-			byte[] bytesOfMessage = lorem.getBytes("UTF-8");
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] theMD5digest = md.digest(bytesOfMessage);
-			String javaHash = DatatypeConverter
-				      .printHexBinary(theMD5digest).toLowerCase();
-	
-			assertEquals(javaHash, hash);
-		}
-		{
-			String lorem = "11111111112222222222333333333344444444445555555555666666666677777777778888888888999999999900000000001111111111222222222233333333334444444444555555555566666666667777777777888888888899999999990000000000";
-			String hash = MD5.hash(lorem);
-	
-			byte[] bytesOfMessage = lorem.getBytes("UTF-8");
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] theMD5digest = md.digest(bytesOfMessage);
-			String javaHash = DatatypeConverter
-				      .printHexBinary(theMD5digest).toLowerCase();
-	
-			assertEquals(javaHash, hash);
-		}
-	}
-	
+    @Test
+    public void testRot13And10() {
+        String lorem = MLorem.createWithSize(1000) + Math.random() + Math.random();
+        String encoded = Rot13.encode13And5(lorem);
+        String decoded = Rot13.decode13And5(encoded);
+        assertEquals(lorem, decoded);
+    }
 
+    @Test
+    public void testMD5() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        {
+            String lorem = MLorem.createWithSize(1000);
+            String hash = MD5.hash(lorem);
+
+            byte[] bytesOfMessage = lorem.getBytes("UTF-8");
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] theMD5digest = md.digest(bytesOfMessage);
+            String javaHash = DatatypeConverter.printHexBinary(theMD5digest).toLowerCase();
+
+            assertEquals(javaHash, hash);
+        }
+        {
+            String lorem =
+                    "11111111112222222222333333333344444444445555555555666666666677777777778888888888999999999900000000001111111111222222222233333333334444444444555555555566666666667777777777888888888899999999990000000000";
+            String hash = MD5.hash(lorem);
+
+            byte[] bytesOfMessage = lorem.getBytes("UTF-8");
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] theMD5digest = md.digest(bytesOfMessage);
+            String javaHash = DatatypeConverter.printHexBinary(theMD5digest).toLowerCase();
+
+            assertEquals(javaHash, hash);
+        }
+    }
 }

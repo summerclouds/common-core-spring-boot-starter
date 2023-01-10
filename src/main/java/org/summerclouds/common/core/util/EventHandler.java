@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -166,7 +166,9 @@ public class EventHandler<L> extends MLog implements IRegistry<L> {
                 onFire((L) obj, event, values);
                 //				method.invoke(obj, values);
             } catch (Throwable t) {
-                log().d("onFire failed for event {1} on object {2} with values {3}", obj, event, values);
+                log().d(
+                                "onFire failed for event {1} on object {2} with values {3}",
+                                obj, event, values);
             }
         }
     }
@@ -176,7 +178,9 @@ public class EventHandler<L> extends MLog implements IRegistry<L> {
             try {
                 method.invoke(obj, values);
             } catch (Throwable t) {
-                log().d("invoke of method {2}({1}) failed, with values {3}", obj, method, values, t);
+                log().d(
+                                "invoke of method {2}({1}) failed, with values {3}",
+                                obj, method, values, t);
             }
         }
     }

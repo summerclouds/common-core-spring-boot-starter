@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ public class MPojo {
 
                         @Override
                         public PojoModel createPojoModel(Class<?> pojoClass) {
-							PojoModel model =
+                            PojoModel model =
                                     new PojoParser()
                                             .parse(pojoClass, "_")
                                             .filter(
@@ -1024,7 +1024,9 @@ public class MPojo {
                     if (hasValidChars((String) value)) a.setAttribute("string", (String) value);
                     else {
                         a.setAttribute("encoding", "base64");
-                        a.setAttribute("string", Base64.getEncoder().encodeToString( ((String) value).getBytes() ));
+                        a.setAttribute(
+                                "string",
+                                Base64.getEncoder().encodeToString(((String) value).getBytes()));
                     }
                 } else if (value.getClass().isEnum()) {
                     a.setAttribute("enum", MCast.toString(((Enum<?>) value).ordinal()));
@@ -1106,7 +1108,8 @@ public class MPojo {
                 if (a.hasAttribute("string")) {
                     String data = a.getAttribute("encoding");
                     if ("base64".equals(data)) {
-                        String value = new String(Base64.getDecoder().decode(a.getAttribute("string")));
+                        String value =
+                                new String(Base64.getDecoder().decode(a.getAttribute("string")));
                         attr.set(to, value, force);
                     } else {
                         String value = a.getAttribute("string");

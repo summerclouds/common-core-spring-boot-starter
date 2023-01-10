@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,7 @@ import org.summerclouds.common.core.tool.MSystem;
 
 public class MNlsFactory extends MNlsBundle {
 
-    public MNlsFactory() {
-    }
+    public MNlsFactory() {}
 
     public MNls load(Class<?> owner) {
         return load(null, owner, null, null);
@@ -40,9 +39,9 @@ public class MNlsFactory extends MNlsBundle {
     }
 
     public MNls load(Class<?> owner, String locale) {
-        return load(null, owner, null, locale == null ? null : MCast.toLocale(locale) );
+        return load(null, owner, null, locale == null ? null : MCast.toLocale(locale));
     }
-    
+
     public MNls load(Class<?> owner, Locale locale) {
         return load(null, owner, null, locale);
     }
@@ -57,9 +56,9 @@ public class MNlsFactory extends MNlsBundle {
             String resourceName,
             Locale locale,
             boolean searchAlternatives) {
-    	
+
         try {
-        	
+
             if (resourceName == null) {
                 if (owner.getCanonicalName() != null)
                     resourceName = owner.getCanonicalName().replace('.', '/');
@@ -72,11 +71,11 @@ public class MNlsFactory extends MNlsBundle {
 
             if (locale == null) locale = Locale.getDefault();
 
-        	ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-        	source.setBasename( resourceName);
-        	source.setDefaultLocale(locale);
+            ResourceBundleMessageSource source = new ResourceBundleMessageSource();
+            source.setBasename(resourceName);
+            source.setDefaultLocale(locale);
 
-        	return new MNls(source, null);
+            return new MNls(source, null);
         } catch (Throwable e) {
             log().e(e);
         }
@@ -92,17 +91,17 @@ public class MNlsFactory extends MNlsBundle {
         if (owner != null) return new ClassLoaderResourceProvider(owner.getClassLoader());
         else return new ClassLoaderResourceProvider();
     }
-//
-//    public MNls load(InputStream is) {
-//    	
-//        Properties properties = new Properties();
-//        try {
-//            properties.load(is);
-//        } catch (IOException e) {
-//            log().e(e);
-//        }
-//        return new MNls(properties, "");
-//    }
+    //
+    //    public MNls load(InputStream is) {
+    //
+    //        Properties properties = new Properties();
+    //        try {
+    //            properties.load(is);
+    //        } catch (IOException e) {
+    //            log().e(e);
+    //        }
+    //        return new MNls(properties, "");
+    //    }
 
     public static MNlsFactory lookup(Object owner) {
         return M.l(MNlsFactory.class);

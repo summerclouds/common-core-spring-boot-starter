@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,10 +54,11 @@ public class NotSuccessful extends MutableOperationResult {
 
     public NotSuccessful(Operation operation, IResult cause, String msg, Object... parameters) {
         super(operation, cause.getReturnCode(), null);
-        setMsg(RC.toMessage(cause.getReturnCode(), cause , msg, parameters, 0));
+        setMsg(RC.toMessage(cause.getReturnCode(), cause, msg, parameters, 0));
     }
 
-    public NotSuccessful(OperationDescription description, IResult cause, String msg, Object... parameters) {
+    public NotSuccessful(
+            OperationDescription description, IResult cause, String msg, Object... parameters) {
         super(description);
         setReturnCode(cause.getReturnCode());
         setMsg(RC.toMessage(cause.getReturnCode(), cause, msg, parameters, 0));
@@ -67,7 +68,7 @@ public class NotSuccessful extends MutableOperationResult {
         super(path, cause.getReturnCode(), null);
         setMsg(RC.toMessage(cause.getReturnCode(), cause, msg, parameters, 0));
     }
-    
+
     @Override
     public void setReturnCode(int returnCode) {
         /*
@@ -82,5 +83,4 @@ public class NotSuccessful extends MutableOperationResult {
         */
         this.returnCode = returnCode;
     }
-
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,8 +72,8 @@ import org.summerclouds.common.core.util.VectorMap;
  */
 public final class MCast {
 
-	private MCast() {}
-	
+    private MCast() {}
+
     //	private static Log log = Log.getLog(MCast.class);
     //	private static SimpleDateFormat dateFormat = new SimpleDateFormat(
     //			"yyyy-MM-dd_HH:mm:ss.SSS z");
@@ -1299,7 +1299,7 @@ public final class MCast {
         }
         return val;
     }
-    
+
     public static String uuidToBase64(UUID uuid) {
         ByteBuffer bb = ByteBuffer.allocate(Long.BYTES * 2);
         bb.putLong(uuid.getMostSignificantBits());
@@ -1314,9 +1314,8 @@ public final class MCast {
         return new UUID(byteBuffer.getLong(), byteBuffer.getLong());
     }
 
-	public static Locale toLocale(String locale) {
-		Locale l = new Locale.Builder().setLanguageTag(locale).build();
-		return l;
-	}
-
+    public static Locale toLocale(String locale) {
+        Locale l = new Locale.Builder().setLanguageTag(locale).build();
+        return l;
+    }
 }

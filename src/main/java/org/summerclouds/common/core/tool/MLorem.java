@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@ package org.summerclouds.common.core.tool;
 
 public class MLorem {
 
-	private MLorem() {};
-	
+    private MLorem() {};
+
     public static String create() {
         StringBuilder out = new StringBuilder();
         int c = (int) (Math.random() * 10d) + 1;

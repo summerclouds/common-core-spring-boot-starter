@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import org.summerclouds.common.core.operation.OperationComponent;
 import org.summerclouds.common.core.operation.cmd.CmdArgument;
 import org.summerclouds.common.core.operation.cmd.CmdOperation;
 
-@OperationComponent(path="core.nslookup", description = "Lookup dns names and ip")
+@OperationComponent(path = "core.nslookup", description = "Lookup dns names and ip")
 public class CmdNsLookup extends CmdOperation {
 
     @CmdArgument(

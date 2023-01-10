@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -128,8 +128,7 @@ public interface Lock extends Closeable {
             synchronized (this) {
                 while (isLocked()) {
                     long start = System.currentTimeMillis();
-                    if (scope != null)
-                        scope = MTracing.enter("waitUntilUnlock", "name", getName());
+                    if (scope != null) scope = MTracing.enter("waitUntilUnlock", "name", getName());
                     try {
                         wait(timeout);
                     } catch (InterruptedException e) {

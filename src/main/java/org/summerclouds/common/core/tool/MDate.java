@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import java.util.TimeZone;
 
 public class MDate {
 
-	private MDate() {}
+    private MDate() {}
 
     public static final Date NULL_DATE = new Date(0);
 
@@ -311,8 +311,7 @@ public class MDate {
 
     public static Date toDateOnly(Date date) {
         if (date == null) return null;
-        return new Date(
-                date.getTime() / MPeriod.DAY_IN_MILLISECONDS * MPeriod.DAY_IN_MILLISECONDS);
+        return new Date(date.getTime() / MPeriod.DAY_IN_MILLISECONDS * MPeriod.DAY_IN_MILLISECONDS);
     }
 
     /**
@@ -343,20 +342,19 @@ public class MDate {
         }
     }
 
-	public static Calendar toCalendar(Timestamp timestamp) {
-		return MCast.toCalendar(timestamp);
-	}
+    public static Calendar toCalendar(Timestamp timestamp) {
+        return MCast.toCalendar(timestamp);
+    }
 
-	public static Time toSqlTime(String string) {
-        return new java.sql.Time(toDate(string,null).getTime() ); //XXX
-	}
-	
+    public static Time toSqlTime(String string) {
+        return new java.sql.Time(toDate(string, null).getTime()); // XXX
+    }
+
     public static java.sql.Date toSqlDate(String string) {
-        return new java.sql.Date(toDate(string,null).getTime() ); //XXX
+        return new java.sql.Date(toDate(string, null).getTime()); // XXX
     }
 
     public static Timestamp toSqlTimestamp(String string) {
-        return new java.sql.Timestamp(toDate(string,null).getTime() ); //XXX
+        return new java.sql.Timestamp(toDate(string, null).getTime()); // XXX
     }
-
 }

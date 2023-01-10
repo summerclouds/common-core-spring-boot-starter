@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,38 +39,38 @@ public abstract class AbstractOperation extends MLog implements Operation {
 
     @Override
     public boolean hasAccess(TaskContext context) {
-        return MSecurity.hasPermission(Operation.class, MSecurity.EXECUTE, getClass().getCanonicalName());
+        return MSecurity.hasPermission(
+                Operation.class, MSecurity.EXECUTE, getClass().getCanonicalName());
     }
 
     @Override
     public final OperationResult doExecute(TaskContext context) throws Exception {
-    	OperationDescription desc = getDescription();
-    	String name = desc == null ? getClass().getCanonicalName() : desc.getPathVersion();
+        OperationDescription desc = getDescription();
+        String name = desc == null ? getClass().getCanonicalName() : desc.getPathVersion();
         try (IScope scope = MTracing.enter("operation " + name)) {
-        	try {
-	        	log().d("execute operation {1} with {2}", name, context.getParameters());
-		        OperationResult ret = execute(context);
-		        if (ret != null && !ret.isSuccessful())
-		        	scope.getSpan().setError(ret.getMessage());
-		        log().d("result", ret);
-		        return ret;
-	        } catch (Throwable e) {
-	        	scope.getSpan().setError(e);
-	        	try {
-	        		onError(e);
-	            } catch (Throwable e2) {}
-	        	if (e instanceof IResult)
-	        		return new NotSuccessful(this, (IResult)e );
-	        	throw e;
-	        }
+            try {
+                log().d("execute operation {1} with {2}", name, context.getParameters());
+                OperationResult ret = execute(context);
+                if (ret != null && !ret.isSuccessful()) scope.getSpan().setError(ret.getMessage());
+                log().d("result", ret);
+                return ret;
+            } catch (Throwable e) {
+                scope.getSpan().setError(e);
+                try {
+                    onError(e);
+                } catch (Throwable e2) {
+                }
+                if (e instanceof IResult) return new NotSuccessful(this, (IResult) e);
+                throw e;
+            }
         }
     }
 
     protected void onError(Throwable e) {
-		log().e("error while executing operation", getDescription().getPath(), e);
-	}
+        log().e("error while executing operation", getDescription().getPath(), e);
+    }
 
-	protected abstract OperationResult execute(TaskContext context) throws Exception;
+    protected abstract OperationResult execute(TaskContext context) throws Exception;
 
     @Override
     public boolean isBusy() {
@@ -127,7 +127,8 @@ public abstract class AbstractOperation extends MLog implements Operation {
 
         org.summerclouds.common.core.operation.OperationComponent desc =
                 getClass()
-                        .getAnnotation(org.summerclouds.common.core.operation.OperationComponent.class);
+                        .getAnnotation(
+                                org.summerclouds.common.core.operation.OperationComponent.class);
         if (desc != null) {
             if (MString.isSet(desc.title())) title = desc.title();
             if (desc.clazz() != Object.class) {
@@ -159,10 +160,10 @@ public abstract class AbstractOperation extends MLog implements Operation {
         if (this instanceof IFormProvider) {
             return ((IFormProvider) this).getForm();
         }
-		return null;
-	}
+        return null;
+    }
 
-	/**
+    /**
      * Overwrite to manipulate created description.
      *
      * @param desc
@@ -202,5 +203,4 @@ public abstract class AbstractOperation extends MLog implements Operation {
     public String nls(String text) {
         return MNls.find(this, text);
     }
-
 }

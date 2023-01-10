@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -206,7 +206,9 @@ public abstract class AbstractProperties extends MLog implements IProperties {
             setFloat(key, (Float) value);
         } else if (value instanceof Double) {
             setDouble(key, (Double) value);
-        } else throw new MRuntimeException(RC.SYNTAX_ERROR, "Unknown number class", key, value.getClass());
+        } else
+            throw new MRuntimeException(
+                    RC.SYNTAX_ERROR, "Unknown number class", key, value.getClass());
     }
 
     @Override

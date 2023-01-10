@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,5 +33,4 @@ public interface Operation extends MNlsProvider, Nls {
     boolean setBusy(Object owner);
 
     boolean releaseBusy(Object owner);
-
 }

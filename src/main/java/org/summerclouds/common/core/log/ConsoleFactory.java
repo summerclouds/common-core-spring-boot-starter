@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,8 @@ public class ConsoleFactory extends LogFactory {
 
     @SuppressWarnings("unused")
     private INode config;
-	private LEVEL level = LEVEL.INFO;
+
+    private LEVEL level = LEVEL.INFO;
 
     public ConsoleFactory() {
         out = Console.get();
@@ -131,7 +132,7 @@ public class ConsoleFactory extends LogFactory {
     }
 
     public void setLevel(Log.LEVEL level) {
-        this.level  = level;
+        this.level = level;
     }
 
     private class ConsoleLog extends LogFacade {

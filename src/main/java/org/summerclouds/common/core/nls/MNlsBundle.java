@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import java.util.Locale;
 import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.log.MLog;
 
-//@DefaultImplementation(MNlsFactory.class)
+// @DefaultImplementation(MNlsFactory.class)
 public abstract class MNlsBundle extends MLog {
 
     private String path;
@@ -63,7 +63,7 @@ public abstract class MNlsBundle extends MLog {
             return null;
         }
         out = createNls(locale);
-        if (out == null || !(out instanceof MNls) ) out = new Object(); // set dummy
+        if (out == null || !(out instanceof MNls)) out = new Object(); // set dummy
         cache.put(locale, out);
         if (out instanceof MNls) return (MNls) out;
         return null;

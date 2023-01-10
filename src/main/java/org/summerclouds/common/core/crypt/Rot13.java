@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,19 @@ package org.summerclouds.common.core.crypt;
 
 public class Rot13 {
 
-	/**
-	 * Encode characters +13 and Numbers +5
-	 * @param in
-	 * @return
-	 */
+    /**
+     * Encode characters +13 and Numbers +5
+     *
+     * @param in
+     * @return
+     */
     public static String encode13And5(String in) {
         return decode13And5(in);
     }
 
     /**
-	 * Decode characters +13 and Numbers +5
+     * Decode characters +13 and Numbers +5
+     *
      * @param in
      * @return
      */
@@ -56,18 +58,20 @@ public class Rot13 {
 
         return out.toString();
     }
-    
-	/**
-	 * Encode characters +13
-	 * @param in
-	 * @return
-	 */
+
+    /**
+     * Encode characters +13
+     *
+     * @param in
+     * @return
+     */
     public static String encode13(String in) {
         return decode13(in);
     }
 
     /**
-	 * Decode characters +13
+     * Decode characters +13
+     *
      * @param in
      * @return
      */

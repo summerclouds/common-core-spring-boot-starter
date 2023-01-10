@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,50 +48,48 @@ import org.w3c.dom.Document;
 
 public class MNodeTest extends TestCase {
 
-	@Test
-	public void testPath() {
-		
-		MNode root = new MNode();
-		{
-			INode res = INode.findOrCreateNode(root, "nr1/nr2/nr3");
-			String path = INode.getPath(res);
-			System.out.println(path);
-			assertEquals("/nr1/nr2/nr3", path);
-		}
-		{
-			INode res = INode.findOrCreateNode(root, "nr1/a2[4]/nr3");
-			String path = INode.getPath(res);
-			System.out.println(path);
-			assertEquals("/nr1/a2[4]/nr3", path);
-		}
-		{
-			INode res = INode.findOrCreateNode(root, "/nr1/nr2/nr3");
-			String path = INode.getPath(res);
-			System.out.println(path);
-			assertEquals("/nr1/nr2/nr3", path);
-		}
-		{
-			INode res = INode.findOrCreateNode(root, "/nr1/a2[4]/nr3");
-			String path = INode.getPath(res);
-			System.out.println(path);
-			assertEquals("/nr1/a2[4]/nr3", path);
-		}
-		{
-			INode res = INode.findOrCreateNode(root, "/");
-			String path = INode.getPath(res);
-			System.out.println(path);
-			assertEquals("/", path);
-		}
-		{
-			INode res = INode.findOrCreateNode(root, "");
-			String path = INode.getPath(res);
-			System.out.println(path);
-			assertEquals("/", path);
-		}
-		
-		
-	}
-	
+    @Test
+    public void testPath() {
+
+        MNode root = new MNode();
+        {
+            INode res = INode.findOrCreateNode(root, "nr1/nr2/nr3");
+            String path = INode.getPath(res);
+            System.out.println(path);
+            assertEquals("/nr1/nr2/nr3", path);
+        }
+        {
+            INode res = INode.findOrCreateNode(root, "nr1/a2[4]/nr3");
+            String path = INode.getPath(res);
+            System.out.println(path);
+            assertEquals("/nr1/a2[4]/nr3", path);
+        }
+        {
+            INode res = INode.findOrCreateNode(root, "/nr1/nr2/nr3");
+            String path = INode.getPath(res);
+            System.out.println(path);
+            assertEquals("/nr1/nr2/nr3", path);
+        }
+        {
+            INode res = INode.findOrCreateNode(root, "/nr1/a2[4]/nr3");
+            String path = INode.getPath(res);
+            System.out.println(path);
+            assertEquals("/nr1/a2[4]/nr3", path);
+        }
+        {
+            INode res = INode.findOrCreateNode(root, "/");
+            String path = INode.getPath(res);
+            System.out.println(path);
+            assertEquals("/", path);
+        }
+        {
+            INode res = INode.findOrCreateNode(root, "");
+            String path = INode.getPath(res);
+            System.out.println(path);
+            assertEquals("/", path);
+        }
+    }
+
     @Test
     public void testPropertiesWithUTF8() throws IOException, NotFoundException {
         InputStream is = MSystem.locateResource(this, "utf8.properties").openStream();

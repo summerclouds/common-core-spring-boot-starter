@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,9 +36,8 @@ public class ThreadPool implements Runnable {
 
     protected static Log log = Log.getLog(ThreadPool.class);
 
-    @Autowired
-    private static ThreadPoolManager manager;
-    
+    @Autowired private static ThreadPoolManager manager;
+
     protected Runnable task = this;
     protected String name = "";
     protected ThreadContainer tc = null;
@@ -215,8 +214,7 @@ public class ThreadPool implements Runnable {
 
                     // run ....
                     currentTask.taskBegin();
-                    try (ISubjectEnvironment env =
-                            MSecurity.asSubject(currentTask.subject)) {
+                    try (ISubjectEnvironment env = MSecurity.asSubject(currentTask.subject)) {
                         // set trail log if set
                         try (IScope scope = MTracing.enter(span, name)) {
                             try {

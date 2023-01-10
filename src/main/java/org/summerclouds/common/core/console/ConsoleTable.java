@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,17 +57,17 @@ public class ConsoleTable {
     private int tableWidth;
 
     private int definedTableWidth = 0;
-    
+
     private Console console;
 
     public ConsoleTable() {
-    	this(null, null);
+        this(null, null);
     }
 
     public ConsoleTable(Console console) {
-    	this(console, null);
+        this(console, null);
     }
-    
+
     public ConsoleTable(Console console, String options) {
         this.console = console == null ? Console.get() : console;
         if (options != null) {
@@ -323,7 +323,7 @@ public class ConsoleTable {
                     else if (maxColSize > 0) width = Math.min(width, maxColSize);
 
                     if (maxTableWidth > 0 && h.weight > 0) {
-                        weight.setValue( weight.getValue() + h.weight);
+                        weight.setValue(weight.getValue() + h.weight);
                         weightWidth.setValue(weightWidth.getValue() + width);
                     }
                     tableWidth += width;
@@ -417,7 +417,8 @@ public class ConsoleTable {
         return sw.toString();
     }
 
-    public static ConsoleTable fromJdbcResult(ResultSet res, Console console, String tblOpt) throws SQLException {
+    public static ConsoleTable fromJdbcResult(ResultSet res, Console console, String tblOpt)
+            throws SQLException {
         ResultSetMetaData resMeta = res.getMetaData();
         ConsoleTable out = new ConsoleTable(console, tblOpt);
         String[] h = new String[resMeta.getColumnCount()];

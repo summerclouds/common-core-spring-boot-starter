@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,8 +45,8 @@ import org.summerclouds.common.core.util.ReadOnlyList;
 
 public class MCollection {
 
-	private MCollection() {};
-	
+    private MCollection() {};
+
     public static final List<?> EMPTY_LIST = new EmptyList<>();
     public static final Set<?> EMPTY_SET = new EmptySet<>();
     public static final Map<?, ?> EMPTY_MAP = new EmptyMap<>();
@@ -261,7 +261,7 @@ public class MCollection {
         for (T item : iter) out.add(item);
         return out;
     }
-    
+
     public static <T> List<T> toList(@SuppressWarnings("unchecked") T... array) {
         LinkedList<T> out = new LinkedList<>();
         for (T item : array) out.add(item);
@@ -317,13 +317,12 @@ public class MCollection {
     }
 
     @SuppressWarnings("unchecked")
-	public static <T> Set<T> toSet(T ... items) {
+    public static <T> Set<T> toSet(T... items) {
         HashSet<T> set = new HashSet<>();
-        for (T item : items)
-        	set.add(item);
+        for (T item : items) set.add(item);
         return set;
     }
-    
+
     /**
      * Returns true if the given item is part of the list. The list itself is a char separated list
      * of items. White spaces are not allowed! The search is case sensitive.
@@ -568,7 +567,9 @@ public class MCollection {
      */
     public static <T> T[] cropArray(T[] from, int start, int stop) {
         int length = stop - start;
-        if (length < 0) throw new MRuntimeException(RC.STATUS.SYNTAX_ERROR, "malformed indexes", start, stop, length);
+        if (length < 0)
+            throw new MRuntimeException(
+                    RC.STATUS.SYNTAX_ERROR, "malformed indexes", start, stop, length);
         @SuppressWarnings("unchecked")
         T[] out = (T[]) Array.newInstance(from.getClass().getComponentType(), length);
         System.arraycopy(from, start, out, 0, length);
@@ -582,7 +583,9 @@ public class MCollection {
      * @return new extended array
      */
     public static <T> T[] extendArray(T[] from, int left, int right) {
-        if (left < 0 || right < 0) throw new MRuntimeException(RC.STATUS.SYNTAX_ERROR, "malformed extensions", left, right);
+        if (left < 0 || right < 0)
+            throw new MRuntimeException(
+                    RC.STATUS.SYNTAX_ERROR, "malformed extensions", left, right);
         int length = from.length + left + right;
         @SuppressWarnings("unchecked")
         T[] out = (T[]) Array.newInstance(from.getClass().getComponentType(), length);
@@ -677,12 +680,12 @@ public class MCollection {
         return out;
     }
 
-	public static <T> int compare(Collection<T> o1, Collection<T> o2) {
-		int ret = Integer.compare(o1.size(), o2.size());
-		if (ret != 0) return ret;
-		// big overhead !!!
-		TreeSet<T> t1 = new TreeSet<>(o1);
-		TreeSet<T> t2 = new TreeSet<>(o2);
-		return t1.toString().compareTo(t2.toString());
-	}
+    public static <T> int compare(Collection<T> o1, Collection<T> o2) {
+        int ret = Integer.compare(o1.size(), o2.size());
+        if (ret != 0) return ret;
+        // big overhead !!!
+        TreeSet<T> t1 = new TreeSet<>(o1);
+        TreeSet<T> t2 = new TreeSet<>(o2);
+        return t1.toString().compareTo(t2.toString());
+    }
 }

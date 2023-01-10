@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,12 +70,12 @@ public class MArgs extends MLog {
         List<Usage> u = new ArrayList<>();
         Usage[] a = new Usage[50]; // max 50 should be ok
         Map<String, Usage> map = new HashMap<>();
-        //XXX
-//        CmdDescription cmd = pojo.getClass().getAnnotation(OperationDescription.class);
-//        if (cmd != null) {
-//            u.add(new Help(cmd.description()));
-//            for (String flag : cmd.flags()) u.add(new Flag(flag, null));
-//        }
+        // XXX
+        //        CmdDescription cmd = pojo.getClass().getAnnotation(OperationDescription.class);
+        //        if (cmd != null) {
+        //            u.add(new Help(cmd.description()));
+        //            for (String flag : cmd.flags()) u.add(new Flag(flag, null));
+        //        }
         for (PojoAttribute<?> entry : model) {
             CmdOption cOpt = entry.getAnnotation(CmdOption.class);
             if (cOpt != null) {

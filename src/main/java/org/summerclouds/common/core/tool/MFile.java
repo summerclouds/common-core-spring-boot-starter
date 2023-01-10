@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,8 +58,8 @@ import org.summerclouds.common.core.util.MUri;
 /** @author hummel */
 public class MFile {
 
-	private MFile() {};
-	
+    private MFile() {};
+
     public static final String DEFAULT_MIME = "text/plain";
     //	private static ResourceNode<?> mimeConfigCache;
     private static Properties mhuMimeConfigCache;
@@ -445,7 +445,7 @@ public class MFile {
             if (_content != null) writeFile(fos, _content, 0, _content.length);
             fos.close();
         } catch (Exception e) {
-            log.d("writing file {1} failed",_f, e);
+            log.d("writing file {1} failed", _f, e);
             return false;
         }
 
@@ -773,11 +773,11 @@ public class MFile {
         if (MString.isIndex(extension, '.')) extension = MString.afterLastIndex(extension, '.');
 
         String mime = null;
-//        try {
-//            if (mimeProperties.value() != null)
-//                mime = mimeProperties.value().getString(extension, null);
-//        } catch (Throwable t) {
-//        }
+        //        try {
+        //            if (mimeProperties.value() != null)
+        //                mime = mimeProperties.value().getString(extension, null);
+        //        } catch (Throwable t) {
+        //        }
 
         if (mime == null) {
             loadMimeTypes();
@@ -1082,5 +1082,4 @@ public class MFile {
         File dir = f.getParentFile();
         if (!dir.exists()) dir.mkdirs();
     }
-    
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,11 @@ public class SOfficeConnector extends MLog {
         valid = false;
         version = null;
         if (binary == null)
-        	binary = new CfgString( "org.summerclouds.common.core.io.SOfficeConnector.binary","soffice").value();
+            binary =
+                    new CfgString(
+                                    "org.summerclouds.common.core.io.SOfficeConnector.binary",
+                                    "soffice")
+                            .value();
         try {
             version = MSystem.execute(binary, "--version").getOutput();
             valid = MString.isSet(version) && version.startsWith("LibreOffice ");

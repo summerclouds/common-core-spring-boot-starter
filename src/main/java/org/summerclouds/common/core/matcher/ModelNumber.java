@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,8 @@ public class ModelNumber extends ModelPattern {
 
         if (name != null) {
             if (map == null)
-                throw new MRuntimeException(RC.NOT_FOUND, "variables not available, use condition not matcher");
+                throw new MRuntimeException(
+                        RC.NOT_FOUND, "variables not available, use condition not matcher");
             Object val = map.get(name);
             if (val == null) return false;
             str = val.toString();

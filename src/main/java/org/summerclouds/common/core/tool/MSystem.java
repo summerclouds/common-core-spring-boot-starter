@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,9 +61,9 @@ import org.summerclouds.common.core.lang.ICloseable;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.node.IProperties;
 
-//import net.bytebuddy.agent.ByteBuddyAgent;
-//import net.bytebuddy.description.type.TypeDescription;
-//import net.bytebuddy.dynamic.ClassFileLocator;
+// import net.bytebuddy.agent.ByteBuddyAgent;
+// import net.bytebuddy.description.type.TypeDescription;
+// import net.bytebuddy.dynamic.ClassFileLocator;
 
 public class MSystem {
 
@@ -87,106 +87,117 @@ public class MSystem {
     private static ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
     private static String hostname; // cached hostname
 
-	private static PrintStream out;
-	private static PrintStream err;
-	private static InputStream in;
+    private static PrintStream out;
+    private static PrintStream err;
+    private static InputStream in;
 
-	public static PrintStream originalOut() {
-		return out == null ? System.out : out;
-	}
-	
-	public static PrintStream originalErr() {
-		return err == null ? System.err : err;
-	}
-	
-	public static InputStream originalIn() {
-		return in == null ? System.in : in;
-	}
-	
-	public static void ioCleanup() {
-		
-		if (System.out instanceof ThreadLocalPrinter) {
-			((ThreadLocalPrinter)System.out).use(null);
-		}
-		if (System.err instanceof ThreadLocalPrinter) {
-			((ThreadLocalPrinter)System.err).use(null);
-		}
-		if (System.in instanceof ThreadLocalInputStream) {
-			((ThreadLocalInputStream)System.in).use(null);
-		}
-	}
-	
-	public static boolean isOutOverlay() {
-		return (System.out instanceof ThreadLocalPrinter) && ((ThreadLocalPrinter)System.out).current() != null;
-	}
+    public static PrintStream originalOut() {
+        return out == null ? System.out : out;
+    }
 
-	public static boolean isErrOverlay() {
-		return (System.err instanceof ThreadLocalPrinter) && ((ThreadLocalPrinter)System.err).current() != null;
-	}
-	
-	public static boolean isInOverlay() {
-		return (System.in instanceof ThreadLocalInputStream) && ((ThreadLocalInputStream)System.in).current() != null;
-	}
-	
-	public static OutputStream getOutOverlay() {
-		return (System.out instanceof ThreadLocalPrinter) ? ((ThreadLocalPrinter)System.out).current() : null;
-	}
+    public static PrintStream originalErr() {
+        return err == null ? System.err : err;
+    }
 
-	public static OutputStream getErrOverlay() {
-		return (System.err instanceof ThreadLocalPrinter) ? ((ThreadLocalPrinter)System.err).current() : null;
-	}
-	
-	public static InputStream getInOverlay() {
-		return (System.in instanceof ThreadLocalInputStream) ? ((ThreadLocalInputStream)System.in).current() : null;
-	}
+    public static InputStream originalIn() {
+        return in == null ? System.in : in;
+    }
 
-	/**
-	 * Set for the current thread different IO streams.
-	 * 
-	 * @param newOut
-	 * @param newErr
-	 * @param newIn
-	 * @return
-	 */
-	public static ICloseable useIO(OutputStream newOut, OutputStream newErr, InputStream newIn) {
+    public static void ioCleanup() {
 
-		synchronized (MSystem.class) {
-			if (!(System.out instanceof ThreadLocalPrinter)) {
-				out = System.out;
-				System.setOut(new ThreadLocalPrinter(out));
-			}
-			if (!(System.err instanceof ThreadLocalPrinter)) {
-				err = System.err;
-				System.setErr(new ThreadLocalPrinter(err));
-			}
-			if (!(System.in instanceof ThreadLocalInputStream)) {
-				in = System.in;
-				System.setIn(new ThreadLocalInputStream(in));
-			}
-		}
-		
-		ICloseable closeOut = newOut == null ? null : ((ThreadLocalPrinter)System.out).use(newOut);
-		ICloseable closeErr = newErr == null ? null : ((ThreadLocalPrinter)System.err).use(newOut);
-		ICloseable closeIn  = newIn  == null ? null : ((ThreadLocalInputStream)System.in).use(newIn);
+        if (System.out instanceof ThreadLocalPrinter) {
+            ((ThreadLocalPrinter) System.out).use(null);
+        }
+        if (System.err instanceof ThreadLocalPrinter) {
+            ((ThreadLocalPrinter) System.err).use(null);
+        }
+        if (System.in instanceof ThreadLocalInputStream) {
+            ((ThreadLocalInputStream) System.in).use(null);
+        }
+    }
 
-		return new ICloseable() {
-			
-			@Override
-			public void close() {
-				try {
-					if (closeOut != null) closeOut.close();
-				} catch (Throwable t) {}
-				try {
-					if (closeErr != null) closeErr.close();
-				} catch (Throwable t) {}
-				try {
-					if (closeIn != null) closeIn.close();
-				} catch (Throwable t) {}
-			}
-		};
-	}
-	
-    
+    public static boolean isOutOverlay() {
+        return (System.out instanceof ThreadLocalPrinter)
+                && ((ThreadLocalPrinter) System.out).current() != null;
+    }
+
+    public static boolean isErrOverlay() {
+        return (System.err instanceof ThreadLocalPrinter)
+                && ((ThreadLocalPrinter) System.err).current() != null;
+    }
+
+    public static boolean isInOverlay() {
+        return (System.in instanceof ThreadLocalInputStream)
+                && ((ThreadLocalInputStream) System.in).current() != null;
+    }
+
+    public static OutputStream getOutOverlay() {
+        return (System.out instanceof ThreadLocalPrinter)
+                ? ((ThreadLocalPrinter) System.out).current()
+                : null;
+    }
+
+    public static OutputStream getErrOverlay() {
+        return (System.err instanceof ThreadLocalPrinter)
+                ? ((ThreadLocalPrinter) System.err).current()
+                : null;
+    }
+
+    public static InputStream getInOverlay() {
+        return (System.in instanceof ThreadLocalInputStream)
+                ? ((ThreadLocalInputStream) System.in).current()
+                : null;
+    }
+
+    /**
+     * Set for the current thread different IO streams.
+     *
+     * @param newOut
+     * @param newErr
+     * @param newIn
+     * @return
+     */
+    public static ICloseable useIO(OutputStream newOut, OutputStream newErr, InputStream newIn) {
+
+        synchronized (MSystem.class) {
+            if (!(System.out instanceof ThreadLocalPrinter)) {
+                out = System.out;
+                System.setOut(new ThreadLocalPrinter(out));
+            }
+            if (!(System.err instanceof ThreadLocalPrinter)) {
+                err = System.err;
+                System.setErr(new ThreadLocalPrinter(err));
+            }
+            if (!(System.in instanceof ThreadLocalInputStream)) {
+                in = System.in;
+                System.setIn(new ThreadLocalInputStream(in));
+            }
+        }
+
+        ICloseable closeOut = newOut == null ? null : ((ThreadLocalPrinter) System.out).use(newOut);
+        ICloseable closeErr = newErr == null ? null : ((ThreadLocalPrinter) System.err).use(newOut);
+        ICloseable closeIn = newIn == null ? null : ((ThreadLocalInputStream) System.in).use(newIn);
+
+        return new ICloseable() {
+
+            @Override
+            public void close() {
+                try {
+                    if (closeOut != null) closeOut.close();
+                } catch (Throwable t) {
+                }
+                try {
+                    if (closeErr != null) closeErr.close();
+                } catch (Throwable t) {
+                }
+                try {
+                    if (closeIn != null) closeIn.close();
+                } catch (Throwable t) {
+                }
+            }
+        };
+    }
+
     /**
      * Returns the name of the current system. COMPUTERNAME or HOSTNAME.
      *
@@ -314,12 +325,9 @@ public class MSystem {
         if (url == null && loader != null) url = loader.getResource(fileName);
 
         if (ownerClass != null && url == null) {
-        	String resPath = "/"
-                    + ownerClass.getPackage().getName().replaceAll("\\.", "/")
-                    + "/"
-                    + fileName;
-            url =
-                    ownerClass.getResource(resPath);
+            String resPath =
+                    "/" + ownerClass.getPackage().getName().replaceAll("\\.", "/") + "/" + fileName;
+            url = ownerClass.getResource(resPath);
         }
         if (ownerClass != null && url == null) {
             url =
@@ -350,7 +358,8 @@ public class MSystem {
         StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         for (StackTraceElement step : stack) {
             String n = step.getClassName();
-            if (!n.startsWith("java.lang") && !n.startsWith("org.summerclouds.common.core")) return n;
+            if (!n.startsWith("java.lang") && !n.startsWith("org.summerclouds.common.core"))
+                return n;
         }
         return "?";
     }
@@ -1000,20 +1009,20 @@ public class MSystem {
         return System.getProperty("java.version");
     }
 
-//    private static final Instrumentation instrumentation = ByteBuddyAgent.install();
-//    /*
-//     * Use byte buddy to get the class byte code
-//     */
-//    public static byte[] getBytes(Class<?> c) throws IOException {
-//        //		String name = '/' + c.getName().replace('.', '/')+ ".class";
-//        //		InputStream is = c.getClassLoader().getResourceAsStream(name);
-//        //		byte[] bytes = MFile.readBinary(is);
-//        //		return bytes;
-//        ClassFileLocator locator = ClassFileLocator.ForInstrumentation.of(instrumentation, c);
-//        TypeDescription.ForLoadedType desc = new TypeDescription.ForLoadedType(c);
-//        ClassFileLocator.Resolution resolution = locator.locate(desc.getName());
-//        return resolution.resolve();
-//    }
+    //    private static final Instrumentation instrumentation = ByteBuddyAgent.install();
+    //    /*
+    //     * Use byte buddy to get the class byte code
+    //     */
+    //    public static byte[] getBytes(Class<?> c) throws IOException {
+    //        //		String name = '/' + c.getName().replace('.', '/')+ ".class";
+    //        //		InputStream is = c.getClassLoader().getResourceAsStream(name);
+    //        //		byte[] bytes = MFile.readBinary(is);
+    //        //		return bytes;
+    //        ClassFileLocator locator = ClassFileLocator.ForInstrumentation.of(instrumentation, c);
+    //        TypeDescription.ForLoadedType desc = new TypeDescription.ForLoadedType(c);
+    //        ClassFileLocator.Resolution resolution = locator.locate(desc.getName());
+    //        return resolution.resolve();
+    //    }
 
     public static long getJvmUptime() {
         RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
@@ -1115,9 +1124,9 @@ public class MSystem {
     }
 
     public static Class<?> getClass(String type) throws ClassNotFoundException {
-    	return getClass(MSpring.getDefaultClassLoader(), type);
+        return getClass(MSpring.getDefaultClassLoader(), type);
     }
-    
+
     public static Class<?> getClass(ClassLoader cl, String type) throws ClassNotFoundException {
         if (type == null) return null;
         if (type.equals("int") || type.equals("integer")) return int.class;
@@ -1262,7 +1271,7 @@ public class MSystem {
                 Manifest manifest = new Manifest(is);
                 return manifest;
             } catch (Throwable t) {
-            	log.t("loading manifest for {1} failed", owner, t);
+                log.t("loading manifest for {1} failed", owner, t);
             }
         }
         throw new NotFoundException("manifest not found for", owner);
@@ -1274,56 +1283,59 @@ public class MSystem {
     private static CfgString TMP_DIRECTORY = new CfgString("system.directory.tmp", "");
     private static CfgString DEPLOY_DIRECTORY = new CfgString("system.directory.deploy", "deploy");
 
-	public static File getFile(SCOPE etc, String name) {
-		switch (etc) {
-		case DATA:
-			return new File(DATA_DIRECTORY.value() + File.pathSeparator + name);
-		case DEPLOY:
-			return new File(DEPLOY_DIRECTORY.value() + File.pathSeparator + name);
-		case ETC:
-			return new File(ETC_DIRECTORY.value() + File.pathSeparator + name);
-		case LOG:
-			return new File(LOG_DIRECTORY.value() + File.pathSeparator + name);
-		case TMP:
-			if (ETC_DIRECTORY.value().length() == 0)
-				try {
-					return File.createTempFile(name, "tmp");
-				} catch (IOException e) {
-					log.f(e);
-				}
-			else
-				return new File(TMP_DIRECTORY + File.pathSeparator + name);
-		default:
-			break;
-		
-		}
-		return null;
-	}
+    public static File getFile(SCOPE etc, String name) {
+        switch (etc) {
+            case DATA:
+                return new File(DATA_DIRECTORY.value() + File.pathSeparator + name);
+            case DEPLOY:
+                return new File(DEPLOY_DIRECTORY.value() + File.pathSeparator + name);
+            case ETC:
+                return new File(ETC_DIRECTORY.value() + File.pathSeparator + name);
+            case LOG:
+                return new File(LOG_DIRECTORY.value() + File.pathSeparator + name);
+            case TMP:
+                if (ETC_DIRECTORY.value().length() == 0)
+                    try {
+                        return File.createTempFile(name, "tmp");
+                    } catch (IOException e) {
+                        log.f(e);
+                    }
+                else return new File(TMP_DIRECTORY + File.pathSeparator + name);
+            default:
+                break;
+        }
+        return null;
+    }
 
-	public static void acceptCaller(Class<?> ... classes ) {
-		StackTraceElement[] trace = Thread.currentThread().getStackTrace();
-		String caller = trace[3].getClassName();
-		for (Class<?> clazz : classes)
-			if (caller.equals(getCanonicalClassName(clazz))) return;
-		throw new ForbiddenRuntimeException("caller {1} not accepted",caller);
-	}
+    public static void acceptCaller(Class<?>... classes) {
+        StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+        String caller = trace[3].getClassName();
+        for (Class<?> clazz : classes) if (caller.equals(getCanonicalClassName(clazz))) return;
+        throw new ForbiddenRuntimeException("caller {1} not accepted", caller);
+    }
 
-	public static <T> T createObject(String clazzName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		return createObject(MSpring.getDefaultClassLoader(), clazzName);
-	}
+    public static <T> T createObject(String clazzName)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+                    IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
+                    SecurityException {
+        return createObject(MSpring.getDefaultClassLoader(), clazzName);
+    }
 
-	@SuppressWarnings("unchecked")
-	public static <T> T createObject(ClassLoader loader, String clazzName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		Class<?> clazz = loader.loadClass(clazzName);
-		return (T) clazz.getConstructor().newInstance();
-	}
-	
-	@SuppressWarnings({ "unchecked", "deprecation" })
-	public static <T> T createObject(Class<?> clazz) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		Constructor<?> c = clazz.getConstructor();
-		if (!c.isAccessible())
-			c.setAccessible(true);
-		return (T) c.newInstance();
-	}
-	
+    @SuppressWarnings("unchecked")
+    public static <T> T createObject(ClassLoader loader, String clazzName)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+                    IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
+                    SecurityException {
+        Class<?> clazz = loader.loadClass(clazzName);
+        return (T) clazz.getConstructor().newInstance();
+    }
+
+    @SuppressWarnings({"unchecked", "deprecation"})
+    public static <T> T createObject(Class<?> clazz)
+            throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+                    InvocationTargetException, NoSuchMethodException, SecurityException {
+        Constructor<?> c = clazz.getConstructor();
+        if (!c.isAccessible()) c.setAccessible(true);
+        return (T) c.newInstance();
+    }
 }

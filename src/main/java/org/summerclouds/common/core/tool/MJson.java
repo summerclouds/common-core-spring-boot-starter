@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,8 +51,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class MJson {
 
-	private MJson() {};
-	
+    private MJson() {};
+
     public static final TransformStrategy DEFAULT_STRATEGY = new SerializerTransformer();
     private static ObjectMapper mapper = new ObjectMapper();
     private static JsonFactory factory = new JsonFactory();

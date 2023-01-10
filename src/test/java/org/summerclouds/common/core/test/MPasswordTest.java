@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,57 +23,55 @@ import org.summerclouds.common.junit.TestCase;
 
 public class MPasswordTest extends TestCase {
 
-	private static String[] TESTIFY = {
-			"abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-_.:,;+*#<>",
-			"test"
-	};
-	
+    private static String[] TESTIFY = {
+        "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-_.:,;+*#<>", "test"
+    };
+
     @Test
     public void testPassword() {
-    	for (String pw : TESTIFY) {
-    		System.out.println("> " + pw);
-	        String enc = MPassword.encode(pw);
-	        System.out.println("< " + enc);
-	        String dec = MPassword.decode(enc);
-	        assertTrue(pw.equals(dec));
-    	}
+        for (String pw : TESTIFY) {
+            System.out.println("> " + pw);
+            String enc = MPassword.encode(pw);
+            System.out.println("< " + enc);
+            String dec = MPassword.decode(enc);
+            assertTrue(pw.equals(dec));
+        }
     }
-    
+
     @Test
     public void testMD5() {
-    	String method = MPassword.MD5;
-    	for (String pw : TESTIFY) {
-    		System.out.println("> " + pw);
-	        String enc = MPassword.encode(method, pw);
-	        System.out.println("< " + enc);
-	        assertTrue(MPassword.validate(pw, enc));
-    	}
+        String method = MPassword.MD5;
+        for (String pw : TESTIFY) {
+            System.out.println("> " + pw);
+            String enc = MPassword.encode(method, pw);
+            System.out.println("< " + enc);
+            assertTrue(MPassword.validate(pw, enc));
+        }
     }
 
     @Test
     public void testRot13() {
-    	String method = MPassword.ROT13;
-    	for (String pw : TESTIFY) {
-    		System.out.println("> " + pw);
-	        String enc = MPassword.encode(method, pw);
-	        System.out.println("< " + enc);
-	        String dec = MPassword.decode(enc);
-	        System.out.println("# " + dec);
-	        assertTrue(pw.equals(dec));
-    	}
+        String method = MPassword.ROT13;
+        for (String pw : TESTIFY) {
+            System.out.println("> " + pw);
+            String enc = MPassword.encode(method, pw);
+            System.out.println("< " + enc);
+            String dec = MPassword.decode(enc);
+            System.out.println("# " + dec);
+            assertTrue(pw.equals(dec));
+        }
     }
 
     @Test
     public void testRot13And10() {
-    	String method = MPassword.ROT13AND5;
-    	for (String pw : TESTIFY) {
-    		System.out.println("> " + pw);
-	        String enc = MPassword.encode(method, pw);
-	        System.out.println("< " + enc);
-	        String dec = MPassword.decode(enc);
-	        System.out.println("# " + dec);
-	        assertTrue(pw.equals(dec));
-    	}
+        String method = MPassword.ROT13AND5;
+        for (String pw : TESTIFY) {
+            System.out.println("> " + pw);
+            String enc = MPassword.encode(method, pw);
+            System.out.println("< " + enc);
+            String dec = MPassword.decode(enc);
+            System.out.println("# " + dec);
+            assertTrue(pw.equals(dec));
+        }
     }
-    
 }

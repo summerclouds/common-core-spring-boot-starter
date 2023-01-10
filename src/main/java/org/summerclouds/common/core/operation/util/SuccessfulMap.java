@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ import org.summerclouds.common.core.operation.Operation;
 import org.summerclouds.common.core.operation.Successful;
 
 public class SuccessfulMap extends Successful {
-
 
     public SuccessfulMap(String path, String msg, String... keyValues) {
         this(path, RC.OK, msg, keyValues);
@@ -56,25 +55,25 @@ public class SuccessfulMap extends Successful {
         }
         setResult(r);
     }
-    
+
     public SuccessfulMap(Operation operation) {
         this(operation, OK);
     }
-    
+
     public SuccessfulMap(Operation operation, String msg) {
         this(operation, RC.OK, msg);
     }
 
-    @SuppressWarnings({ "deprecation" })
+    @SuppressWarnings({"deprecation"})
     public IProperties getMap() {
-        return (IProperties)getResult();
+        return (IProperties) getResult();
     }
 
-    @SuppressWarnings({ "deprecation" })
+    @SuppressWarnings({"deprecation"})
     public INode getNode() {
-        return (INode)getResult();
+        return (INode) getResult();
     }
-    
+
     public void put(String key, Object value) {
         getMap().put(key, value);
     }

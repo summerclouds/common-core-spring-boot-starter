@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ public class Value<T> implements Valueable<T>, Serializable {
         value = initial;
     }
 
-	@Public(writable = false)
+    @Public(writable = false)
     private volatile T value;
 
     @Override

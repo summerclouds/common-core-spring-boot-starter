@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2002 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ public class TimeoutException extends MException {
     }
 
     public TimeoutException(Object... in) {
-        super(getDefaultStatus(),in);
+        super(getDefaultStatus(), in);
     }
 
     public TimeoutException(RC.CAUSE causeHandling, Object... in) {
@@ -48,5 +48,4 @@ public class TimeoutException extends MException {
     public TimeoutException(RC.CAUSE causeHandling, String msg, Object... parameters) {
         super(causeHandling, getDefaultStatus().rc(), msg, parameters);
     }
-
 }
