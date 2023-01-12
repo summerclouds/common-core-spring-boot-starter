@@ -256,10 +256,11 @@ public class MBigMath {
     /**
      * Uses Newton Raphson to compute the square root of a BigDecimal.
      *
+     * http://www.codeproject.com/Tips/257031/Implementing-SqrtRoot-in-BigDecimal
+     *
      * @author Luciano Culacciatti
      * @param c
      * @return square root
-     * @url http://www.codeproject.com/Tips/257031/Implementing-SqrtRoot-in-BigDecimal
      */
     public static BigDecimal bigSqrt(BigDecimal c) {
         return sqrtNewtonRaphson(c, new BigDecimal(1), new BigDecimal(1).divide(SQRT_PRE));

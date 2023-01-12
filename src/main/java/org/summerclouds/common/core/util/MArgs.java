@@ -138,9 +138,9 @@ public class MArgs extends MLog {
     }
 
     /**
-     * Usage: : <param1> : Command description\ncontaining line breaks :: param1 : Parameter
-     * description option1: Option description option2: <param> : Option with mandatory parameter
-     * option3: [param] : Option with optional parameter option4: <param>* : Option allowed multiple
+     * Usage: : param1 : Command description\ncontaining line breaks :: param1 : Parameter
+     * description option1: Option description option2: param : Option with mandatory parameter
+     * option3: [param] : Option with optional parameter option4: param* : Option allowed multiple
      * times A line without colon will be printed in the usage as it is. e.g.
      *
      * <p>:ls [options] [file]*: list directory contents ::file: For each operand that names a file

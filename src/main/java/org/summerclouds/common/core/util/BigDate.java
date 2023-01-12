@@ -177,7 +177,7 @@ import org.summerclouds.common.core.tool.MString;
  *
  * <p>Are the following quirks of the calendar considered in this code?<br>
  *
- * <dl compact>
+ * <dl>
  *   <dt>yes
  *   <dd>1900 is not a leap year (mod 100).
  *   <dt>yes
@@ -1174,7 +1174,7 @@ public class BigDate implements Cloneable, Serializable, Comparable<Object> {
      * @param anotherBigDate date to compare against
      * @return a positive number if this date > (after) anotherBigDate.<br>
      *     zero if this date = anotherBigDate.<br>
-     *     a negative number if this date < (before) anotherBigDate.
+     *     a negative number if this date &lt; (before) anotherBigDate.
      */
     @Override
     public final int compareTo(Object anotherBigDate) {

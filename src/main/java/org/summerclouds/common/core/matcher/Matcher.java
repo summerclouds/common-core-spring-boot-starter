@@ -33,7 +33,7 @@ import org.summerclouds.common.core.tool.MValidator;
  * <p>Types: - fs - file sysytem like pattern with * - sql - sql like pattern with % - regex
  * (default) - regular expression
  *
- * <p>Operators: - and, && - And - or, || - Or - Brackets - How brackets work ... - not, ! as
+ * <p>Operators: - and, &amp;&amp; - And - or, || - Or - Brackets - How brackets work ... - not, ! as
  * negative operator
  *
  * <p>e.g. .*aaa.* .*aaa.* or .*bbb.* .*aaa.* and .*bbb.* .*aaa.* and not .*bbb.* not (.*aaa.* or

@@ -149,7 +149,6 @@ public class OperationDescription implements MNlsProvider, Nls, Versioned, Exter
     /**
      * Create a clone with the same UUID, but it's possible to manipulate the labels.
      *
-     * @param uuid
      * @param path
      * @param version
      * @param nlsProvider
