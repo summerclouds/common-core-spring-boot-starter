@@ -117,7 +117,8 @@ public interface IProperties
 
     /**
      * This will handle the strings like properties. Means a string without separator will be stored
-     * as value with an increasing key as integer, e.g. val1&amp;val2&amp;a=b will be 0=val1, 1=val2, a=b
+     * as value with an increasing key as integer, e.g. val1&amp;val2&amp;a=b will be 0=val1,
+     * 1=val2, a=b
      *
      * @param properties Rfc1738 (Url Encoded) encoded string
      * @return The MProperties

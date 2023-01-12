@@ -20,17 +20,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.summerclouds.common</groupId>
 	<artifactId>common-core-spring-boot-starter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<parent>
 		<groupId>org.summerclouds.common</groupId>
 		<artifactId>common-parent</artifactId>
-		<version>0.0.6-SNAPSHOT</version>
+		<version>0.0.8</version>
 		<relativePath>../common-parent</relativePath>
 	</parent>
 
 	<properties>
 		<jline.version>3.19.0</jline.version>
-		<summerclouds.bom.version>0.1.0-SNAPSHOT</summerclouds.bom.version>
+		<summerclouds.bom.version>0.0.5</summerclouds.bom.version>
 	</properties>
 
 	<dependencyManagement>

@@ -256,7 +256,7 @@ public class MBigMath {
     /**
      * Uses Newton Raphson to compute the square root of a BigDecimal.
      *
-     * http://www.codeproject.com/Tips/257031/Implementing-SqrtRoot-in-BigDecimal
+     * <p>http://www.codeproject.com/Tips/257031/Implementing-SqrtRoot-in-BigDecimal
      *
      * @author Luciano Culacciatti
      * @param c

@@ -35,7 +35,7 @@ public class RC {
         ENCAPSULATE, // encapsulate cause state
         ADAPT, // if possible adapt cause state
         APPEND, // if possible adapt cause state and append message entries, will ADAPT the Error
-                // Code (!)
+        // Code (!)
         IGNORE, // do print as parameters
         HIDE // print as parameters but do not link as cause
     }
@@ -81,9 +81,8 @@ public class RC {
     public static final int CREATED = 201;
     public static final int ACCEPTED = 202;
     /** Miscellaneous persistent warning */
-    public static final int WARNING =
-            299; // Miscellaneous persistent warning,
-                 // https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.46
+    public static final int WARNING = 299; // Miscellaneous persistent warning,
+    // https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.46
 
     // do not retry with these errors - professional errors
     /** Default Error, client error */
