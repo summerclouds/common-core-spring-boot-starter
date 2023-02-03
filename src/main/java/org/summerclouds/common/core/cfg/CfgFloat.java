@@ -29,7 +29,7 @@ public class CfgFloat extends AbstractCfg<Float> {
     protected Float valueOf(String value) {
         try {
             return Float.valueOf(value);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             return null;
         }
     }

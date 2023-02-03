@@ -34,7 +34,7 @@ public class CfgBoolean extends AbstractCfg<Boolean> {
             Value<Boolean> val = new Value<>();
             MCast.OBJECT_TO_BOOLEAN.toBoolean(value, false, val);
             return val.getValue(); // could be null
-        } catch (Throwable t) {
+        } catch (Exception t) {
             return null;
         }
     }

@@ -130,7 +130,7 @@ public class ThreadPoolDaemon extends ThreadPool implements Runnable {
                             public void run() {
                                 try {
                                     task.run();
-                                } catch (Throwable t) {
+                                } catch (Exception t) {
                                     t.printStackTrace();
                                 }
                             }
@@ -146,7 +146,7 @@ public class ThreadPoolDaemon extends ThreadPool implements Runnable {
                             public void run() {
                                 try {
                                     consumer.accept(Thread.currentThread());
-                                } catch (Throwable t) {
+                                } catch (Exception t) {
                                     t.printStackTrace();
                                 }
                             }

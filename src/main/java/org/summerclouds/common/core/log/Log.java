@@ -64,7 +64,7 @@ public class Log {
         if (facade == null) {
             try {
                 facade = M.l(LogFactory.class).create(name);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 System.out.println("*** " + t);
                 t.printStackTrace();
             }
@@ -253,7 +253,7 @@ public class Log {
                 registry.put(name, log);
             }
             return log;
-        } catch (Throwable t) {
+        } catch (Exception t) {
             t.printStackTrace();
             throw t;
         }

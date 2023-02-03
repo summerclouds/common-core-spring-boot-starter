@@ -80,7 +80,7 @@ public class MValidatorTest extends TestCase {
         try {
             MValidator.isZipCode(l, "04212");
             assertEquals(true, false);
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
     }
 

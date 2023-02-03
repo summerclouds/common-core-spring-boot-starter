@@ -2068,7 +2068,7 @@ public class MString {
             if (val instanceof String) return (String) val;
             if (val.getClass().isArray()) return Arrays.deepToString((Object[]) val);
             return String.valueOf(val);
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         return ":?";
     }
@@ -2105,7 +2105,7 @@ public class MString {
                 }
                 sb.append("]");
             } else sb.append("[").append(o).append("]");
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
     }
 

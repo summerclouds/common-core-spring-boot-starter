@@ -135,7 +135,7 @@ public class MThread extends MLog implements Runnable {
             //                    log().t("###: NEW THREAD", parentThreadId, thread.getId());
             try {
                 if (task != null) task.run();
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 taskError(t);
             }
             releaseThread(context);
@@ -262,7 +262,7 @@ public class MThread extends MLog implements Runnable {
             try {
                 T val = provider.getValue();
                 if (nullAllowed || val != null) return val;
-            } catch (Throwable t) {
+            } catch (Exception t) {
             }
             if (System.currentTimeMillis() - start > timeout) throw new TimeoutRuntimeException();
             sleep(200);
@@ -297,7 +297,7 @@ public class MThread extends MLog implements Runnable {
                                             value.setValue(val);
                                             break;
                                         }
-                                    } catch (Throwable t) {
+                                    } catch (Exception t) {
                                     }
                                     if (System.currentTimeMillis() - start > timeout)
                                         throw new TimeoutRuntimeException();
@@ -341,7 +341,7 @@ public class MThread extends MLog implements Runnable {
                                 initNewThread(context);
                                 try {
                                     value.setValue(provider.getValue());
-                                } catch (Throwable t) {
+                                } catch (Exception t) {
                                     error.setValue(t);
                                 }
                                 releaseThread(context);
@@ -373,7 +373,7 @@ public class MThread extends MLog implements Runnable {
         while (true) {
             try {
                 if (checker.check()) return;
-            } catch (Throwable t) {
+            } catch (Exception t) {
             }
             if (System.currentTimeMillis() - start > timeout) throw new TimeoutRuntimeException();
             sleep(200);
@@ -392,7 +392,7 @@ public class MThread extends MLog implements Runnable {
         while (true) {
             try {
                 if (checker.check()) return;
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 throw t;
             }
             if (System.currentTimeMillis() - start > timeout) throw new TimeoutRuntimeException();
@@ -424,7 +424,7 @@ public class MThread extends MLog implements Runnable {
                                 initNewThread(context);
                                 try {
                                     task.run();
-                                } catch (Throwable t) {
+                                } catch (Exception t) {
                                     t.printStackTrace();
                                 }
                                 releaseThread(context);
@@ -444,7 +444,7 @@ public class MThread extends MLog implements Runnable {
                                 initNewThread(context);
                                 try {
                                     consumer.accept(Thread.currentThread());
-                                } catch (Throwable t) {
+                                } catch (Exception t) {
                                     t.printStackTrace();
                                 }
                                 releaseThread(context);
@@ -464,7 +464,7 @@ public class MThread extends MLog implements Runnable {
             if (map != null) {
                 for (IThreadControl control : map.values()) control.cleanup();
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             PlainLog.f(t);
         }
     }
@@ -491,7 +491,7 @@ public class MThread extends MLog implements Runnable {
             if (map != null) {
                 for (IThreadControl control : map.values()) control.prepareNewThread(context);
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             PlainLog.f(t);
         }
     }
@@ -512,7 +512,7 @@ public class MThread extends MLog implements Runnable {
                 try {
                     ISubjectEnvironment env = MSecurity.asSubject(subject);
                     context.put("subjectEnv", env);
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     PlainLog.e(t);
                 }
             }
@@ -527,7 +527,7 @@ public class MThread extends MLog implements Runnable {
                                     "parent",
                                     "" + context.get("parentThreadId"));
                     context.put("spanScope", scope);
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     PlainLog.e(t);
                 }
             }
@@ -548,7 +548,7 @@ public class MThread extends MLog implements Runnable {
             if (map != null) {
                 for (IThreadControl control : map.values()) control.initNewThread(context);
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             PlainLog.f(t);
         }
     }
@@ -564,13 +564,13 @@ public class MThread extends MLog implements Runnable {
             if (map != null) {
                 for (IThreadControl control : map.values()) control.releaseThread(context);
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             PlainLog.f(t);
         }
         try {
             IScope scope = (IScope) context.get("spanScope");
             if (scope != null) scope.close();
-        } catch (Throwable t) {
+        } catch (Exception t) {
             PlainLog.f(t);
         }
     }

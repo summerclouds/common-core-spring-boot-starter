@@ -144,7 +144,7 @@ public class SimpleObjectTransformer extends TransformStrategy {
                     Object obj = jsonToPojo(json, aType, helper);
                     attr.set(to, obj, helper.isForce());
                 }
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 helper.log("ERROR " + name, t);
                 throw new NotSupportedException(name, t);
             }
@@ -247,7 +247,7 @@ public class SimpleObjectTransformer extends TransformStrategy {
                     JsonNode sub = pojoToJson(value, helper.incLevel());
                     to.set(attr.getName(), sub);
                 }
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 helper.log(null, t);
                 throw new NotSupportedException(t);
             }

@@ -81,47 +81,47 @@ public class ConsoleFactory extends LogFactory {
         try {
             String col = config.getString("COLOR_TIME", null);
             if (col != null) COLOR_TIME = COLOR.valueOf(col.toUpperCase());
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         try {
             String col = config.getString("COLOR_TRACE", null);
             if (col != null) COLOR_TRACE = COLOR.valueOf(col.toUpperCase());
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         try {
             String col = config.getString("COLOR_DEBUG", null);
             if (col != null) COLOR_DEBUG = COLOR.valueOf(col.toUpperCase());
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         try {
             String col = config.getString("COLOR_INFO", null);
             if (col != null) COLOR_INFO = COLOR.valueOf(col.toUpperCase());
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         try {
             String col = config.getString("COLOR_WARN", null);
             if (col != null) COLOR_WARN = COLOR.valueOf(col.toUpperCase());
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         try {
             String col = config.getString("COLOR_ERROR", null);
             if (col != null) COLOR_ERROR = COLOR.valueOf(col.toUpperCase());
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         try {
             String col = config.getString("COLOR_FATAL", null);
             if (col != null) COLOR_FATAL = COLOR.valueOf(col.toUpperCase());
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         try {
             String col = config.getString("COLOR_NAME", null);
             if (col != null) COLOR_NAME = COLOR.valueOf(col.toUpperCase());
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         try {
             String col = config.getString("COLOR_MESSAGE", null);
             if (col != null) COLOR_MESSAGE = COLOR.valueOf(col.toUpperCase());
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
 
         FIX_NAME_LENGTH = config.getInt("FIX_NAME_LENGTH", FIX_NAME_LENGTH);

@@ -75,7 +75,7 @@ public class SpringSummerCloudsCoreAutoConfiguration /* implements ApplicationCo
                 PlainLog.i("add log appender", appender.getClass());
                 rootLogger.addAppender(appender);
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             PlainLog.e(t);
         }
         try {
@@ -84,11 +84,11 @@ public class SpringSummerCloudsCoreAutoConfiguration /* implements ApplicationCo
             for (Entry<String, SummerApplicationLifecycle> entry : map.entrySet()) {
                 try {
                     entry.getValue().onSummerApplicationStart();
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     PlainLog.e("start application {1} failed", entry.getKey(), t);
                 }
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             PlainLog.e(t);
         }
     }
@@ -102,11 +102,11 @@ public class SpringSummerCloudsCoreAutoConfiguration /* implements ApplicationCo
             for (Entry<String, SummerApplicationLifecycle> entry : map.entrySet()) {
                 try {
                     entry.getValue().onSummerApplicationStop();
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     PlainLog.e("stop application {1} failed", entry.getKey(), t);
                 }
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             PlainLog.e(t);
         }
         try {
@@ -118,7 +118,7 @@ public class SpringSummerCloudsCoreAutoConfiguration /* implements ApplicationCo
                 PlainLog.d("add log appender", appender.getClass());
                 rootLogger.detachAppender(appender);
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             PlainLog.e(t);
         }
     }

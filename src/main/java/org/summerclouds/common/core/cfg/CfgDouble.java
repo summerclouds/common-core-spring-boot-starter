@@ -29,7 +29,7 @@ public class CfgDouble extends AbstractCfg<Double> {
     protected Double valueOf(String value) {
         try {
             return Double.valueOf(value);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             return null;
         }
     }

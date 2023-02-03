@@ -418,7 +418,7 @@ public final class MCast {
         try {
             NumberFormat nf = NumberFormat.getInstance(locale);
             return nf.parse(in).doubleValue();
-        } catch (Throwable t) {
+        } catch (Exception t) {
             return def;
         }
     }
@@ -435,7 +435,7 @@ public final class MCast {
         if (OBJECT_TO_INTEGER == null) {
             try {
                 return Integer.parseInt(String.valueOf(in));
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 return def;
             }
         }
@@ -454,7 +454,7 @@ public final class MCast {
         if (OBJECT_TO_LONG == null) {
             try {
                 return Long.parseLong(String.valueOf(in));
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 return def;
             }
         }
@@ -1068,7 +1068,7 @@ public final class MCast {
         String str = String.valueOf(value).trim().toUpperCase();
         try {
             return Enum.valueOf(def.getDeclaringClass(), str);
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         return def;
     }

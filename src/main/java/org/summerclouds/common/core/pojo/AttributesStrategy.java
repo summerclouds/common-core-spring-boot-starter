@@ -77,7 +77,7 @@ public class AttributesStrategy extends MLog implements PojoStrategy {
             if (!field.isAccessible()) {
                 try {
                     field.setAccessible(true);
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     log().d(
                                     "setAccessible",
                                     field.getDeclaringClass().getCanonicalName(),

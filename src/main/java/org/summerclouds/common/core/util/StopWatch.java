@@ -69,7 +69,7 @@ public class StopWatch extends MLog {
                 // getCurrentTimeAsString());
                 //					persistence.save();
                 //				}
-                //			} catch (Throwable t) {
+                //			} catch (Exception t) {
                 //				log().t(t);
                 //			}
 

@@ -80,7 +80,7 @@ public class ModelUtil {
             toXml(model, rootXml);
 
             return doc;
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log.d(t);
         }
         return null;
@@ -99,7 +99,7 @@ public class ModelUtil {
     public static ObjectNode toJson(INode model) {
         try {
             return new JsonNodeBuilder().writeToJsonNodeObject(model);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log.d(t);
         }
         return null;

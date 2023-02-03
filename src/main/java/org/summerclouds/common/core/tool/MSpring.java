@@ -237,7 +237,7 @@ public class MSpring {
                     Class<? extends T> cl =
                             (Class<? extends T>) MSystem.getClass(beanDef.getBeanClassName());
                     if (!checkConditions || checkConditions(cl)) entities.add(cl);
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     PlainLog.e("can't load xdb entity {1}", beanDef.getBeanClassName());
                 }
             }
@@ -281,13 +281,13 @@ public class MSpring {
                 try {
                     SummerCondition condition = (SummerCondition) MSystem.createObject(c);
                     if (!condition.matches((Annotation) obj[1], clazz)) return false;
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     PlainLog.e("checkConditions failed for {1} in {2}", clazz, c, t);
                     return false;
                 }
             }
             return true;
-        } catch (Throwable t) {
+        } catch (Exception t) {
             PlainLog.e("checkConditions failed for {1}", clazz, t);
         }
         return false;

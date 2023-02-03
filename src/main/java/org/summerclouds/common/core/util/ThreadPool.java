@@ -221,11 +221,11 @@ public class ThreadPool implements Runnable {
                                 log.t("Enter Thread Task");
                                 currentTask.getTask().run();
                                 log.t("Leave Thread Task");
-                            } catch (Throwable t) {
+                            } catch (Exception t) {
                                 try {
                                     log.i("Thread Task Error", getName(), t);
                                     currentTask.taskError(t);
-                                } catch (Throwable t2) {
+                                } catch (Exception t2) {
                                     log.i("Thread Task Finish Error", getName(), t2);
                                 }
                             }
@@ -252,7 +252,7 @@ public class ThreadPool implements Runnable {
                             public void run() {
                                 try {
                                     task.run();
-                                } catch (Throwable t) {
+                                } catch (Exception t) {
                                     t.printStackTrace();
                                 }
                             }
@@ -268,7 +268,7 @@ public class ThreadPool implements Runnable {
                             public void run() {
                                 try {
                                     consumer.accept(Thread.currentThread());
-                                } catch (Throwable t) {
+                                } catch (Exception t) {
                                     t.printStackTrace();
                                 }
                             }

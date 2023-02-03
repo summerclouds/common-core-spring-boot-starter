@@ -120,7 +120,7 @@ public class SerializerTransformer extends TransformStrategy {
             Map<Object, Object> out = null;
             try {
                 out = (Map<Object, Object>) helper.createObject(helper.getType(clazz));
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 out = new HashMap<>();
             }
             Iterator<Entry<String, JsonNode>> fieldIter = map.fields();
@@ -137,7 +137,7 @@ public class SerializerTransformer extends TransformStrategy {
             Collection<Object> out = null;
             try {
                 out = (Collection<Object>) helper.createObject(helper.getType(clazz));
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 out = new LinkedList<>();
             }
             for (Object o : a) out.add(o);
@@ -155,7 +155,7 @@ public class SerializerTransformer extends TransformStrategy {
                     else PlainLog.i("Can't set ...");
                 }
                 return to;
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log().d(t);
                 throw new NotSupportedException("exception", t);
             }

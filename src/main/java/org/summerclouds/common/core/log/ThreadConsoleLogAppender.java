@@ -64,7 +64,7 @@ public class ThreadConsoleLogAppender extends UnsynchronizedAppenderBase<ILoggin
                                 + " "
                                 + event.getFormattedMessage();
                 os.write(msg.getBytes());
-            } catch (Throwable t) {
+            } catch (Exception t) {
             }
         }
     }

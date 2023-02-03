@@ -262,7 +262,7 @@ public class M {
     public static Log log(Object owner) {
         try {
             return Log.getLog(owner);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             t.printStackTrace();
             throw t;
         }

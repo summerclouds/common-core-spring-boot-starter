@@ -61,7 +61,7 @@ public abstract class AbstractProperties extends MLog implements IProperties {
         Object out;
         try {
             out = getProperty(key);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             return def;
         }
         if (out == null) return def;
@@ -80,7 +80,7 @@ public abstract class AbstractProperties extends MLog implements IProperties {
         Object out;
         try {
             out = getProperty(key);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             return def;
         }
         return MCast.toboolean(out, def);
@@ -98,7 +98,7 @@ public abstract class AbstractProperties extends MLog implements IProperties {
         Object out;
         try {
             out = getProperty(key);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             return def;
         }
         return MCast.toint(out, def);
@@ -109,7 +109,7 @@ public abstract class AbstractProperties extends MLog implements IProperties {
         Object out;
         try {
             out = getProperty(key);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             return def;
         }
         return MCast.tolong(out, def);
@@ -120,7 +120,7 @@ public abstract class AbstractProperties extends MLog implements IProperties {
         Object out;
         try {
             out = getProperty(key);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             return def;
         }
         return MCast.tofloat(out, def);
@@ -131,7 +131,7 @@ public abstract class AbstractProperties extends MLog implements IProperties {
         Object out;
         try {
             out = getProperty(key);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             return def;
         }
         return MCast.todouble(out, def);
@@ -148,7 +148,7 @@ public abstract class AbstractProperties extends MLog implements IProperties {
         try {
             Object out = getProperty(key);
             return MCast.toDate(out, null);
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         return null;
     }
@@ -298,7 +298,7 @@ public abstract class AbstractProperties extends MLog implements IProperties {
         public void remove() {
             try {
                 removeProperty(currentkey);
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 log().t(e);
             }
         }
@@ -321,7 +321,7 @@ public abstract class AbstractProperties extends MLog implements IProperties {
         public Object getValue() {
             try {
                 return getProperty(key);
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 throw new MRuntimeException(RC.STATUS.NOT_FOUND, e);
             }
         }
@@ -331,12 +331,12 @@ public abstract class AbstractProperties extends MLog implements IProperties {
             Object old = null;
             try {
                 old = getProperty(key);
-            } catch (Throwable e1) {
+            } catch (Exception e1) {
                 log().t(key, e1);
             }
             try {
                 setProperty(key, value);
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 log().t(key, e);
             }
             return old;
@@ -421,7 +421,7 @@ public abstract class AbstractProperties extends MLog implements IProperties {
         Object out;
         try {
             out = getProperty(name);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             return def.apply(name);
         }
         if (out == null) return def.apply(name);

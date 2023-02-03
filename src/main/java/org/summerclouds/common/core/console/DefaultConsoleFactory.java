@@ -36,7 +36,7 @@ public class DefaultConsoleFactory implements ConsoleFactory {
                 }
                 if (term.indexOf("ansi") >= 0) return new ANSIConsole();
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             Log.getLog(DefaultConsoleFactory.class).d(t);
         }
         return new SimpleConsole();

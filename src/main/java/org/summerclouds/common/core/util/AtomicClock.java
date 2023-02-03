@@ -131,7 +131,7 @@ public class AtomicClock {
                     now = getAtomicTime(TIME_SERVERS.get(currentServer));
                     lastUpdate = System.currentTimeMillis();
                     return now;
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     log.i(t);
                 }
                 currentServer = (currentServer + 1) % TIME_SERVERS.size();

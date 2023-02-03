@@ -19,7 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import org.summerclouds.common.core.error.ConflictRuntimeException;
 import org.summerclouds.common.core.error.ErrorException;

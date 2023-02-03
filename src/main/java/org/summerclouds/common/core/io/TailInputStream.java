@@ -53,7 +53,7 @@ public class TailInputStream extends InputStream {
             pos = 0;
             try {
                 is.close();
-            } catch (Throwable t) {
+            } catch (Exception t) {
             }
             is = new FileInputStream(file);
         }
@@ -86,7 +86,7 @@ public class TailInputStream extends InputStream {
         this.pos = file.length();
         try {
             if (is != null) is.close();
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         is = new FileInputStream(file);
         is.skip(pos);

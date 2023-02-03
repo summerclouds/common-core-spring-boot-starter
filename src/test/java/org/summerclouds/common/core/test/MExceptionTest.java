@@ -34,7 +34,7 @@ public class MExceptionTest extends TestCase {
     public void testErrorException() {
         try {
             throw new ErrorException("test");
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -43,7 +43,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorException("test", "nr1");
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -52,7 +52,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorException("test", "special \"\\");
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -61,7 +61,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorException("test", "nr1", "nr2", "nr3");
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -70,7 +70,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorException("test", "nr1", new Object[] {"nr2", "nr3"});
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -79,7 +79,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorException("test", "nr1", new int[] {2, 3});
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -88,7 +88,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorException((IResult) new NotFoundException("test", "nr1"));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -97,7 +97,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorException("error1", new NotFoundException("test", "nr1"));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -111,7 +111,7 @@ public class MExceptionTest extends TestCase {
 
         try {
             throw new ErrorException(CAUSE.ADAPT, "error1", new NotFoundException("test", "nr1"));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -122,7 +122,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorException(CAUSE.APPEND, "error1", new NotFoundException("test", "nr1"));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -134,7 +134,7 @@ public class MExceptionTest extends TestCase {
         try {
             throw new ErrorException(
                     CAUSE.ENCAPSULATE, "error1", new NotFoundException("test", "nr1"));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -145,7 +145,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorException(CAUSE.HIDE, "error1", new NotFoundException("test", "nr1"));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -155,7 +155,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorException(CAUSE.IGNORE, "error1", new NotFoundException("test", "nr1"));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorException);
             ErrorException e = (ErrorException) t;
@@ -172,7 +172,7 @@ public class MExceptionTest extends TestCase {
     public void testErrorRuntimeException() {
         try {
             throw new ErrorRuntimeException("test");
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorRuntimeException);
             ErrorRuntimeException e = (ErrorRuntimeException) t;
@@ -181,7 +181,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorRuntimeException("test", "nr1");
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorRuntimeException);
             ErrorRuntimeException e = (ErrorRuntimeException) t;
@@ -190,7 +190,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorRuntimeException("test", "special \"\\");
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorRuntimeException);
             ErrorRuntimeException e = (ErrorRuntimeException) t;
@@ -199,7 +199,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorRuntimeException("test", "nr1", "nr2", "nr3");
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorRuntimeException);
             ErrorRuntimeException e = (ErrorRuntimeException) t;
@@ -208,7 +208,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorRuntimeException("test", "nr1", new Object[] {"nr2", "nr3"});
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorRuntimeException);
             ErrorRuntimeException e = (ErrorRuntimeException) t;
@@ -217,7 +217,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorRuntimeException("test", "nr1", new int[] {2, 3});
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorRuntimeException);
             ErrorRuntimeException e = (ErrorRuntimeException) t;
@@ -226,7 +226,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorRuntimeException((IResult) new NotFoundException("test", "nr1"));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorRuntimeException);
             ErrorRuntimeException e = (ErrorRuntimeException) t;
@@ -235,7 +235,7 @@ public class MExceptionTest extends TestCase {
         }
         try {
             throw new ErrorRuntimeException("error1", new NotFoundException("test", "nr1"));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorRuntimeException);
             ErrorRuntimeException e = (ErrorRuntimeException) t;
@@ -245,7 +245,7 @@ public class MExceptionTest extends TestCase {
         try {
             throw new ErrorRuntimeException(
                     CAUSE.ADAPT, "error1", new NotFoundException("test", "nr1"));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorRuntimeException);
             ErrorRuntimeException e = (ErrorRuntimeException) t;
@@ -255,7 +255,7 @@ public class MExceptionTest extends TestCase {
         try {
             throw new ErrorRuntimeException(
                     CAUSE.APPEND, "error1", new NotFoundException("test", "nr1"));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             System.out.println(t);
             assertTrue(t instanceof ErrorRuntimeException);
             ErrorRuntimeException e = (ErrorRuntimeException) t;

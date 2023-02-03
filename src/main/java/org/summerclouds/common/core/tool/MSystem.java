@@ -184,15 +184,15 @@ public class MSystem {
             public void close() {
                 try {
                     if (closeOut != null) closeOut.close();
-                } catch (Throwable t) {
+                } catch (Exception t) {
                 }
                 try {
                     if (closeErr != null) closeErr.close();
-                } catch (Throwable t) {
+                } catch (Exception t) {
                 }
                 try {
                     if (closeIn != null) closeIn.close();
-                } catch (Throwable t) {
+                } catch (Exception t) {
                 }
             }
         };
@@ -480,7 +480,7 @@ public class MSystem {
             out.error = MFile.readFile(es);
             out.rc = p.exitValue();
 
-        } catch (Throwable t) {
+        } catch (Exception t) {
             out.exception = t;
         }
         return out;
@@ -1192,7 +1192,7 @@ public class MSystem {
                                         while ((line = errReader.readLine()) != null) {
                                             control.stderr(line);
                                         }
-                                    } catch (Throwable t) {
+                                    } catch (Exception t) {
                                     }
                                 }
                             });
@@ -1270,7 +1270,7 @@ public class MSystem {
             try (InputStream is = url.openStream()) {
                 Manifest manifest = new Manifest(is);
                 return manifest;
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log.t("loading manifest for {1} failed", owner, t);
             }
         }

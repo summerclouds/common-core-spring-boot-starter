@@ -131,7 +131,7 @@ public class MArgs extends MLog {
                 else if (List.class.isAssignableFrom(type)) value = values;
 
                 attr.set(pojo, value, true);
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 log().e("cast of {1} to {2} failed", entry, type, e);
             }
         }

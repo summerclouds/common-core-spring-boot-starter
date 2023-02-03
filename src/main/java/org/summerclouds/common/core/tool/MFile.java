@@ -776,7 +776,7 @@ public class MFile {
         //        try {
         //            if (mimeProperties.value() != null)
         //                mime = mimeProperties.value().getString(extension, null);
-        //        } catch (Throwable t) {
+        //        } catch (Exception t) {
         //        }
 
         if (mime == null) {

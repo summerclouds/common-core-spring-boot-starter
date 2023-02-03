@@ -29,7 +29,7 @@ public class CfgInt extends AbstractCfg<Integer> {
     protected Integer valueOf(String value) {
         try {
             return Integer.valueOf(value);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             return null;
         }
     }

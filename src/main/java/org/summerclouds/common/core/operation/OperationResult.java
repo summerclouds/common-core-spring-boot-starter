@@ -93,7 +93,7 @@ public class OperationResult extends MLog implements IResult {
             try {
                 INode ret = INode.readNodeFromString(String.valueOf(result));
                 if (ret != null) return ret;
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 throw new MRuntimeException(RC.STATUS.CONFLICT, this, t);
             }
         throw new UsageException("Can't cast result to map", result.getClass());

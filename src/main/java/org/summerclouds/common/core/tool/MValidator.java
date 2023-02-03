@@ -146,7 +146,7 @@ public class MValidator {
             is.close();
 
             passwordList = Collections.unmodifiableList(list);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log.e(t);
         }
         return passwordList;

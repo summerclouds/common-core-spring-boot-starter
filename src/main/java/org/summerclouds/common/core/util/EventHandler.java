@@ -165,7 +165,7 @@ public class EventHandler<L> extends MLog implements IRegistry<L> {
             try {
                 onFire((L) obj, event, values);
                 //				method.invoke(obj, values);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log().d(
                                 "onFire failed for event {1} on object {2} with values {3}",
                                 obj, event, values);
@@ -177,7 +177,7 @@ public class EventHandler<L> extends MLog implements IRegistry<L> {
         for (Object obj : getListenersArray()) {
             try {
                 method.invoke(obj, values);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log().d(
                                 "invoke of method {2}({1}) failed, with values {3}",
                                 obj, method, values, t);

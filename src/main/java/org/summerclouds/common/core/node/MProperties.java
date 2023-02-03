@@ -175,7 +175,7 @@ public class MProperties extends AbstractProperties implements Externalizable {
                 FileInputStream is = new FileInputStream(f);
                 p.load(is);
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log.d(fileName, t);
         }
         MProperties out = new MProperties(p);
@@ -203,7 +203,7 @@ public class MProperties extends AbstractProperties implements Externalizable {
         //				FileInputStream is = new FileInputStream(f);
         //				p.load(is);
         //			}
-        //		} catch (Throwable t) {
+        //		} catch (Exception t) {
         //			MLogUtil.log().d(f, t);
         //		}
         //		MProperties out = new MProperties(p);
@@ -481,7 +481,7 @@ public class MProperties extends AbstractProperties implements Externalizable {
     //		Properties p = new Properties();
     //		try {
     //			p.load(is);
-    //		} catch (Throwable t) {
+    //		} catch (Exception t) {
     //			MLogUtil.log().d(t);
     //		}
     //		MProperties out = new MProperties(p);
@@ -492,7 +492,7 @@ public class MProperties extends AbstractProperties implements Externalizable {
         Properties p = new Properties();
         try {
             p.load(is);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log.d(t);
         }
         MProperties out = new MProperties(p);

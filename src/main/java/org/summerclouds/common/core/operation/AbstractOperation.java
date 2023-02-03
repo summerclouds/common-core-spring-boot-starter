@@ -54,11 +54,11 @@ public abstract class AbstractOperation extends MLog implements Operation {
                 if (ret != null && !ret.isSuccessful()) scope.getSpan().setError(ret.getMessage());
                 log().d("result", ret);
                 return ret;
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 scope.getSpan().setError(e);
                 try {
                     onError(e);
-                } catch (Throwable e2) {
+                } catch (Exception e2) {
                 }
                 if (e instanceof IResult) return new NotSuccessful(this, (IResult) e);
                 throw e;

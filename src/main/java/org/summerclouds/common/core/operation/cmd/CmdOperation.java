@@ -157,7 +157,7 @@ public abstract class CmdOperation extends AbstractOperation {
                 os.write(MAscii.NUL);
             }
             os.flush();
-        } catch (Throwable t) {
+        } catch (Exception t) {
             t.printStackTrace();
             ret.put(RESULT_EXCEPTION, t);
             os.write(MAscii.NUL);

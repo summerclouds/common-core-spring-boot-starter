@@ -330,7 +330,7 @@ public class MPeriod {
 
             return out;
 
-        } catch (Throwable t) {
+        } catch (Exception t) {
 
         }
         return def;

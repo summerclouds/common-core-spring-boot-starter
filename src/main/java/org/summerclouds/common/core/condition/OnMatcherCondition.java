@@ -37,7 +37,7 @@ public class OnMatcherCondition implements SummerCondition {
                                     return MSpring.getValue(key);
                                 }
                             });
-        } catch (Throwable t) {
+        } catch (Exception t) {
             Log.getLog(OnMatcherCondition.class)
                     .e("failed to match condition {2} on {1}", object, anno.value());
         }

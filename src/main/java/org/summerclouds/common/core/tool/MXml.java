@@ -931,7 +931,7 @@ public class MXml {
                 }
             }
             return sb.toString();
-        } catch (Throwable t) {
+        } catch (Exception t) {
             // log.t(dump(childChild),t);
         }
         return "";

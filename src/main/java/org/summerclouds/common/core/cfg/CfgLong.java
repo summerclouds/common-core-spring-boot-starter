@@ -29,7 +29,7 @@ public class CfgLong extends AbstractCfg<Long> {
     protected Long valueOf(String value) {
         try {
             return Long.valueOf(value);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             return null;
         }
     }

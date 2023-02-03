@@ -250,7 +250,7 @@ public class Address implements Externalizable {
                                 SALUTATION sal = SALUTATION.valueOf(cMap.getName().toUpperCase());
                                 String val = cMap.getString(INode.NAMELESS_VALUE, null);
                                 if (MString.isSet(val)) mapping.put(val.toLowerCase().trim(), sal);
-                            } catch (Throwable t) {
+                            } catch (Exception t) {
                             }
                         }
                     }
@@ -263,7 +263,7 @@ public class Address implements Externalizable {
                                 SALUTATION sal = SALUTATION.valueOf(cMap.getName().toUpperCase());
                                 String val = cMap.getString(INode.NAMELESS_VALUE, null);
                                 if (MString.isSet(val)) mapping.put(val.toLowerCase().trim(), sal);
-                            } catch (Throwable t) {
+                            } catch (Exception t) {
                             }
                         }
                     }
@@ -276,7 +276,7 @@ public class Address implements Externalizable {
                                 SALUTATION sal = SALUTATION.valueOf(cMap.getName().toUpperCase());
                                 String val = cMap.getString(INode.NAMELESS_VALUE, null);
                                 if (MString.isSet(val)) mapping.put(val.toLowerCase().trim(), sal);
-                            } catch (Throwable t) {
+                            } catch (Exception t) {
                             }
                         }
                     }

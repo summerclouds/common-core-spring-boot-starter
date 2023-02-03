@@ -200,7 +200,7 @@ public class MThreadTest extends TestCase {
                                     try {
                                         innerUser.setValue(MSecurity.getCurrent().toString());
                                         innerSpan.setValue(MTracing.current().toString());
-                                    } catch (Throwable t) {
+                                    } catch (Exception t) {
                                         t.printStackTrace();
                                     }
                                     run.setValue(false);

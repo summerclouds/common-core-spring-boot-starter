@@ -76,7 +76,7 @@ public class MNlsFactory extends MNlsBundle {
             source.setDefaultLocale(locale);
 
             return new MNls(source, null);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             log().e(e);
         }
 

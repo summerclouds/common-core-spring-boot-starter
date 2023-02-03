@@ -496,7 +496,7 @@ public class RC {
                 out.array = (ArrayNode) MJson.load(message);
                 out.returnCode = out.array.get(0).asInt();
                 out.message = out.array.get(1).asText();
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log.d("can't parse error message", message, t);
             }
         }
@@ -539,7 +539,7 @@ public class RC {
                         nested.array = (ArrayNode) item;
                         nested.translate();
                         args[i - 1] = nested.translated;
-                    } catch (Throwable t) {
+                    } catch (Exception t) {
                         log.d("can't translate nested message", message, t);
                     }
                 } else args[i - 1] = item.toString();

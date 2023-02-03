@@ -56,7 +56,7 @@ public class Table implements Serializable, Externalizable, NodeSerializable {
             for (int i = 0; i < count; i++) {
                 try {
                     row.appendData(res.getObject(i + 1));
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     Log.getLog(Table.class).t(t);
                     row.appendData((String) null);
                 }

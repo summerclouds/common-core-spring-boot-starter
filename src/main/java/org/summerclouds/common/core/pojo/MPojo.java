@@ -353,7 +353,7 @@ public class MPojo {
                     to.put(prefix + name, String.valueOf(value));
                 }
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log.t(t);
         }
     }
@@ -432,7 +432,7 @@ public class MPojo {
                     oo.setString(INode.NAMELESS_VALUE, String.valueOf(value));
                 }
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log.t(t);
         }
     }
@@ -628,7 +628,7 @@ public class MPojo {
                         attr.set(to, inst, force);
                     }
                 } else attr.set(to, from.getString(name, null), force);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log.d(MSystem.getClassName(to), name, t);
             }
         }
@@ -658,7 +658,7 @@ public class MPojo {
                 try {
                     val = getDefaultActivator().createObject(hint);
                     nodeToPojo((INode) value, val, factory, force, verbose);
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     log.d(hint, t);
                 }
             } else if (val == null) {
@@ -671,7 +671,7 @@ public class MPojo {
                         val = cons.length > 0 ? cons[0] : null;
                         if (ord >= 0 && ord < cons.length) val = cons[ord];
                     }
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     log.d(hint, t);
                 }
                 if (val == null) val = value; // fallback
@@ -824,7 +824,7 @@ public class MPojo {
                     to.add(String.valueOf(value));
                 }
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log.t(t);
         }
     }
@@ -915,7 +915,7 @@ public class MPojo {
                     to.put(prefix + name, String.valueOf(value));
                 }
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log.t(t);
         }
     }
@@ -978,7 +978,7 @@ public class MPojo {
                     if (ord >= 0 && ord < cons.length) c = cons[ord];
                     attr.set(to, c, force);
                 } else attr.set(to, json.asText(), force);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log.d(MSystem.getClassName(to), name, t);
             }
         }
@@ -1045,7 +1045,7 @@ public class MPojo {
                     pojoToXml(value, a, factory, level + 1);
                 }
 
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log.d(MSystem.getClassName(from), attr.getName(), t);
             }
         }
@@ -1143,7 +1143,7 @@ public class MPojo {
                     String value = a.getAttribute("uuid");
                     try {
                         attr.set(to, UUID.fromString(value), force);
-                    } catch (Throwable t) {
+                    } catch (Exception t) {
                         log.d(name, t);
                     }
                     continue;
@@ -1177,7 +1177,7 @@ public class MPojo {
                     continue;
                 }
 
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log.d(MSystem.getClassName(to), attr.getName(), t);
             }
         }
@@ -1245,7 +1245,7 @@ public class MPojo {
                 else if (type == Date.class) out.setDate(name, (Date) value);
                 else out.setString(name, String.valueOf(value));
 
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log.d(MSystem.getClassName(from), attr.getName(), t);
             }
         }
@@ -1308,7 +1308,7 @@ public class MPojo {
                                     ? from.getString(name)
                                     : unknownHadler.cast(from.get(name), null),
                             force);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log.d(MSystem.getClassName(to), name, t);
             }
         }

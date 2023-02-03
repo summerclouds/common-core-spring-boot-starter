@@ -21,8 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.xml.bind.DatatypeConverter;
-
+import jakarta.xml.bind.DatatypeConverter;
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.core.crypt.MD5;
 import org.summerclouds.common.core.crypt.Rot13;

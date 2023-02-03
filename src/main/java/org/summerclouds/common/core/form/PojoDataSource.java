@@ -36,7 +36,7 @@ public class PojoDataSource extends MLog implements DataSource {
         try {
             log().t("getBoolean", component, name, def);
             return (boolean) model.getAttribute(getName(component, name)).get(pojo.getPojo());
-        } catch (Throwable e) {
+        } catch (Exception e) {
             log().t(e);
         }
         return def;
@@ -52,7 +52,7 @@ public class PojoDataSource extends MLog implements DataSource {
         try {
             log().t("getInt", component, name, def);
             return (int) model.getAttribute(getName(component, name)).get(pojo.getPojo());
-        } catch (Throwable e) {
+        } catch (Exception e) {
             log().t(e);
         }
         return def;
@@ -65,7 +65,7 @@ public class PojoDataSource extends MLog implements DataSource {
             String ret = (String) model.getAttribute(getName(component, name)).get(pojo.getPojo());
             if (ret == null) return def;
             return ret;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             log().t(e);
         }
         return def;
@@ -78,7 +78,7 @@ public class PojoDataSource extends MLog implements DataSource {
             Object ret = model.getAttribute(getName(component, name)).get(pojo.getPojo());
             if (ret == null) return def;
             return ret;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             log().t(e);
         }
         return def;
@@ -91,7 +91,7 @@ public class PojoDataSource extends MLog implements DataSource {
             Object ret = model.getAttribute(name).get(pojo.getPojo());
             if (ret == null) return def;
             return ret;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             log().t(e);
         }
         return def;
