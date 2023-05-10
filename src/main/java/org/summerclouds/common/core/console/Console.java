@@ -70,17 +70,32 @@ public abstract class Console extends PrintStream implements Adaptable {
 
     /**
      * Factory to return the correct implementation of console.
+     * If a console already exists, the existing console will be terminated and a new one will be created.
      *
      * @return a new console object
      */
     public static Console create() {
+        return create(null, null);
+    }
+
+    /**
+     * Factory to return the correct implementation of console.
+     * If a console already exists, the existing console will be terminated and a new one will be created.
+     *
+     * @param in Input stream to use
+     * @param out Output stream to use
+     * @return a new console object
+     */
+    public static Console create(InputStream in, PrintStream out) {
 
         Console console = consoles.get();
         if (console == null) {
-            ConsoleFactory factory = M.l(ConsoleFactory.class);
-            console = factory.create(null);
-            consoles.set(console);
+            resetConsole();
         }
+        ConsoleFactory factory = M.l(ConsoleFactory.class);
+        console = factory.create(null, in, out);
+        consoles.set(console);
+
         return console;
     }
 

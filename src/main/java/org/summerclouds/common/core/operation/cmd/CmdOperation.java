@@ -138,7 +138,7 @@ public abstract class CmdOperation extends AbstractOperation {
                 try (ICloseable logEnv = ThreadConsoleLogAppender.sendTo(os)) {
 
                     ConsoleFactory factory = M.l(ConsoleFactory.class);
-                    console = factory.create(consoleType);
+                    console = factory.create(consoleType, null, null);
                     if (consoleSize != null) {
                         String[] parts = consoleSize.split("x");
                         if (parts.length > 0) console.setWidth(MCast.toint(parts[0], 80));

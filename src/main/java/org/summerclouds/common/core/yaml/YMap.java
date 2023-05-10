@@ -63,10 +63,16 @@ public class YMap extends YElement {
         return String.valueOf(val);
     }
 
+    /**
+     * Returns in every case a string array.
+     * @param key
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public String[] getStringArray(String key) {
         if (getObject() == null) return new String[0];
         Object val = ((Map<String, Object>) getObject()).get(key);
+        if (val == null) return new String[0];
         if (val instanceof List) {
             return getList(key).toStringList().toArray(new String[0]);
         }

@@ -16,13 +16,21 @@
 package org.summerclouds.common.core.console;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 
+import org.jline.reader.impl.LineReaderImpl;
+import org.jline.terminal.TerminalBuilder;
 import org.summerclouds.common.core.tool.MSystem;
 
 public class XTermConsole extends ANSIConsole {
 
     public XTermConsole() throws IOException {
         super();
+    }
+
+    public XTermConsole(InputStream in, PrintStream out) throws IOException {
+        super(in, out);
     }
 
     @Override

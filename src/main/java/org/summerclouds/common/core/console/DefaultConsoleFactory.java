@@ -18,27 +18,36 @@ package org.summerclouds.common.core.console;
 import org.summerclouds.common.core.log.Log;
 import org.summerclouds.common.core.tool.MSystem;
 
+import java.io.InputStream;
+import java.io.PrintStream;
+
 public class DefaultConsoleFactory implements ConsoleFactory {
 
     @Override
-    public Console create(String term) {
+    public Console create(String term, InputStream in, PrintStream out) {
         try {
+            if (in == null) {
+                in = System.in;
+            }
+            if (out == null) {
+                out = System.out;
+            }
             if (term == null) {
                 if (MSystem.isWindows()) {
-                    return new CmdConsole();
+                    return new CmdConsole(in, out);
                 }
                 term = System.getenv("TERM");
             }
             if (term != null) {
                 term = term.toLowerCase();
                 if (term.indexOf("xterm") >= 0) {
-                    return new XTermConsole();
+                    return new XTermConsole(in, out);
                 }
-                if (term.indexOf("ansi") >= 0) return new ANSIConsole();
+                if (term.indexOf("ansi") >= 0) return new ANSIConsole(in, out);
             }
         } catch (Exception t) {
             Log.getLog(DefaultConsoleFactory.class).d(t);
         }
-        return new SimpleConsole();
+        return new SimpleConsole(in, out);
     }
 }

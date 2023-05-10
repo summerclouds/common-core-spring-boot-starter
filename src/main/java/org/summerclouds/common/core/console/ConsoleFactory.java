@@ -17,8 +17,11 @@ package org.summerclouds.common.core.console;
 
 import org.summerclouds.common.core.activator.DefaultImplementation;
 
+import java.io.InputStream;
+import java.io.PrintStream;
+
 @DefaultImplementation(DefaultConsoleFactory.class)
 public interface ConsoleFactory {
 
-    public Console create(String term);
+    public Console create(String term, InputStream in, PrintStream out);
 }

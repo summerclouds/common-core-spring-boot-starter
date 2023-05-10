@@ -16,6 +16,8 @@
 package org.summerclouds.common.core.console;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MString;
@@ -25,6 +27,10 @@ public class CmdConsole extends SimpleConsole {
 
     public CmdConsole() {
         super();
+    }
+
+    public CmdConsole(InputStream in, PrintStream out) throws IOException {
+        super(in, out);
     }
 
     @Override
