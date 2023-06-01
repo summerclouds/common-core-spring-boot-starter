@@ -65,6 +65,7 @@ public class YMap extends YElement {
 
     /**
      * Returns in every case a string array.
+     *
      * @param key
      * @return
      */

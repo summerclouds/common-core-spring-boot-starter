@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-import org.jline.reader.impl.LineReaderImpl;
-import org.jline.terminal.TerminalBuilder;
 import org.summerclouds.common.core.tool.MSystem;
 
 public class XTermConsole extends ANSIConsole {

@@ -69,8 +69,8 @@ public abstract class Console extends PrintStream implements Adaptable {
     }
 
     /**
-     * Factory to return the correct implementation of console.
-     * If a console already exists, the existing console will be terminated and a new one will be created.
+     * Factory to return the correct implementation of console. If a console already exists, the
+     * existing console will be terminated and a new one will be created.
      *
      * @return a new console object
      */
@@ -79,8 +79,8 @@ public abstract class Console extends PrintStream implements Adaptable {
     }
 
     /**
-     * Factory to return the correct implementation of console.
-     * If a console already exists, the existing console will be terminated and a new one will be created.
+     * Factory to return the correct implementation of console. If a console already exists, the
+     * existing console will be terminated and a new one will be created.
      *
      * @param in Input stream to use
      * @param out Output stream to use
