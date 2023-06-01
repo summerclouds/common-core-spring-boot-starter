@@ -30,7 +30,7 @@
 
 	<properties>
 		<jline.version>3.19.0</jline.version>
-		<summerclouds.bom.version>0.1.0-SNAPSHOT</summerclouds.bom.version>
+		<summerclouds.bom.version>0.0.5</summerclouds.bom.version>
 	</properties>
 
 	<dependencyManagement>
